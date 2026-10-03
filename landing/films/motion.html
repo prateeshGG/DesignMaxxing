@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film: study the motion</title>
+<link rel="stylesheet" href="film.css">
+<style>
+  .player { background: #fff; }
+  .view { left: 0; top: 0; overflow: hidden; }
+  .bar { left: 0; right: 0; bottom: 0; height: 72px; border-top: 1px solid rgba(10,11,13,.06); background: #fff; }
+  .play { left: 22px; top: 16px; width: 40px; height: 40px; border-radius: 50%; background: var(--blue-soft); display: grid; place-items: center; }
+  .track { left: 82px; right: 150px; top: 34px; height: 4px; border-radius: 4px; background: #eceef3; }
+  .fill { left: 0; top: 0; height: 4px; border-radius: 4px; background: var(--blue); }
+  .mark { top: -5px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #fff; border: 3px solid var(--lime); }
+  .time { right: 22px; top: 26px; font: 500 15px/1 "Geist Mono", monospace; color: var(--ink-3); }
+  .hover { border: 2px solid var(--blue); border-radius: 10px; box-shadow: 0 0 0 6px rgba(47,85,255,.15); }
+</style>
+<div id="stage" style="background:#e6ebff">
+  <div id="art" style="inset:0"></div>
+</div>
+<script src="engine.js"></script>
+<script>
+(function () {
+  var S = document.getElementById('stage'), e = F.e, seg = F.seg, lerp = F.lerp;
+  var art = F.canvas(document.getElementById('art'));
+  var PW = 1000, VH = 560, PX = 220, PY = 120;
+  var pl = F.el(S, 'div', 'card player', 'z-index:5;border-radius:22px'); F.box(pl, PX, PY, PW, VH + 72);
+  var view = F.el(pl, 'div', 'view'); F.box(view, 0, 0, PW, VH);
+  var stack = F.el(view, 'div', '', 'left:0;top:0;width:' + PW + 'px');
+  var parts = [['stripe-hero', 541], ['stripe-logos', 47], ['p-bento1', 575], ['p-bento2', 462]], acc = 0, tops = [];
+  parts.forEach(function (p) { var h = Math.round(p[1] * PW / 1280); tops.push(acc); F.img(stack, '../prototype/img/' + p[0] + '.webp', '', 'left:0;top:' + acc + 'px;width:' + PW + 'px;height:' + h + 'px'); acc += h; });
+  var hov = F.el(view, 'div', 'hover', 'z-index:3');
+  var bar = F.el(pl, 'div', 'bar');
+  var play = F.el(bar, 'div', 'play'); play.innerHTML = "<svg viewBox='0 0 24 24' width='18' height='18'><path d='M8 5l11 7-11 7z' fill='#2f55ff'/></svg>";
+  var track = F.el(bar, 'div', 'track'), fill = F.el(track, 'div', 'fill');
+  var m1 = F.el(track, 'div', 'mark', 'left:28%'), m2 = F.el(track, 'div', 'mark', 'left:62%');
+  var time = F.el(bar, 'div', 'time');
+  var l1 = F.el(S, 'div', 'pill', 'z-index:8;font-size:13px'); l1.textContent = 'Scroll';
+  var l2 = F.el(S, 'div', 'pill blue', 'z-index:8;font-size:13px'); l2.textContent = 'Hover state';
+  var cur = F.cursor(S);
+  var title = F.el(S, 'div', 'label', 'z-index:7'); title.textContent = 'Motion · stripe.com';
+  F.grain(S, 0.06);
+  function render(t) {
+    F.silk(art, t, { n: 80, lw: 1.1, a: .42, x0: 1.06, y0: -.08, x1: -.1, y1: 1.08, wid: .5 });
+    var s1 = e(t, 1.0, 4.6), back = e(t, 8.6, 9.8);
+    var off = (tops[2] - 30) * s1 * (1 - back);
+    stack.style.transform = 'translateY(' + (-off) + 'px)';
+    var p = t / 10; fill.style.width = (p * 100) + '%';
+    var sec = Math.floor(t); time.textContent = '0:' + (sec < 10 ? '0' : '') + sec + ' / 0:10';
+    /* labels near the scrubber marks */
+    var trackX = PX + 82, trackW = PW - 82 - 150, by = PY + VH + 36;
+    var a1 = e(t, 1.0, 1.4, 'back') * (1 - e(t, 4.4, 4.8)); F.box(l1, trackX + trackW * .28, by - 34); F.show(l1, F.clamp(a1), 'translate(-50%,-100%) scale(' + lerp(.8, 1, F.clamp(a1)) + ')');
+    var a2 = e(t, 5.6, 6.0, 'back') * (1 - e(t, 8.2, 8.6)); F.box(l2, trackX + trackW * .62, by - 34); F.show(l2, F.clamp(a2), 'translate(-50%,-100%) scale(' + lerp(.8, 1, F.clamp(a2)) + ')');
+    /* hover: cursor glides onto the first feature card */
+    var cardX = 22, cardY = tops[2] + 82 - off, cardW = 620, cardH = 360;
+    var cm = e(t, 4.8, 5.8), cx = lerp(1260, PX + cardX + cardW * .55, cm), cy = lerp(820, PY + cardY + cardH * .5, cm);
+    var cin = seg(t, 4.6, 4.9) * (1 - seg(t, 8.2, 8.6));
+    F.click(cur, cx, cy, t, 99); cur.el.style.opacity = cin;
+    var hv = e(t, 5.7, 6.1) * (1 - e(t, 8.0, 8.4)); F.box(hov, cardX, cardY, cardW, cardH); F.show(hov, hv, 'scale(' + lerp(1.03, 1, hv) + ')');
+    F.box(title, PX, PY + VH + 72 + 36);
+  }
+  F.boot(10, render);
+})();
+</script>

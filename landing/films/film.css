@@ -1,0 +1,24 @@
+/* Shared look for all films (see style-guide.md). */
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=block");
+:root {
+  --ink: #0a0b0d; --ink-2: #3c4046; --ink-3: #6b7077;
+  --cream: #faf8f3; --lime: #dcf36b; --lime-soft: #eef5cf; --lilac: #ece8ff; --lilac-ink: #6b5bd6; --peach: #ffeadb; --peach-ink: #e07a3f;
+  --blue: #2f55ff; --blue-soft: #e6ebff; --navy: #0b1424;
+  --card-shadow: 0 1px 2px rgba(10,11,13,.06), 0 10px 24px rgba(30,40,90,.08), 0 30px 70px rgba(30,40,90,.12);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; }
+#stage { position: relative; width: 1440px; height: 900px; overflow: hidden; background: var(--cream); font-family: "Geist", system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+#stage * { position: absolute; }
+#stage .flow * { position: static; }
+#stage img { display: block; }
+.card { background: #fff; border-radius: 18px; box-shadow: var(--card-shadow); overflow: hidden; border: 1px solid rgba(10,11,13,.06); }
+.card img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.pill { white-space: nowrap; padding: 8px 14px; border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgba(10,11,13,.06), 0 8px 20px rgba(30,40,90,.10); font: 500 14px/1 "Geist Mono", monospace; letter-spacing: .04em; color: var(--ink-2); }
+.pill.blue { background: var(--blue); color: #fff; }
+.pill.lime { background: var(--lime); color: var(--ink); }
+.label { font: 500 13px/1 "Geist Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.serif { font-family: "Instrument Serif", serif; font-weight: 400; letter-spacing: -.01em; }
+.display { font-family: "Bricolage Grotesque", sans-serif; font-weight: 600; letter-spacing: -.04em; }
+.soft-bar { background: #fff; border-radius: 22px; border: 1px solid rgba(47,85,255,.16); box-shadow: 0 1px 2px rgba(10,11,13,.05), 0 12px 30px rgba(47,85,255,.10), 0 30px 80px rgba(30,40,90,.10); }
+.dot { width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--blue); border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,85,255,.18), 0 4px 10px rgba(10,11,13,.2); }

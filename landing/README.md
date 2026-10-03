@@ -7,6 +7,7 @@
 - `prototype/landing-v1.html` — **v1 prototype** (light, editorial; animated "cut → pick → library → search" stage built from original fictional specimen sites; scripted FAQ ask-box). Published as a private artifact. The waitlist form and the ask-box are UI only: nothing is sent or stored, and the ask-box answers from a fixed FAQ list, not a live AI.
 - `prototype/landing-v2.html` + `prototype/img/` — **v2 prototype**: real section crops (Stripe, Linear, one studio site) with a silk-line hero, sticky scroll story, looping recordings and a pointer-reactive burst. Third-party images: private prototype only; see `design-notes.md` (Prototype v2 decisions) and docs/20 F-44.
 - `prototype/landing-v3.html` + `prototype/video/` — **v3 prototype**; the videos are made in `motion/` (Flute scenes and a rendered background loop, see `motion/README.md`).
+- `films/` — **code-made motion films** (v4 direction): a small deterministic film engine, five films, the style guide (`films/style-guide.md`, grammar taken from Maydit's films) and the storyboard review page (`films/storyboard.html`). Render with `node films/render.mjs <film> video`.
 - `design-notes.md` — measured/observed design properties and the principles we take from the references.
 
 **Rules for references**

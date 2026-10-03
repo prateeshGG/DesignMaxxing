@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film: desktop to phone</title>
+<link rel="stylesheet" href="film.css">
+<style>
+  .seg { background: #fff; border-radius: 999px; box-shadow: 0 1px 2px rgba(10,11,13,.06), 0 12px 30px rgba(224,122,63,.16); }
+  .seg .thumb { top: 6px; height: 44px; border-radius: 999px; background: #0a0b0d0d; background: var(--peach); }
+  .seg .opt { top: 0; height: 56px; display: grid; place-items: center; font: 500 16px/1 "Geist", sans-serif; color: var(--ink-2); width: 140px; }
+  .dev { background: #111; }
+  .dev img { left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .ruler { height: 2px; background: rgba(224,122,63,.5); }
+  .ruler::before, .ruler::after { content: ""; position: absolute; top: -7px; width: 2px; height: 16px; background: rgba(224,122,63,.8); }
+  .ruler::before { left: 0; } .ruler::after { right: 0; }
+</style>
+<div id="stage" style="background:#ffeadb">
+  <div id="art" style="inset:0"></div>
+  <div id="pat" style="inset:0"></div>
+</div>
+<script src="engine.js"></script>
+<script>
+(function () {
+  var S = document.getElementById('stage'), e = F.e, seg = F.seg, lerp = F.lerp;
+  var art = F.canvas(document.getElementById('art')), pat = F.canvas(document.getElementById('pat'));
+  var segc = F.el(S, 'div', 'seg', 'z-index:10;width:292px;height:56px');
+  var thumb = F.el(segc, 'div', 'thumb', 'width:140px');
+  var o1 = F.el(segc, 'div', 'opt', 'left:6px'); o1.textContent = 'Desktop';
+  var o2 = F.el(segc, 'div', 'opt', 'left:146px'); o2.textContent = 'Phone';
+  var dev = F.el(S, 'div', 'card dev', 'z-index:5');
+  var imD = F.img(dev, '../prototype/img/linear-hero.webp'), imM = F.img(dev, '../prototype/img/linear-m-hero.webp');
+  var ruler = F.el(S, 'div', 'ruler', 'z-index:6'), rlab = F.el(S, 'div', 'pill', 'z-index:7;font-size:13px');
+  var src = F.el(S, 'div', 'label', 'z-index:7'); src.textContent = 'Same section · linear.app';
+  F.grain(S, 0.06);
+  var Dk = { x: 240, y: 200, w: 960, h: 540, r: 18, b: 1 }, Ph = { x: 560, y: 160, w: 320, h: 640, r: 40, b: 10 };
+  function render(t) {
+    F.engrave(art, t, { color: '#e07a3f', alpha: .42, spacing: 8, amp: 30, lw: 1.1, mask: { x: 1440, y: 120, r: 640 } });
+    F.pattern(pat, t, { kind: 'brackets', color: '#e07a3f', alpha: .22, gap: 52, vx: -6, r: 3 });
+    var m = e(t, 1.8, 3.2) * (1 - e(t, 6.2, 7.6));
+    var x = lerp(Dk.x, Ph.x, m), y = lerp(Dk.y, Ph.y, m), w = lerp(Dk.w, Ph.w, m), h = lerp(Dk.h, Ph.h, m);
+    var push = 1 + .015 * Math.sin(t * Math.PI / 5);
+    F.box(dev, x, y, w, h); dev.style.borderRadius = lerp(Dk.r, Ph.r, m) + 'px'; dev.style.border = lerp(1, 10, m).toFixed(1) + 'px solid ' + (m > .05 ? '#121316' : 'rgba(10,11,13,.06)');
+    dev.style.transform = 'scale(' + push + ')';
+    var cf = F.clamp((m - .3) / .4);
+    imD.style.opacity = 1 - cf; imM.style.opacity = cf;
+    /* inner scroll while the phone is showing */
+    var sc = e(t, 3.6, 5.2) * (1 - e(t, 5.4, 6.2));
+    imM.style.objectPosition = 'center ' + (sc * 60) + '%';
+    var ts = e(t, 1.6, 2.4) * (1 - e(t, 6.0, 6.8));
+    F.box(segc, (1440 - 292) / 2, 70); thumb.style.left = lerp(6, 146, ts) + 'px';
+    o1.style.color = ts < .5 ? '#0a0b0d' : '#6b7077'; o2.style.color = ts >= .5 ? '#0a0b0d' : '#6b7077';
+    F.box(ruler, x, y + h + 34, w); var px = Math.round(lerp(1440, 390, m));
+    rlab.textContent = px + ' px'; F.box(rlab, x + w / 2, y + h + 34); rlab.style.transform = 'translate(-50%,-50%)';
+    F.box(src, 60, 830);
+  }
+  F.boot(10, render);
+})();
+</script>

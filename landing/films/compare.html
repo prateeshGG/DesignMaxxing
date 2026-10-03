@@ -1,0 +1,87 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film: compare heroes</title>
+<link rel="stylesheet" href="film.css">
+<style>
+  .pane { background: #fff; }
+  .pane canvas { left: 0; top: 0; }
+  .src { display: flex; gap: 8px; align-items: center; }
+  .vs { width: 64px; height: 64px; border-radius: 50%; background: #fff; display: grid; place-items: center; font: 600 20px/1 "Bricolage Grotesque", sans-serif; color: var(--lilac-ink); box-shadow: 0 1px 2px rgba(10,11,13,.06), 0 12px 30px rgba(107,91,214,.18); }
+</style>
+<div id="stage" style="background:#ece8ff">
+  <div id="art" style="inset:0"></div>
+  <div id="pat" style="inset:0"></div>
+</div>
+<script src="engine.js"></script>
+<script>
+(function () {
+  var S = document.getElementById('stage'), e = F.e, seg = F.seg, lerp = F.lerp;
+  var art = F.canvas(document.getElementById('art')), pat = F.canvas(document.getElementById('pat'));
+  /* images (hidden; drawn into canvases so they can dissolve through pixels) */
+  var IM = {}, SRC = { stripe: 'stripe-hero', linear: 'linear-hero', studio: 'studio-hero' };
+  var hold = F.el(S, 'div', '', 'left:-9999px;top:0;width:10px;height:10px;overflow:hidden');
+  Object.keys(SRC).forEach(function (k) { IM[k] = F.img(hold, '../prototype/img/' + SRC[k] + '.webp'); });
+  var NAME = { stripe: 'stripe.com', linear: 'linear.app', studio: 'studio site' };
+  /* annotations in image coordinates (0..1) */
+  var NOTE = {
+    stripe: [[.36, .42, 'Headline'], [.80, .32, 'Gradient art']],
+    linear: [[.30, .19, 'Headline'], [.55, .72, 'Product window']],
+    studio: [[.50, .2, 'Serif headline'], [.72, .68, 'Engraving art']]
+  };
+  var PWID = 620, PHT = 388, GAPX = 90, X0 = (1440 - (PWID * 2 + GAPX)) / 2, Y0 = 260;
+  function makePane(i) {
+    var p = F.el(S, 'div', 'card pane', 'z-index:5;border-radius:20px');
+    F.box(p, X0 + i * (PWID + GAPX), Y0, PWID, PHT);
+    var c = F.canvas(p, PWID, PHT, 'left:0;top:0;width:' + PWID + 'px;height:' + PHT + 'px');
+    var lab = F.el(S, 'div', 'src flow', 'z-index:6');
+    var notes = [0, 1].map(function () { return [F.el(S, 'div', 'dot', 'z-index:8'), F.el(S, 'div', 'pill', 'z-index:8;font-size:13px')]; });
+    return { el: p, ctx: c, lab: lab, notes: notes, x: X0 + i * (PWID + GAPX) };
+  }
+  var L = makePane(0), R = makePane(1);
+  var vs = F.el(S, 'div', 'vs', 'z-index:7'); vs.textContent = 'vs';
+  var title = F.el(S, 'div', 'label', 'z-index:7;font-size:14px'); title.textContent = 'Compare · Hero sections';
+  F.grain(S, 0.06);
+
+  /* timeline: (stripe, linear) -> R becomes studio at 4s -> L becomes linear at 8s -> both swap back by 12s */
+  var D = 12;
+  function stateAt(t) {
+    var Lp = [], Rp = [];
+    // returns [from, to, progress] for each pane
+    if (t < 7.6) Lp = ['stripe', 'stripe', 0]; else if (t < 8.4) Lp = ['stripe', 'linear', seg(t, 7.6, 8.4)]; else if (t < 11.2) Lp = ['linear', 'linear', 0]; else Lp = ['linear', 'stripe', seg(t, 11.2, 12)];
+    if (t < 3.6) Rp = ['linear', 'linear', 0]; else if (t < 4.4) Rp = ['linear', 'studio', seg(t, 3.6, 4.4)]; else if (t < 11.2) Rp = ['studio', 'studio', 0]; else Rp = ['studio', 'linear', seg(t, 11.2, 12)];
+    return [Lp, Rp];
+  }
+  /* note windows: [start, end] when each pane's current image is settled */
+  function noteVis(t, which) {
+    var w = which === 'L' ? [[0.6, 7.3], [8.8, 11.0]] : [[0.9, 3.3], [4.8, 11.0]];
+    for (var i = 0; i < w.length; i++) if (t >= w[i][0] - .1 && t <= w[i][1] + .4) return [w[i][0], w[i][1]];
+    return null;
+  }
+  function paint(P, st, t, which) {
+    var A = IM[st[0]], B = IM[st[1]], cur = st[2] < .5 ? st[0] : st[1];
+    var cov = F.pixelSwap(P.ctx, A, B, PWID, PHT, st[2], .5, 0);
+    var drift = 1 + .025 * Math.sin(t * .5 + (which === 'L' ? 0 : 1.5));
+    P.el.style.transform = 'scale(' + drift + ')';
+    P.lab.innerHTML = "<span class='pill' style='font-size:12px'>" + (which === 'L' ? 'A' : 'B') + "</span><span class='label'>" + NAME[cur] + '</span>';
+    F.box(P.lab, P.x, Y0 - 50);
+    var win = noteVis(t, which);
+    NOTE[cur].forEach(function (n, k) {
+      var pt = cov.map(n[0], n[1]), X = P.x + pt[0], Y = Y0 + pt[1];
+      var o = win ? F.ease.back(seg(t, win[0] + k * .35, win[0] + .45 + k * .35)) * (1 - seg(t, win[1], win[1] + .35)) : 0;
+      F.box(P.notes[k][0], X, Y); F.show(P.notes[k][0], F.clamp(o), 'scale(' + Math.max(0, o) + ')');
+      var right = pt[0] < PWID * .62;
+      P.notes[k][1].textContent = n[2];
+      F.box(P.notes[k][1], X + (right ? 20 : -20), Y); F.show(P.notes[k][1], F.clamp(o), 'translate(' + (right ? '0' : '-100%') + ',-50%) scale(' + lerp(.8, 1, F.clamp(o)) + ')');
+    });
+  }
+  function render(t) {
+    F.engrave(art, t, { color: '#6b5bd6', alpha: .45, spacing: 8, amp: 32, lw: 1.1, mask: { x: 80, y: 880, r: 700 } });
+    F.pattern(pat, t, { kind: 'plus', color: '#6b5bd6', alpha: .22, gap: 46, vx: 7, r: 2.2 });
+    var st = stateAt(t);
+    paint(L, st[0], t, 'L'); paint(R, st[1], t, 'R');
+    F.box(vs, 720 - 32, Y0 + PHT / 2 - 32); vs.style.transform = 'rotate(' + (Math.sin(t * Math.PI / 6) * 6) + 'deg)';
+    F.box(title, X0, Y0 + PHT + 44);
+  }
+  F.boot(D, render);
+})();
+</script>
