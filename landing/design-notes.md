@@ -88,6 +88,37 @@ Files `linear-11…15-mobile-*.png`. Observations: header is logo left; "Log in"
 - **Customer logos and testimonials were not copied.** The logo row became "section types we are indexing"; the testimonial pop cards became two principle cards (Attribution, Respect); the changelog timeline became a Roadmap with Now/Next/Later labels instead of dates.
 - Waitlist: email field + button in the hero and again in the closing section; client-side validation only.
 
+# Batch 4 — a different site: a design-studio portfolio (light, video-led) — 5 desktop screenshots
+
+Files `studio-01…05-*`. Founder notes: **the hero visual (01) is a video, and video / motion-design clips are used everywhere to show examples.** More references are coming.
+
+| File | Content |
+|---|---|
+| `studio-01-hero-video.webp` | White page. Nav: two text items with a **diamond glyph (◆)**, centered "X" logo, a **sharp-cornered black button** with a video-call icon. Centered mono-caps eyebrow with a client logo and a result ("…PULLED 5K+ VISITS IN LAUNCH WEEK"). Huge bold two-line centered headline, two-line small subline, black rectangular primary button + plain text link. Below: a **full-bleed, art-directed video stage**: painterly flower imagery left and right with **pixel/dither-cut edges**, and in the middle a hairline-gridded panel mixing a serif headline, a green textured product card and a **line-art engraving** of a rider on a horse |
+| `studio-02-logo-tiles-selected-work.webp` | A grid of pale-grey **logo tiles** (5 × 2); one tile **expands wide on hover** to show a one-line description of the work. Then a small-caps eyebrow ("◆ SELECTED WORK"), a centered two-line headline, and the first **case-study row**: client logo, colored category pills, a headline stating the result, an underlined "Read case study" link, a client quote pinned to the bottom, and on the right a **motion clip** (waveform audio player on cream) |
+| `studio-03-case-study-rows.png` / `studio-04-case-study-rows-2.webp` | Case-study rows **alternate media left/right**; each has the same structure (logo + pills, outcome headline, link, quote with avatar, name and role). The media are rich, mixed-style clips: a maroon UI chart, a painterly fresco, a cosmic painting with a white UI card on top. Pills: yellow-green "Website", pink "Product", outlined "Development" with an icon |
+| `studio-05-services-split.png` | A **full-height split screen**: left deep navy with eyebrow, three diamond step markers (◆◆◆), title "Product Design", one-sentence description, dark rounded tag chips, a white rectangular button; right a **saturated blue panel** playing a product video (chart card, tagline) |
+
+## Measured (approximate)
+
+White page `#ffffff`; logo tiles `#fafafa`; cream media backdrop `#faf7f2`; deep navy panel `#03111c`; saturated blue panel `#1183ff`; pink pill `#ffe5ef`; yellow-green pill (olive-lime). Black buttons are near-black with sharp corners.
+
+## What makes this site work (observed)
+
+1. **Proof in motion.** Every example is a short, designed video rather than a screenshot; the page *shows* the work moving.
+2. **Art direction, not templates.** Mixed media (painterly images, engravings, UI) with a consistent treatment: **pixel/dither-cut edges** on images, hairline grid lines, serif accents against a bold sans.
+3. **Results in the copy.** Headlines state outcomes ("100k user signups", "5k+ visits in launch week").
+4. **A strong, repeated row template** (logo + pills → outcome headline → link → quote) with large whitespace, alternating media side.
+5. **Color blocking:** after a white page, a full-height navy | blue split section is the loud moment.
+6. **Small distinctive details:** diamond glyph, sharp-cornered buttons (not pills), mono-caps eyebrows, hover-expanding tiles.
+
+## Honest review of prototype v0 (founder feedback: "copied Linear, and not as good")
+
+- It reused **Linear's skeleton** (hero → framed window → logo row → statement → three figures → header-grid sections → timeline → colored cards → CTA → footer) with different colors and words. That is a copy of structure, not our own idea.
+- Its visuals were **flat grey wireframes**. Linear's quality comes from real product UI, refined type and spacing, and motion; placeholders cannot match that.
+- **No motion at all**, while both reference sites are driven by it.
+- It had **no idea specific to DesignMaxxing**: nothing on the page could only belong to a design-reference library.
+
 ## Waiting for
 
 More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.
