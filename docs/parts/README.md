@@ -20,7 +20,7 @@ Part of the [engineering docs](../README.md). Each file here is one Part from th
 | 3 | 2.4 Media Extraction & Animation Capture | [2.4](2.4-media-extraction-animation-capture.md) | draft | — |
 | 3 | 2.5 Crawl Orchestration & Lifecycle | [2.5](2.5-crawl-orchestration-lifecycle.md) | draft | — |
 | 3 | 2.10 Capture Validation & Publishability Gate | [2.10](2.10-capture-validation-publishability-gate.md) | draft | — |
-| 4 | 2.11 Collection Test Harness | — | not started | — |
+| 4 | 2.11 Collection Test Harness | [2.11](2.11-collection-test-harness.md) | draft | — |
 
 **Wave 1 review:** [review-wave-1.md](review-wave-1.md) (fixes made, names later waves must use, top founder decisions).
 
