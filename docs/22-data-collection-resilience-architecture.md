@@ -60,6 +60,7 @@ The architecture treats these as separate problems with separate mechanisms: **b
 | **DC-16** | **Capture hazards are first-class requirements of Part 2.3, each with a torture fixture:** sticky/fixed elements, scroll-reveal content, `100vh` sections, pinned/horizontal-scroll sections, carousels, autoplay video. Unfixable cases are flagged `needs_review`, never auto-published. |
 | **DC-17** | **Founder-minutes per accepted site ≤ 2 on average** and inbox ≤ 5% of units are E2 gates [Estimate]; failures are fixed in the capture runtime, not by more founder time. |
 | **DC-18** | **Block rate is a measured launch input** (`BLOCKED %` per seed category); seeds are founder-curated; sites that block us stay blocked — dataset size is set by what we can legitimately collect.
+| **DC-19** | **Seeds are candidate-and-approve, not founder-researched.** Candidates come from a drafted list plus anything the founder adds (`seeds/candidates-v0.csv`); the spike captures each candidate's homepage; the founder approves or drops from a contact sheet, judging **visual design quality only** (~5 s per site). Target ≈ 100 approved sites for the first alpha. Founder time is spent on taste, not on finding sites. |
 
 ## 4. Work model
 

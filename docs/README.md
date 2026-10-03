@@ -34,7 +34,7 @@ Precedence rule used throughout: **founder decisions in [20](20-founder-decision
 
 ## Process
 
-Specification work follows [`process/project-breakdown-protocol.md`](process/project-breakdown-protocol.md) (Stage 1 Parts Hierarchy → Stage 2 Part-Spec per Part → Stage 3 task lists). Current position: **Stage 1 complete and awaiting founder review** ([21](21-parts-hierarchy.md)); Stage 2 has not started.
+Specification work follows [`process/project-breakdown-protocol.md`](process/project-breakdown-protocol.md) (Stage 1 Parts Hierarchy → Stage 2 Part-Spec per Part → Stage 3 task lists). Current position: **Stage 1 complete** ([21](21-parts-hierarchy.md)); **Part-Spec Prompt Template built** ([process/part-spec-prompt-template.md](process/part-spec-prompt-template.md)); **no Part-Spec generated yet** — awaiting founder review of the template. The hierarchy will be updated after the Part-Specs (see the pending changes in [22 §17](22-data-collection-resilience-architecture.md) and [23 §6](23-scrapling-evaluation-and-collection-gap-analysis.md)).
 
 ## How to read these docs
 
