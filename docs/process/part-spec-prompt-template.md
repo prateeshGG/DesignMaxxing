@@ -4,7 +4,7 @@ Artifact 2 of the [Project Breakdown & Specification Protocol](project-breakdown
 
 **How to use:** copy everything from `=== BEGIN PROMPT ===` to `=== END PROMPT ===` into a fresh conversation (or pass it to an agent working in this repository), fill in the single placeholder, and generate **one Part's spec**. Review it before starting the next Part. Save the result as `docs/parts/<part-id>-<slug>.md` (e.g. `docs/parts/2.2-browser-capture-runtime.md`).
 
-**Maintenance rule:** if a frozen decision changes, update the *source doc first* (20/22/23), then regenerate this template's "Frozen decisions" section. Never edit decisions only here. The Parts list below was copied from [21](../21-parts-hierarchy.md); when the hierarchy is updated (planned), re-copy it.
+**Maintenance rule:** if a frozen decision changes, update the *source doc first* (20/22/23), then regenerate this template's "Frozen decisions" section. Never edit decisions only here. The Parts list below was copied from [21](../21-parts-hierarchy.md) v1.1; when the hierarchy changes, re-copy it.
 
 === BEGIN PROMPT ===
 
@@ -29,7 +29,7 @@ You are the technical specification writer for **DesignMaxxing**. You will write
 
 **Collection policy (F-10…F-14, F-32).** Honor **robots.txt always**; honest user-agent + contact URL; **1 request/s and 2 concurrent per domain**; ≤ 25 pages/site (V0), depth ≤ 3, asset ≤ 25 MB, **site job ≤ 30 min** (DC-13), page-priority scoring (home 100, pricing 90, product 85, features 80, about 60, contact 40, blog 20, legal 5). Readiness = network idle ≥ 500 ms + fonts ready + 1 s layout stability, hard cap 15 s. Web state = `logged_out` only. HLS: poster + metadata only. Retries: 3 attempts, backoff 30 s then 5 min, DLQ; timeouts page 90 s, AI call 60 s; ≥ 70% of target pages captured → `COMPLETED` with `partial=true`, else `FAILED`; checkpoint granularity = URL.
 
-**Resilience architecture (docs 22/23: DC-01…DC-19).** Smallest unit = **`CaptureUnit` = canonical URL × viewport × crawl run**, idempotent (DC-02). **Supervised, bounded execution**: leases + 10 s heartbeats, 60 s heartbeat timeout, hard `kill -9` deadlines enforced by an external supervisor, memory-limited containers, browser recycled every 50 units/30 min, orphan reaper (DC-03, DC-07). **Fail forward**: ladder S0 standard → S1 relaxed/cleaned (consent dismisser, tracker blocking, animation freeze) → S2 minimal visual → S3 non-browser HTML fallback → `QUARANTINED` (DC-04, DC-05). **Captured ≠ publishable**: an automated **publishability gate** (~15 checks: status, challenge/error signatures, bad-page fingerprint library, blank-ness, content presence, broken images/fonts, overlays, stability, dimensions, cross-viewport consistency, section sanity, sampled DOM↔OCR agreement, PII/secret screen, policy) yields `quality_score`; ≥ 80 `ACCEPTED`, 60–79 `NEEDS_REVIEW`, < 60 or hard fail `REJECTED` (DC-06). Separate `capture_status` and `publish_status`; only `published` is user-visible. Per-domain queues, fair round-robin, backpressure (DC-09). **Postgres is the source of truth for unit state; Redis/BullMQ is rebuildable via a reconciler** (DC-14). Self-healing loops: lease sweeper, janitor, domain circuit breaker (≥ 50% failures over 20 units → open 6 h doubling to 7 d), global breakers, poison quarantine, disk guard (80%/90%), orphan reaper, orphan-blob GC, budget governor. Change-detection normalization (DC-15). Capture hazards (sticky/fixed elements, scroll-reveal, `100vh`, pinned/horizontal scroll, carousels, autoplay video) are first-class requirements (DC-16). Founder time is a metric (≤ 2 min per accepted site, inbox ≤ 5% of units; DC-17). Block rate is measured, never evaded (DC-18). **Seeds are candidate-and-approve** — the founder judges visual design only (DC-19; `seeds/`). Humans handle only a small categorized **Quarantine inbox** (blocked, needs_recipe, needs_review, quarantined, auth_required). Site recipes are the only per-site customization. A **torture suite** (failure fixtures), **golden-set canary**, and **chaos drills** must pass before capture-runtime changes ship (DC-12). Scrapling is **not** adopted as the core (SC-01); its stealth features are forbidden (SC-03).
+**Resilience architecture (docs 22/23: DC-01…DC-21).** Smallest unit = **`CaptureUnit` = canonical URL × viewport × crawl run**, idempotent (DC-02). **Supervised, bounded execution**: leases + 10 s heartbeats, 60 s heartbeat timeout, hard `kill -9` deadlines enforced by an external supervisor, memory-limited containers, browser recycled every 50 units/30 min, orphan reaper (DC-03, DC-07). **Fail forward**: ladder S0 standard → S1 relaxed/cleaned (consent dismisser, tracker blocking, animation freeze) → S2 minimal visual → S3 non-browser HTML fallback → `QUARANTINED` (DC-04, DC-05). **Captured ≠ publishable**: an automated **publishability gate** (~15 checks: status, challenge/error signatures, bad-page fingerprint library, blank-ness, content presence, broken images/fonts, overlays, stability, dimensions, cross-viewport consistency, section sanity, sampled DOM↔OCR agreement, PII/secret screen, policy) yields `quality_score`; ≥ 80 `ACCEPTED`, 60–79 `NEEDS_REVIEW`, < 60 or hard fail `REJECTED` (DC-06). Separate `capture_status` and `publish_status`; only `published` is user-visible. Per-domain queues, fair round-robin, backpressure (DC-09). **Postgres is the source of truth for unit state; Redis/BullMQ is rebuildable via a reconciler** (DC-14). Self-healing loops: lease sweeper, janitor, domain circuit breaker (≥ 50% failures over 20 units → open 6 h doubling to 7 d), global breakers, poison quarantine, disk guard (80%/90%), orphan reaper, orphan-blob GC, budget governor. Change-detection normalization (DC-15). Capture hazards (sticky/fixed elements, scroll-reveal, `100vh`, pinned/horizontal scroll, carousels, autoplay video) are first-class requirements (DC-16). Founder time is a metric (≤ 2 min per accepted site, inbox ≤ 5% of units; DC-17). Block rate is measured, never evaded (DC-18). **Seeds are candidate-and-approve** — the founder judges visual design only (DC-19; `seeds/`). Humans handle only a small categorized **Quarantine inbox** (blocked, needs_recipe, needs_review, quarantined, auth_required). Site recipes are the only per-site customization. A **torture suite** (failure fixtures), **golden-set canary**, and **chaos drills** must pass before capture-runtime changes ship (DC-12). Scrapling is **not** adopted as the core (SC-01); its stealth features are forbidden (SC-03). **Sharp captures** at device scale 2 (desktop) and 3 (phone), never upscaled; a motion pass and a static pass, best chosen per section; regions sharing one animated background are taken in one shot, never composited from different shots (DC-20). **Section crops use DOM-measured bounds** before any visual segmentation; a crop through a media element is a gate failure (DC-21).
 
 **Data conventions (F-21…F-26).** `ScreenState` (not `UIState`); `CaptureSession` = one browser/device run inside a `CaptureJob`; no `SourceVersion` in V0; design tokens are JSONB on `Section`/`Page`/`ProductVersion`; review items are `Classification` rows with `status = needs_review`; per-domain policy lives on `Source`. `DerivedArtifact`, `Embedding`, `Classification` field lists are in F-23. **Events are past-tense facts** (`entity.verb_past`), the §48 envelope with `schema_version`, at-least-once delivery, idempotent consumers, additive-only changes within a version; in V0 they are BullMQ job names/payloads defined in `packages/schemas` — **no event bus, no product webhooks, no `/internal/*` HTTP endpoints**. Relational Postgres only; no graph DB. Content-addressed object keys (`sha256`); screenshots stored raw + canonical.
 
@@ -42,36 +42,43 @@ You are the technical specification writer for **DesignMaxxing**. You will write
 ## 3. Complete Parts hierarchy (frozen; for dependencies and scope boundaries)
 
 **Group 1 — Foundations**
+
 - 1.1 **Repository, Environments & Delivery** — modular-monolith repo layout, Docker Compose environments, configuration and secrets handling, CI, and the two-VM deployment shape. `[V0]`
 - 1.2 **Core Data Platform** — PostgreSQL + pgvector setup, migrations, UUIDv7 identifiers, and the base entity tables and relationships of the design graph. `[V0]`
 - 1.3 **Object Storage & Artifact Registry** — R2 buckets, content-addressed keys, the `RawArtifact`/`DerivedArtifact` registry, and storage lifecycle rules. `[V0]`
-- 1.4 **Job Queue, Events & Reliability** — BullMQ jobs, job states, retries/backoff/DLQ, URL-level checkpoints, and the event envelope with schema versioning. `[V0]`
+- 1.4 **Job Queue, Events & Reliability** — the `CaptureUnit` work model with leases/heartbeats and unit states, Postgres as the source of truth with a reconciler that rebuilds the BullMQ queue, per-domain fair scheduling, retries/backoff/DLQ, and the event envelope with schema versioning. `[V0]`
 - 1.5 **Source & Policy Registry** — the `Source` entity, Source Adapter interface, per-domain crawl policy (robots, rate limits, takedown status), and authorization status. `[V0]`
 - 1.6 **Cost, Provenance & Budget Ledger** — `CostEvent` recording, provenance fields on captured/derived items, and budget caps with early-warning alerts. `[V0]`
 - 1.7 **Security & Safety Baseline** — crawler/app boundary, SSRF guard, container sandbox for browser workers, secrets handling, and backups with a restore test. `[V0]`
-- 1.8 **Observability** — error tracking, structured logs, core pipeline metrics, and the daily summary email. `[V0]`
+- 1.8 **Observability** — error tracking, structured logs, core pipeline metrics, the stuck-detection dashboard and dead-man's switch, and the daily summary email. `[V0]`
 
 **Group 2 — Web Collection & Evidence (Core Backend)**
-- 2.1 **URL Discovery & Prioritization** — robots/sitemap/link discovery, URL normalization and canonicalization, page-type classification, and priority scoring within crawl limits. `[V0]`
-- 2.2 **Browser Capture Runtime** — Playwright worker lifecycle, deterministic capture environment, visual-readiness detector, viewport profiles, and crash recovery. `[V0]`
-- 2.3 **Page & Section Capture** — full-page and viewport screenshots, DOM/accessibility/computed-style/performance capture, and heuristic section segmentation with per-section screenshots. `[V0]`
+
+- 2.1 **URL Discovery & Prioritization** — intake of the founder-approved seed list, robots/sitemap/link discovery, URL normalization and canonicalization, page-type classification, and priority scoring within crawl limits. `[V0]`
+- 2.2 **Browser Capture Runtime** — the capture child process: deterministic, sharp (DPR 2/3) capture environment, visual-readiness detector, viewport profiles, the S0–S3 strategy ladder, and site recipes. `[V0]`
+- 2.9 **Supervisor, Watchdogs & Circuit Breakers** — the external supervisor that leases units, enforces hard deadlines and memory limits, recycles browsers, reaps orphans, and runs the lease sweeper, domain/global breakers, poison quarantine and disk guard. `[V0]`
+- 2.3 **Page & Section Capture** — full-page and viewport screenshots (motion and static passes), DOM/accessibility/computed-style/performance capture, DOM-measured section segmentation with per-section screenshots, and the capture-hazard techniques (sticky, scroll-reveal, `100vh`, pinned, carousels, autoplay). `[V0]`
 - 2.4 **Media Extraction & Animation Capture** — five-layer media discovery, media inventory, SVG/GIF/video/Lottie/canvas handling, animation detection, and the original/poster/normalized-video representations. `[V0; scroll-pass recording V1]`
-- 2.5 **Crawl Orchestration & Lifecycle** — per-source crawl jobs, fan-out to capture jobs, partial-failure handling, budgets, and manual/scheduled re-crawl triggers. `[V0]`
+- 2.5 **Crawl Orchestration & Lifecycle** — per-source crawl runs, fan-out to capture units, the janitor roll-up, partial-failure handling, budgets and backpressure, and manual/scheduled re-crawl triggers. `[V0]`
+- 2.10 **Capture Validation & Publishability Gate** — the automated checks that turn a capture into `quality_score`, `capture_status` and `publish_status` (accepted / needs review / rejected), including the bad-page fingerprint library; captured never means publishable. `[V0]`
+- 2.11 **Collection Test Harness** — the torture suite of failure fixtures, the golden-set canary, and chaos drills that every capture-runtime change must pass. `[V0]`
 - 2.6 **Dangerous-Action Policy** — keyword/role deny-list, form-submission blocking, and per-site allowlists that gate every automated interaction. `[V1]`
 - 2.7 **Interaction Exploration (Fixed Set)** — deterministic detection and capture of nav menus, tabs, accordions, and pricing toggles, with state hashing and limits. `[V1]`
 - 2.8 **Responsive Extensions** — conditional tablet capture, layout-signature comparison across viewports, and capture-context metadata (DPR, orientation, theme). `[V1]`
 
 **Group 3 — Normalization & Design Graph**
+
 - 3.1 **Canonicalization & Deduplication** — canonical screenshots (raw + canonical), exact/perceptual/semantic duplicate detection, and `similar_to` linking. `[V0]`
 - 3.2 **Design Graph Normalization** — turning raw captures into `Product`, `Page`, `Screen`, `Section`, `Asset`, `Animation` entities with provenance links. `[V0]`
 - 3.3 **Text Screening & Redaction** — regex PII/secret screening of extracted text before indexing, and later pixel-level redaction for authenticated captures. `[V0 text; V2 pixel]`
-- 3.4 **Versioning & Change Detection** — hash-skip on re-crawl and `ProductVersion` creation first, then entity-level `ADDED/REMOVED/MODIFIED/UNCHANGED` diffs. `[V0 hash-skip; V1 diffs]`
+- 3.4 **Versioning & Change Detection** — change-detection normalization, hash-skip on re-crawl and `ProductVersion` creation first, then entity-level `ADDED/REMOVED/MODIFIED/UNCHANGED` diffs. `[V0 hash-skip; V1 diffs]`
 
 **Group 4 — Intelligence Systems**
+
 - 4.1 **AI Model Gateway & Cache** — provider-abstraction interface, model routing (rules → CV/OCR → small → large), cache keys, and per-call cost recording. `[V0]`
 - 4.2 **Text Extraction & OCR** — DOM-first text extraction with open-source OCR fallback. `[V0]`
 - 4.3 **Taxonomy & Classification** — versioned two-level taxonomy, deterministic-plus-model classifiers, confidence routing, and classification provenance. `[V0]`
-- 4.4 **Quality Scoring & Human Review** — capture quality score, `needs_review` routing, override/correction capture, and training-data recording. `[V0]`
+- 4.4 **Quality Scoring & Human Review** — the Quarantine inbox and review queue for items the gate (2.10) or classifiers route to a human, override/correction capture, and training-data recording. `[V0]`
 - 4.5 **Embeddings & Similarity** — section embeddings and "similar sections" first, then page/component/asset embeddings, with embedding versioning. `[V0 sections; V1 others]`
 - 4.6 **Evaluation & Benchmark Harness** — labelled benchmark and dev sets, metrics (precision/recall/F1/false-positive rate), and the model/embedding bake-off procedure. `[V0]`
 - 4.7 **Technology Detection** — evidence-based fingerprinting with detected/likely/possible/unknown status. `[V1]`
@@ -79,6 +86,7 @@ You are the technical specification writer for **DesignMaxxing**. You will write
 - 4.9 **Component Detection** — detecting, cropping and classifying UI components from sections and screens. `[V1]`
 
 **Group 5 — Search & Retrieval**
+
 - 5.1 **Search Index & Query API** — Postgres full-text + pgvector index, `SearchDocument` build, filters, and the `GET /search` surface. `[V0]`
 - 5.2 **Hybrid Ranking & Diversification** — rank fusion of keyword and vector results, quality/freshness weighting, and per-site diversification. `[V0]`
 - 5.3 **Visual Search** — screenshot-upload and similar-screen search over visual embeddings. `[V1]`
@@ -86,6 +94,7 @@ You are the technical specification writer for **DesignMaxxing**. You will write
 - 5.5 **AI Research & Natural-Language Query** — query understanding, research reports, and the gated MCP/API exposure over the same search layer. `[V3; MCP/API gated by F-03]`
 
 **Group 6 — Client Surfaces**
+
 - 6.1 **Public App Shell, Auth & Delivery** — Next.js shell, managed authentication, CDN image delivery, and the report/remove-content flow. `[V0]`
 - 6.2 **Explore & Search UI** — browse, keyword/semantic search, filters, and result presentation. `[V0]`
 - 6.3 **Site, Page & Section Views** — object pages with metadata, similar sections, and source attribution. `[V0]`
@@ -96,6 +105,7 @@ You are the technical specification writer for **DesignMaxxing**. You will write
 - 6.8 **Comparison & Report Views** — competitive comparison and automated design-report presentation. `[V3]`
 
 **Group 7 — Authenticated & Mobile Collection (gated)**
+
 - 7.1 **Authenticated Session Management** — operator-driven login, encrypted storage state, expiry/re-authentication, and `WAITING_FOR_AUTH` handling. `[V2]`
 - 7.2 **Authenticated Web Collection** — `WEB_APP` sources collected through authorized sessions under the dangerous-action policy. `[V2]`
 - 7.3 **Mobile Collector Interface & Device Profiles** — the `MobileCollector` contract, device/emulator profiles, and system-UI separation. `[V2]`
@@ -107,6 +117,7 @@ You are the technical specification writer for **DesignMaxxing**. You will write
 - 7.9 **App Version History** — app version identifiers, per-version comparison, and mobile `ProductVersion` handling. `[V2]`
 
 **Group 8 — Business Enablement & Operations**
+
 - 8.1 **Waitlist, Landing & Analytics** — public name, landing page with demo, waitlist capture, price-intent question, and minimal product analytics. `[pre-V0 — can start first]`
 - 8.2 **Legal & Compliance Pack** — counsel consult, ToS/Privacy/acceptable-use, crawler policy page, takedown/DMCA procedure, and retention policy. `[before public library]`
 - 8.3 **Pricing Experiments & Billing** — price-test design and results, and (only after validation) Stripe billing for the single paid plan. `[experiments V0; billing after E4]`
