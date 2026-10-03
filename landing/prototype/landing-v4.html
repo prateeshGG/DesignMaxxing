@@ -52,8 +52,9 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; lett
 .btn-cta .ar { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: rgba(255,255,255,.18); transition: transform .2s; }
 .btn-cta:hover .ar { transform: translateX(2px); }
 .btn-cta .l-short { display: none; }
-.idx-btn { height: 40px; padding: 0 14px; border: 1px solid var(--ink); border-radius: var(--r); background: #fff; display: inline-flex; align-items: center; gap: 10px; font: 500 14px/1 var(--font-body); cursor: pointer; }
-.idx-btn:hover { background: var(--tile); }
+.idx-btn { height: 40px; padding: 0 14px; border: 1px solid rgba(47,85,255,.14); border-radius: var(--r); background: #f4f6fd; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; font: 500 14px/1 var(--font-body); cursor: pointer; transition: background .15s, border-color .15s; }
+.idx-btn:hover { background: #eaeefc; border-color: rgba(47,85,255,.24); }
+.idx-btn[aria-expanded="true"] { background: var(--blue-soft); border-color: rgba(47,85,255,.3); }
 .idx-btn i { display: grid; gap: 4px; width: 16px; }
 .idx-btn i b { display: block; height: 1.5px; background: currentColor; transition: transform .25s; }
 .idx-btn[aria-expanded="true"] i b:first-child { transform: translateY(2.75px) rotate(45deg); }
@@ -170,8 +171,9 @@ main { position: relative; }
 .film video { width: 100%; height: 100%; object-fit: cover; }
 .snd { position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid var(--soft-border); border-radius: 999px; background: rgba(255,255,255,.92); color: var(--ink); font: 500 14px/1 var(--font-body); cursor: pointer; box-shadow: var(--soft-shadow); }
 .snd:hover { background: #fff; }
-.snd .w { opacity: .25; }
-.snd[aria-pressed="true"] .w { opacity: 1; }
+.snd .i-on, .snd[aria-pressed="true"] .i-off { display: none; }
+.snd[aria-pressed="true"] .i-on { display: block; }
+.snd[aria-pressed="true"] { color: var(--blue); border-color: rgba(47,85,255,.35); }
 .film-cap { margin: 12px 0 0; font-size: 10.5px; }
 .tiles-h { margin: clamp(48px, 6vw, 72px) 0 0; font-size: clamp(1.3rem, 1vw + 1rem, 1.6rem); letter-spacing: -.03em; }
 
@@ -181,6 +183,9 @@ main { position: relative; }
 .tile:hover { background: #eef0ea; transform: translateY(-3px); }
 .th { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
 .th > img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .6s cubic-bezier(.2,.8,.2,1); transform-origin: 0 0; }
+/* very wide sections are shown whole, centred on their own background, instead of cropped to an empty corner */
+.th.fit > img { object-fit: contain; object-position: center; padding: 10px; }
+.th.fit.dark { background: #08090a; border-color: #1b1d22; }
 .tile:hover .th > img { transform: scale(1.08); }
 .th.strips { display: grid; align-content: center; gap: 10px; padding: 12px; background: var(--tile); }
 .th.strips img { width: 100%; height: auto; border: 1px solid var(--line); background: #fff; border-radius: 4px; }
@@ -213,11 +218,10 @@ main { position: relative; }
 /* three heroes fanned like cards on a desk: the front one is whole, the others show their top half */
 .vframe.shots.three { display: block; padding: 0; }
 .vframe.shots.three img { position: absolute; width: 64%; height: auto; }
-.vframe.shots.three img:nth-child(1) { left: 5%; top: 7%; }
-.vframe.shots.three img:nth-child(2) { left: 18%; top: 22%; }
-.vframe.shots.three img:nth-child(3) { left: 31%; top: 37%; }
-.vframe.shots.three img { cursor: pointer; transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
-.vframe.shots.three img.front { z-index: 4; transform: translateY(-8px) scale(1.03); box-shadow: 0 2px 4px rgba(10,11,13,.06), 0 24px 50px rgba(30,40,90,.22); }
+.vframe.shots.three img.s0 { left: 5%; top: 7%; z-index: 1; }
+.vframe.shots.three img.s1 { left: 18%; top: 22%; z-index: 2; }
+.vframe.shots.three img.s2 { left: 31%; top: 37%; z-index: 3; box-shadow: 0 2px 4px rgba(10,11,13,.06), 0 24px 50px rgba(30,40,90,.22); }
+.vframe.shots.three img { cursor: pointer; transition: left .5s cubic-bezier(.2,.8,.2,1), top .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s; }
 .vframe.shots.three img:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .vframe.shots.phones { grid-template-columns: repeat(3, auto); justify-content: center; gap: 14px; }
 .vframe.shots.phones img { height: 100%; width: auto; aspect-ratio: .52; max-height: 100%; object-fit: contain; object-position: top; background: #08090a; border-radius: 18px; min-height: 0; }
@@ -489,19 +493,19 @@ main { position: relative; }
     <p class="sec-sub">Heroes, pricing tables, testimonials and footers are saved as separate, tagged pieces. Search for the one you want, open it, and see what makes it work.</p>
     <div class="film">
       <video id="film" muted loop playsinline preload="metadata" data-src="video/how-it-works" aria-label="Film: a real page is split into tagged parts, one is found by search and opened with notes on what makes it work"></video>
-      <button class="snd" id="snd" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w" d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Sound on</span></button>
+      <button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Sound is off. Turn sound on"><svg class="i-off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9.5l4 5M21 9.5l-4 5"/></svg><svg class="i-on" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound off</span></button>
     </div>
     <p class="film-cap mono">Sections shown are from stripe.com, linear.app and studiomaydit.com · Music: “Werq” Kevin MacLeod (incompetech.com), <a href="http://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a> · Voice: Fish Audio</p>
     <h3 class="tiles-h">What you can search</h3>
     <div class="tiles">
-      <div class="tile"><div class="th"><img src="img/stripe-hero.webp" alt="Hero section example" width="1280" height="541"></div><h3>Hero</h3><p>Headlines, art and first impressions.</p><span class="mono src">stripe.com</span></div>
-      <div class="tile"><div class="th strips"><img src="img/stripe-nav.webp" alt="Navigation bar example" width="1100" height="67"><img src="img/linear-nav.webp" alt="Navigation bar example" width="1280" height="43"><img src="img/studio-nav.webp" alt="Navigation bar example" width="1280" height="67"></div><h3>Navigation</h3><p>Menus and header patterns.</p><span class="mono src">stripe.com · linear.app · studiomaydit.com</span></div>
-      <div class="tile"><div class="th strips"><img src="img/stripe-logos.webp" alt="Logo row example" width="1280" height="47"><img src="img/linear-logos.webp" alt="Logo row example" width="1280" height="53"><img src="img/studio-logos.webp" alt="Logo tiles example" width="1100" height="242"></div><h3>Logo rows</h3><p>Proof strips and customer grids.</p><span class="mono src">stripe.com · linear.app · studiomaydit.com</span></div>
-      <div class="tile"><div class="th"><img src="img/stripe-bento1.webp" alt="Feature grid example" width="1100" height="750"></div><h3>Feature grids</h3><p>Cards, bento layouts and product UI.</p><span class="mono src">stripe.com</span></div>
-      <div class="tile"><div class="th"><img src="img/stripe-stats.webp" alt="Statistics row example" width="1100" height="396"></div><h3>Stats</h3><p>Big numbers and proof points.</p><span class="mono src">stripe.com</span></div>
-      <div class="tile"><div class="th"><img src="img/linear-testimonials.webp" alt="Testimonial cards example" width="1280" height="267"></div><h3>Testimonials</h3><p>Quotes, people and proof.</p><span class="mono src">linear.app</span></div>
-      <div class="tile"><div class="th"><img src="img/studio-case.webp" alt="Case study row example" width="1100" height="389"></div><h3>Case studies</h3><p>Result-led rows with media.</p><span class="mono src">studiomaydit.com</span></div>
-      <div class="tile"><div class="th"><img src="img/linear-cta.webp" alt="Closing call to action example" width="1280" height="213"></div><h3>Closing calls</h3><p>Final sections and sign-ups.</p><span class="mono src">linear.app</span></div>
+      <div class="tile"><div class="th"><img src="img/stripe-hero.webp" alt="Hero section example" width="1600" height="764"></div><h3>Hero</h3><p>Headlines, art and first impressions.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th strips"><img src="img/stripe-nav.webp" alt="Navigation bar example" width="1600" height="84"><img src="img/linear-nav.webp" alt="Navigation bar example" width="1600" height="81"><img src="img/studio-nav.webp" alt="Navigation bar example" width="1600" height="80"></div><h3>Navigation</h3><p>Menus and header patterns.</p><span class="mono src">stripe.com · linear.app · studiomaydit.com</span></div>
+      <div class="tile"><div class="th strips"><img src="img/stripe-logos.webp" alt="Logo row example" width="1600" height="81"><img src="img/studio-logos.webp" alt="Logo tiles example" width="1600" height="373"></div><h3>Logo rows</h3><p>Proof strips and customer grids.</p><span class="mono src">stripe.com · studiomaydit.com</span></div>
+      <div class="tile"><div class="th"><img src="img/stripe-bento1.webp" alt="Feature grid example" width="1600" height="1066"></div><h3>Feature grids</h3><p>Cards, bento layouts and product UI.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th fit"><img src="img/stripe-stats.webp" alt="Statistics row example" width="1600" height="509"></div><h3>Stats</h3><p>Big numbers and proof points.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th"><img src="img/linear-testimonials.webp" alt="Testimonial cards example" width="1600" height="673"></div><h3>Testimonials</h3><p>Quotes, people and proof.</p><span class="mono src">linear.app</span></div>
+      <div class="tile"><div class="th"><img src="img/studio-case.webp" alt="Case study row example" width="1600" height="589"></div><h3>Case studies</h3><p>Result-led rows with media.</p><span class="mono src">studiomaydit.com</span></div>
+      <div class="tile"><div class="th fit dark"><img src="img/linear-cta.webp" alt="Closing call to action example" width="1600" height="273"></div><h3>Closing calls</h3><p>Final sections and sign-ups.</p><span class="mono src">linear.app</span></div>
     </div>
   </section>
 
@@ -520,7 +524,7 @@ main { position: relative; }
           <div class="row-meta mono">Section · Hero · 3 sources linked</div>
         </div>
         <div class="vid">
-          <div class="vframe shots three" id="trio"><img src="img/x-stripe-hero.webp" alt="Hero section of stripe.com" loading="lazy" tabindex="0"><img src="img/x-linear-hero.webp" alt="Hero section of linear.app" loading="lazy" tabindex="0"><img class="front" src="img/x-studio-hero.webp" alt="Hero section of studiomaydit.com" loading="lazy" tabindex="0"></div>
+          <div class="vframe shots three" id="trio"><img class="s0" src="img/x-stripe-hero.webp" alt="Hero section of stripe.com" loading="lazy" tabindex="0"><img class="s1" src="img/x-linear-hero.webp" alt="Hero section of linear.app" loading="lazy" tabindex="0"><img class="s2" src="img/x-studio-hero.webp" alt="Hero section of studiomaydit.com" loading="lazy" tabindex="0"></div>
           <div class="vcap mono"><span>Preview</span><span>Source: stripe.com · linear.app · studiomaydit.com</span></div>
         </div>
       </article>
@@ -665,13 +669,23 @@ main { position: relative; }
     var on = snd.getAttribute('aria-pressed') !== 'true';
     film.muted = !on; if (on) film.currentTime = 0;
     var pr = film.play(); if (pr && pr.catch) pr.catch(function () {});
-    snd.setAttribute('aria-pressed', String(on)); snd.querySelector('span').textContent = on ? 'Sound off' : 'Sound on';
+    snd.setAttribute('aria-pressed', String(on)); snd.querySelector('span').textContent = on ? 'Sound on' : 'Sound off';
+    snd.setAttribute('aria-label', on ? 'Sound is on. Turn sound off' : 'Sound is off. Turn sound on');
   });
-  /* compare heroes: the screenshot you point at, focus or tap comes to the front */
-  var trio = $$('#trio img');
+  /* compare heroes: the screenshot you point at (or focus, or tap) swaps places with the front one.
+     The card that moves back under the pointer is ignored until the pointer leaves it, so the two never flip back and forth. */
+  var trio = $$('#trio img'), slotOf = function (im) { return im.classList.contains('s2') ? 2 : im.classList.contains('s1') ? 1 : 0; }, lock = null;
   trio.forEach(function (im) {
-    function up() { trio.forEach(function (o) { o.classList.toggle('front', o === im); }); }
+    function up() {
+      if (im === lock) return;
+      var k = slotOf(im); if (k === 2) return;
+      var front = trio.filter(function (o) { return slotOf(o) === 2; })[0];
+      im.classList.remove('s' + k); im.classList.add('s2');
+      front.classList.remove('s2'); front.classList.add('s' + k);
+      lock = front;
+    }
     im.addEventListener('pointerenter', up); im.addEventListener('focus', up); im.addEventListener('click', up);
+    im.addEventListener('pointerleave', function () { if (lock === im) lock = null; });
   });
   var vids = $$('video[data-play]');
   if (reduce) { vids.forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); }); }
@@ -710,7 +724,7 @@ main { position: relative; }
   function measure() {
     camW = cam.clientWidth; camH = cam.clientHeight; narrow = camW < 600;
     hh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh')) || 68;
-    var short = camH < 560, nseg = short ? 3 : 5, ratio = short ? 1.117 : 1.445;
+    var short = camH < 560, nseg = short ? 3 : 5, ratio = short ? 1.462 : 1.902;
     css.forEach(function (c) { if (c.classList.contains('opt')) c.style.display = short ? 'none' : ''; });
     var wb = Math.max(150, Math.min(camW - (narrow ? 70 : 330), 440, (camH - 70 - nseg * 22) / ratio));
     cam.style.setProperty('--wb', wb + 'px');
