@@ -1,8 +1,9 @@
 # Landing page — working folder
 
-**Status: references being collected; no landing page has been built yet** (founder: "not now"). Product name: **DesignMaxxing** (the repo name).
+**Status: first-look prototype built (v0) from the references so far; more references may follow.** Product name: **DesignMaxxing** (the repo name).
 
-- `references/` — design reference screenshots supplied by the founder (batch 1: five desktop screenshots; batch 2: four desktop + one low-resolution mobile full-page capture — all of Linear's marketing site). More batches will be added.
+- `references/` — design reference screenshots supplied by the founder (batch 1: five desktop screenshots; batch 2: four desktop + one low-resolution mobile full-page capture; batch 3: five 390-wide mobile viewport screenshots — all of Linear's marketing site). More batches will be added.
+- `prototype/landing-v0.html` — **first-look prototype** (static page, dark, built from batches 1–3). Previewed as a private artifact; **not the production landing page**. The production page will be built in Next.js (docs/20 F-35) as Part 8.1/6.x. The waitlist forms are UI only: nothing is sent or stored yet.
 - `design-notes.md` — measured/observed design properties and the principles we take from the references.
 
 **Rules for references**

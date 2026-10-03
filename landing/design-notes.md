@@ -76,6 +76,18 @@ Waitlist signup, a short demo of real search over real captured sections (≤ 8 
 
 The mobile image is thumbnail-sized. For responsive design decisions please send **real mobile viewport screenshots (about 390×844)** of the hero, a feature section, the testimonial area and the footer, plus any menu-open state.
 
+# Batch 3 (5 real mobile viewport screenshots, 390 wide)
+
+Files `linear-11…15-mobile-*.png`. Observations: header is logo left; "Log in" text link; a white "Sign up" pill; a **hamburger icon** at right (so the nav collapses into a menu). Hero: headline stacks to four lines at about 40 px; subline, then "New · Loops →" under it (left-aligned); the product window is cropped at the viewport bottom. Logo row is a **horizontally scrolling strip** cut off at both edges, with the mono caption below. The two-tone statement is left-aligned at about 22 px. The figure cards are **horizontally scrolling cards** (rounded border, the next card peeking in). Section headers stack heading → paragraph → "Learn more →". Testimonial cards are horizontally scrolling and bleed past the right edge; the closing headline and both pills are centered, and the pills sit side by side.
+
+# First-look prototype decisions (v0)
+
+- **Dark only**, matching the references (founder has not asked for a light theme).
+- **Our own identity:** coral accent (`#ff6b3d`), pale mint card, Geist + Geist Mono, an original logo mark; no Linear copy, logos, illustrations or palette.
+- **Product-as-hero** with an illustrative search window and a "Capture check" panel (our differentiator); all thumbnails are generic wireframes with `.example` domains, never real sites or logos (docs/20 F-44).
+- **Customer logos and testimonials were not copied.** The logo row became "section types we are indexing"; the testimonial pop cards became two principle cards (Attribution, Respect); the changelog timeline became a Roadmap with Now/Next/Later labels instead of dates.
+- Waitlist: email field + button in the hero and again in the closing section; client-side validation only.
+
 ## Waiting for
 
 More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.
