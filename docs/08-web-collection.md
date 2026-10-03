@@ -41,6 +41,16 @@ Do **not** rely on a blind "wait 5 seconds" (reported lazy-loading, animation-st
 
 Cookie banners/popups (MB§60): capture a clean state when safely dismissible; detect and record intrusive popups without silently destroying evidence.
 
+### Sharp images and exact section bounds (field-tested, October 2026)
+
+Learned while building the landing-page films from real captures (see [`../.claude/skills/landing-films/`](../.claude/skills/landing-films/SKILL.md) and `landing/films/`). These settle several items that were **Not decided** above for V0:
+
+- **Capture at device scale 2 (desktop) and 3 (phone); never upscale.** The founder's own 1920×1080 screenshots became blurry once cropped and zoomed. Capturing the same pages again at `deviceScaleFactor: 2` (1440 CSS px → 2880 px) and 3 for 390 px phones gave images that stay sharp in a 2× zoom. Upscaling a soft screenshot cannot recover detail. Store the 2× original; derive thumbnails from it. Cost: about 4× the pixels, so a 2880×10 000 px full page is roughly 5–15 MB as PNG and 1–4 MB as WebP at quality 90.
+- **Both capture modes in V0.** The motion pass (animations running) keeps background videos and art that only appear while playing. The static pass (`reducedMotion: "reduce"` plus a style tag that pauses animations and transitions) fixes live counters and reveal animations caught half-way, for example Stripe's "Global GDP" counter photographed mid-roll. Neither pass is always right: on Maydit the static pass showed video posters instead of the hero art, and on Stripe the nav buttons rendered blank. **Pick per section**, using the publishability gate to flag sections that differ a lot between the passes.
+- **Settle sequence:** scroll the full page in about 400 px steps with about 200 ms waits (lazy images, scroll reveals), return to the top, wait about 3 s, then shoot. This is a fallback under the visual-readiness detector, not a replacement for it.
+- **Section bounds come from the DOM, not from guesses.** Measure `header, section, footer, main > div` with `getBoundingClientRect` on the static pass and crop on those edges (×DPR). Bounds guessed by eye cut a video banner through the middle and glued its tail onto the next section; DOM bounds fixed it immediately. When a page has no semantic sections, fall back to large layout blocks (wide direct children of `main`/`body`) and then to visual segmentation ([05](05-normalization-and-design-graph.md), [06](06-intelligence-pipeline.md)).
+- **Fonts on our own renders** (thumbnails, films, contact sheets) must use local font files. A blocked font host fails silently and renders in fallback fonts.
+
 ## Responsive capture
 
 Final Blueprint (§12) initial profiles:

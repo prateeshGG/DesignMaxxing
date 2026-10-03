@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film: hero lines loop</title>
+<style>html,body{margin:0;background:#fff}#stage{position:relative;overflow:hidden;background:#fff}canvas{position:absolute;left:0;top:0;width:100%;height:100%}</style>
+<div id="stage"></div>
+<script src="engine.js"></script>
+<script>
+/* The v2 hero line animation, made periodic so it loops seamlessly and can ship as a video (no live canvas, no lag). */
+(function () {
+  var tall = new URLSearchParams(location.search).get('v') === 'tall';
+  var W = tall ? 900 : 1440, H = tall ? 1500 : 760, T = 12;
+  window.STAGE = [W, H];
+  var S = document.getElementById('stage'); S.style.width = W + 'px'; S.style.height = H + 'px';
+  var c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2; S.appendChild(c);
+  var ctx = c.getContext('2d'); ctx.setTransform(2, 0, 0, 2, 0, 0);
+  var STOPS = [[220, 243, 107], [255, 157, 61], [255, 111, 177], [47, 85, 255]];
+  function col(u, a) { var s = Math.max(0, Math.min(.999, u)) * 3, i = Math.floor(s), f = s - i, A = STOPS[i], B = STOPS[i + 1]; return 'rgba(' + Math.round(A[0] + (B[0] - A[0]) * f) + ',' + Math.round(A[1] + (B[1] - A[1]) * f) + ',' + Math.round(A[2] + (B[2] - A[2]) * f) + ',' + a + ')'; }
+  var o = tall ? { n: 64, lw: 1.15, a: .55, x0: 1.3, y0: .05, x1: -.3, y1: .75, wid: .5 } : { n: 90, lw: 1.1, a: .5, x0: 1.08, y0: -.05, x1: -.1, y1: 1.05, wid: .55 };
+  function render(t) {
+    var th = 2 * Math.PI * (t % T) / T, N = o.n, M = 80, m = Math.min(W, H);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+    var dx = o.x1 - o.x0, dy = o.y1 - o.y0, L = Math.sqrt(dx * dx * W * W + dy * dy * H * H), nx = -(dy * H) / L, ny = (dx * W) / L;
+    ctx.lineWidth = o.lw;
+    for (var i = 0; i < N; i++) {
+      var u = i / (N - 1); ctx.beginPath();
+      for (var j = 0; j <= M; j++) {
+        var s = j / M;
+        var cx = W * (o.x0 + dx * s) + Math.sin(s * 5.2 + th) * W * .045;
+        var cy = H * (o.y0 + dy * s) + Math.cos(s * 4.1 + th) * H * .1;
+        var wf = o.wid * (.28 + .72 * Math.pow(Math.abs(Math.sin(s * Math.PI * 1.35 + th + .6)), 1.3));
+        var off = (u - .5) * wf * m + Math.sin(u * 6.2 + s * 9 + 2 * th) * 3;
+        if (j) ctx.lineTo(cx + nx * off, cy + ny * off); else ctx.moveTo(cx + nx * off, cy + ny * off);
+      }
+      ctx.strokeStyle = col(u, o.a); ctx.stroke();
+    }
+    /* the v2 canvas faded out over its bottom 28 %; on a white page that is a fade to white */
+    var g = ctx.createLinearGradient(0, H * .72, 0, H); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, '#fff');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  }
+  F.boot(T, render);
+})();
+</script>

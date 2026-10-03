@@ -204,6 +204,53 @@
   F.sheen = function (parent) { return F.el(parent, 'div', 'sheen', 'left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:250% 100%;opacity:0'); };
   F.sweep = function (el, p) { el.style.opacity = p > 0 && p < 1 ? 1 : 0; el.style.backgroundPosition = (120 - p * 140) + '% 0'; };
 
+  /* ---------- hand-drawn annotations (Excalidraw-style): a circled target, a line that follows through to a label in empty space ---------- */
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function jitterPts(pts, amp, rnd) { return pts.map(function (p) { return [p[0] + (rnd() - .5) * amp, p[1] + (rnd() - .5) * amp]; }); }
+  function polyPath(pts) { var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1); for (var i = 1; i < pts.length - 1; i++) { var mx = (pts[i][0] + pts[i + 1][0]) / 2, my = (pts[i][1] + pts[i + 1][1]) / 2; d += ' Q' + pts[i][0].toFixed(1) + ' ' + pts[i][1].toFixed(1) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1); } var l = pts[pts.length - 1]; return d + ' L' + l[0].toFixed(1) + ' ' + l[1].toFixed(1); }
+  F.callout = function (parent, o) {
+    var rnd = F.rand(o.seed || 3);
+    var svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('width', o.w || 1440); svg.setAttribute('height', o.h || 900); svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;z-index:28;pointer-events:none';
+    parent.appendChild(svg);
+    var r = o.target, cx = r.x + r.w / 2, cy = r.y + r.h / 2, rx = r.w / 2 + (o.pad || 14), ry = r.h / 2 + (o.pad || 14);
+    var L = o.label, ring = [], ex, ey;
+    if (o.shape === 'underline') {
+      /* wide text: a hand-drawn underline (circling a whole line would cut through the letters) */
+      for (var ku = 0; ku <= 1; ku++) { var pu = []; for (var iu = 0; iu <= 30; iu++) { var tu = iu / 30; pu.push([r.x - 6 + (r.w + 12) * tu, r.y + r.h + 3 + Math.sin(tu * 9 + ku) * 1.6 + (rnd() - .5) * 1.4 + ku * 2.5]); } ring.push(pu); }
+      var leftEnd = Math.abs(L.x - r.x) < Math.abs(L.x - (r.x + r.w));
+      ex = leftEnd ? r.x - 6 : r.x + r.w + 6; ey = r.y + r.h + 3;
+    } else {
+      /* loose ellipse: a little over one turn, slightly wobbly, like a pen circle */
+      for (var k = 0; k <= 1; k++) {
+        var pts = [], a0 = -2.2 + rnd() * .3, turn = 2 * Math.PI * (1.08 + k * .02);
+        for (var i = 0; i <= 40; i++) { var a = a0 + turn * i / 40, wob = 1 + (rnd() - .5) * .05; pts.push([cx + Math.cos(a) * rx * wob, cy + Math.sin(a) * ry * wob]); }
+        ring.push(pts);
+      }
+      var ang = Math.atan2(L.y - cy, L.x - cx); ex = cx + Math.cos(ang) * rx; ey = cy + Math.sin(ang) * ry;
+    }
+    /* connector: starts at the label's edge (o.from), never under its text, and curves to the target */
+    var S0 = o.from || L;
+    var bend = o.bend === undefined ? .25 : o.bend, mx = (S0.x + ex) / 2, my = (S0.y + ey) / 2, nx = -(ey - S0.y), ny = ex - S0.x;
+    var c1 = [mx + nx * bend, my + ny * bend];
+    var line = [];
+    for (var k2 = 0; k2 < 2; k2++) { var pts2 = []; for (var j = 0; j <= 24; j++) { var t = j / 24, u = 1 - t; pts2.push([u * u * S0.x + 2 * u * t * c1[0] + t * t * ex, u * u * S0.y + 2 * u * t * c1[1] + t * t * ey]); } line.push(jitterPts(pts2, k2 ? 2.2 : 1.2, rnd)); }
+    function mk(d, wdt, op) { var pth = document.createElementNS(SVGNS, 'path'); pth.setAttribute('d', d); pth.setAttribute('fill', 'none'); pth.setAttribute('stroke', o.color || '#2f55ff'); pth.setAttribute('stroke-width', wdt); pth.setAttribute('stroke-linecap', 'round'); pth.setAttribute('stroke-linejoin', 'round'); pth.setAttribute('opacity', op); svg.appendChild(pth); var len = pth.getTotalLength(); pth.style.strokeDasharray = len; pth.style.strokeDashoffset = len; return { p: pth, len: len }; }
+    var rings = [mk(polyPath(ring[0]), 2.6, 1), mk(polyPath(ring[1]), 1.4, .55)];
+    var lines = [mk(polyPath(line[0]), 2.4, 1), mk(polyPath(line[1]), 1.3, .5)];
+    var lab = F.el(parent, 'div', 'pill', 'z-index:31;font-size:15px;padding:10px 16px;transform-origin:50% 50%');
+    lab.textContent = o.text;
+    return {
+      update: function (pRing, pLine, pLab) {
+        rings.forEach(function (x) { x.p.style.strokeDashoffset = x.len * (1 - F.ease.inOut(F.clamp(pRing))); });
+        lines.forEach(function (x) { x.p.style.strokeDashoffset = x.len * (1 - F.ease.inOut(F.clamp(pLine))); });
+        var s = F.spring(F.clamp(pLab), .45);
+        F.box(lab, L.x, L.y); lab.style.transform = 'translate(' + (o.anchor || '-50%,-50%') + ') scale(' + F.lerp(.6, 1, s) + ')';
+        F.show(lab, F.clamp(pLab * 3), lab.style.transform);
+      }
+    };
+  };
+
   /* ---------- boot: wait for fonts and images, then expose seek ---------- */
   F.boot = function (duration, render) {
     window.DURATION = duration;
