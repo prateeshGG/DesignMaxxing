@@ -13,9 +13,9 @@ Part of the [engineering docs](../README.md). Each file here is one Part from th
 | 1 | 1.3 Object Storage & Artifact Registry | [1.3](1.3-object-storage-artifact-registry.md) | draft | — |
 | 1 | 1.4 Job Queue, Events & Reliability | [1.4](1.4-job-queue-events-reliability.md) | draft | — |
 | 1 | 1.5 Source & Policy Registry | [1.5](1.5-source-policy-registry.md) | draft | — |
-| 2 | 2.1 URL Discovery & Prioritization | [2.1](2.1-url-discovery-prioritization.md) | writing | — |
-| 2 | 2.2 Browser Capture Runtime | [2.2](2.2-browser-capture-runtime.md) | writing | — |
-| 2 | 2.9 Supervisor, Watchdogs & Circuit Breakers | [2.9](2.9-supervisor-watchdogs-circuit-breakers.md) | writing | — |
+| 2 | 2.1 URL Discovery & Prioritization | [2.1](2.1-url-discovery-prioritization.md) | draft | — |
+| 2 | 2.2 Browser Capture Runtime | [2.2](2.2-browser-capture-runtime.md) | draft | — |
+| 2 | 2.9 Supervisor, Watchdogs & Circuit Breakers | [2.9](2.9-supervisor-watchdogs-circuit-breakers.md) | draft | — |
 | 3 | 2.3 Page & Section Capture | — | not started | — |
 | 3 | 2.4 Media Extraction & Animation Capture | — | not started | — |
 | 3 | 2.5 Crawl Orchestration & Lifecycle | — | not started | — |
@@ -23,6 +23,8 @@ Part of the [engineering docs](../README.md). Each file here is one Part from th
 | 4 | 2.11 Collection Test Harness | — | not started | — |
 
 **Wave 1 review:** [review-wave-1.md](review-wave-1.md) (fixes made, names later waves must use, top founder decisions).
+
+**Wave 2 review:** [review-wave-2.md](review-wave-2.md) (fixes made to 1.1, 1.3, 1.4, 1.5, 2.1, 2.9, names later waves must use, carried-forward questions, founder decisions).
 
 **How the waves work:** a wave's specs are written from the template and must conform to the specs of earlier waves (treated as frozen once reviewed). Within a wave, ownership boundaries were fixed up front so parallel specs do not overlap. After each wave, a consistency review checks that table, state, job and event names match across specs.
 
