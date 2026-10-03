@@ -68,6 +68,24 @@ For a **public-facing** crawler the Master Blueprint specified SSRF protection (
 
 To be designed before public launch: Terms of Service, Privacy Policy, acceptable-use policy, **crawler policy**, takedown mechanism, copyright-complaint (DMCA) mechanism, asset retention policy, user-upload policy, public/private dataset policy. Distinguish **metadata** from **third-party copyrighted assets** and decide what is retained and served. Topics: robots.txt, site terms, copyright of screenshots/cached assets, attribution, crawl frequency, authentication, personal information. **Should be reviewed by qualified counsel before public launch** (MB§64). The conversation sets no concrete positions on any of these; all **Not decided** (see [19](19-decisions-assumptions-open-questions.md)).
 
+## Reference: how Mobbin handles third-party content (public statements)
+
+*Evidence: excerpts of Mobbin's public Terms, Acceptable Use Policy and Copyright pages as returned by web search (October 2026). `mobbin.com` was blocked from this environment, so the full pages were **not read**; re-read them before relying on this.* This describes what Mobbin **says**, not what its legal basis is — that is **not stated** in what I could see.
+
+| Topic | What Mobbin's public pages say |
+|---|---|
+| Ownership | The platform contains screenshots, recordings and metadata about **third parties' app interfaces and designs**; IP referenced in those images "belongs to their respective owners" |
+| Takedown | Copyright policy with a **DMCA notice** process; on a notice it takes "whatever action it thinks is appropriate", which may include removing the content; **repeat infringers' accounts are disabled/terminated** |
+| Restrictions on users | No transferring, aggregating, mirroring, caching, archiving or **re-hosting** content (including via scraping tools) elsewhere; no selling, licensing or exploiting content commercially |
+| AI | The Acceptable Use Policy prohibits using automated tools/AI to create derivative works from platform content or to **train, test, index, benchmark or improve** AI/ML models |
+| API/MCP | For personal/internal use; no resale; no creating competing services or building "a standalone content repository or service that substitutes for Mobbin" |
+| Access model | Content is shown inside an account/paywall product (plans in the earlier conversation research); copy/download exists for paid users |
+| Not found | Whether Mobbin has **licenses or permission** from app owners — the pages I saw rely on notice-and-takedown language and an ownership disclaimer, and do not say |
+
+**What this means for us:** "Mobbin does it" is **not a legal defense** — we do not know their legal basis, jurisdiction, or agreements, and size does not prove permission. The *practices* worth mirroring are: a clear ownership disclaimer, a copyright/DMCA process, a repeat-infringer policy, terms that forbid re-hosting/scraping/AI training/competing repositories, and account-gated access. These are captured as decisions F-41…F-44 in [20](20-founder-decisions-and-plan-validation.md). Counsel still decides whether our plan is acceptable (E5).
+
+**Also a rule for us:** Mobbin's terms forbid scraping and building a competing repository from its content, so **we never collect from Mobbin or other competitor design libraries** (F-41). The earlier competitor feature inventory used public marketing/help pages for research only.
+
 ## Data handling rules (stated)
 
 - Raw evidence immutable; derived regenerable; raw vs. derived vs. AI-generated vs. human-verified are distinct classes.
