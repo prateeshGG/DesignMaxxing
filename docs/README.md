@@ -77,7 +77,7 @@ Status markers used everywhere:
 | 20 | [Founder decisions and plan validation](20-founder-decisions-and-plan-validation.md) | Decisions on the open questions (`F-xx`), plan validation, scale posture, experiments, stage gates, risk register. **Overrides 01–19 where they conflict** |
 | 21 | [Parts hierarchy](21-parts-hierarchy.md) | Stage 1 of the [breakdown protocol](process/project-breakdown-protocol.md): ordered Groups → Parts |
 | 22 | [Data collection resilience architecture](22-data-collection-resilience-architecture.md) | Never-stuck collection: supervised bounded execution, strategy ladder, publishability gate (no unusable data to users), self-healing, torture suite. Decisions `DC-01…DC-13` |
-| 23 | [Scrapling evaluation and collection gap analysis](23-scrapling-evaluation-and-collection-gap-analysis.md) | Verified review of Scrapling (not adopted as core; rules for any use), honest list of unsolved collection problems, added decisions `SC-01…05`, `DC-14…18` |
+| 23 | [Scrapling evaluation and collection gap analysis](23-scrapling-evaluation-and-collection-gap-analysis.md) | Verified review of Scrapling (not adopted as core; rules for any use), honest list of unsolved collection problems, added decisions `SC-01…05`, `DC-14…19` |
 
 ## Cross-document dependency map
 
