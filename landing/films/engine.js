@@ -152,6 +152,58 @@
     cur.ring.style.opacity = r > 0 && r < 1 ? (1 - r) * 0.9 : 0; cur.ring.style.transform = 'scale(' + (0.3 + r * 1.2) + ')';
   };
 
+  /* ---------- springs, keyframe tracks and a virtual camera ---------- */
+  /* damped spring from 0 to 1 over normalised time p (overshoots once, then settles) */
+  F.spring = function (p, bounce) {
+    p = F.clamp(p); if (p >= 1) return 1;
+    var z = bounce === undefined ? 0.42 : bounce, w = 9.5;
+    return 1 - Math.exp(-w * z * p * 1.6) * Math.cos(w * Math.sqrt(1 - z * z) * p * 1.6) * (1 - p * 0.02);
+  };
+  F.sp = function (t, a, b, bounce) { return F.spring(F.seg(t, a, b), bounce); };
+  /* keys: [[time, value, easeName], ...]; the ease of a key shapes the move that ends on it */
+  F.track = function (t, keys) {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (var i = 1; i < keys.length; i++) {
+      if (t <= keys[i][0]) {
+        var a = keys[i - 1], b = keys[i], p = F.seg(t, a[0], b[0]), k = b[2] || 'inOut';
+        var v = k === 'spring' ? F.spring(p) : k === 'linear' ? p : F.ease[k](p);
+        if (Array.isArray(a[1])) return a[1].map(function (x, j) { return F.lerp(x, b[1][j], v); });
+        return F.lerp(a[1], b[1], v);
+      }
+    }
+    return keys[keys.length - 1][1];
+  };
+  /* camera: world is a big plane; cam = [x, y, scale] is the world point at the centre of the frame */
+  F.camera = function (world, cam, blurNode, prev) {
+    world.style.transform = 'translate(' + (F.W / 2 - cam[0] * cam[2]) + 'px,' + (F.H / 2 - cam[1] * cam[2]) + 'px) scale(' + cam[2] + ')';
+    if (blurNode && prev) {
+      /* screen-space speed in px per frame; only fast moves (whips) blur, slow camera tours stay sharp */
+      var dx = Math.abs(cam[0] - prev[0]) * cam[2], dy = Math.abs(cam[1] - prev[1]) * cam[2];
+      var bx = Math.min(22, Math.max(0, dx - 48) * 0.3), by = Math.min(22, Math.max(0, dy - 48) * 0.3);
+      /* the filter sits on the scaled world, so convert screen pixels back to world units */
+      blurNode.setAttribute('stdDeviation', (bx / cam[2]).toFixed(2) + ' ' + (by / cam[2]).toFixed(2));
+      world.style.filter = (bx > 0.4 || by > 0.4) ? 'url(#mblur)' : 'none';
+    }
+  };
+  F.motionBlurFilter = function () {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.style.position = 'absolute';
+    svg.innerHTML = "<filter id='mblur' x='-10%' y='-10%' width='120%' height='120%'><feGaussianBlur id='mblur-g' stdDeviation='0 0'/></filter>";
+    document.body.appendChild(svg); return svg.querySelector('#mblur-g');
+  };
+  /* masked line reveal: wrapper clips, inner slides up */
+  F.maskLine = function (parent, text, cls, css) {
+    var w = F.el(parent, 'div', 'mask flow ' + (cls || ''), (css || '') + ';overflow:hidden;white-space:nowrap');
+    var i = F.el(w, 'div', 'mask-in', 'position:relative;display:block'); i.innerHTML = text; return { w: w, i: i };
+  };
+  F.reveal = function (m, p, outP) {
+    var y = (1 - F.ease.outExpo(F.clamp(p))) * 110 - F.ease.inOut(F.clamp(outP || 0)) * 110;
+    m.i.style.transform = 'translateY(' + y + '%)';
+  };
+  /* sheen: a soft light band sweeping across an element */
+  F.sheen = function (parent) { return F.el(parent, 'div', 'sheen', 'left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:4;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:250% 100%;opacity:0'); };
+  F.sweep = function (el, p) { el.style.opacity = p > 0 && p < 1 ? 1 : 0; el.style.backgroundPosition = (120 - p * 140) + '% 0'; };
+
   /* ---------- boot: wait for fonts and images, then expose seek ---------- */
   F.boot = function (duration, render) {
     window.DURATION = duration;

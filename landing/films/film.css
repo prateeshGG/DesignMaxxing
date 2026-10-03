@@ -1,5 +1,10 @@
 /* Shared look for all films (see style-guide.md). */
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=block");
+/* Fonts are local files: headless Chromium in the sandbox cannot load Google Fonts (proxy certificate), so renders silently fell back to system fonts. */
+@font-face { font-family: "Geist"; src: url(fonts/Geist-Variable.woff2) format("woff2"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "Geist Mono"; src: url(fonts/GeistMono-Variable.woff2) format("woff2"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "Bricolage Grotesque"; src: url(fonts/Bricolage-Variable.woff2) format("woff2"); font-weight: 200 800; font-display: block; }
+@font-face { font-family: "Instrument Serif"; src: url(fonts/InstrumentSerif.woff2) format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Instrument Serif"; src: url(fonts/InstrumentSerif-Italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
 :root {
   --ink: #0a0b0d; --ink-2: #3c4046; --ink-3: #6b7077;
   --cream: #faf8f3; --lime: #dcf36b; --lime-soft: #eef5cf; --lilac: #ece8ff; --lilac-ink: #6b5bd6; --peach: #ffeadb; --peach-ink: #e07a3f;
