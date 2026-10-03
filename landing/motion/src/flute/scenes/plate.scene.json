@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "id": "plate",
+  "title": "Plating a page",
+  "description": "The sections of one real page settle into place.",
+  "definition": {
+    "width": 1280,
+    "height": 800,
+    "scene": {
+      "version": 3,
+      "camera": {
+        "perspective": 1700,
+        "rotateY": -18,
+        "rotateX": 8,
+        "x": -180,
+        "y": -60,
+        "z": 140
+      },
+      "focus": {
+        "distance": 1560,
+        "fStop": 3.2,
+        "maxBlur": 8
+      },
+      "nodes": [
+        {
+          "id": "page"
+        },
+        {
+          "id": "part-0",
+          "parentId": "page"
+        },
+        {
+          "id": "part-1",
+          "parentId": "page"
+        },
+        {
+          "id": "part-2",
+          "parentId": "page"
+        },
+        {
+          "id": "part-3",
+          "parentId": "page"
+        },
+        {
+          "id": "part-4",
+          "parentId": "page"
+        },
+        {
+          "id": "part-5",
+          "parentId": "page"
+        },
+        {
+          "id": "part-6",
+          "parentId": "page"
+        }
+      ]
+    },
+    "motion": {
+      "durationMs": 14000,
+      "speed": 1,
+      "tracks": [
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-0"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 700
+            },
+            {
+              "timeMs": 2600,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 12600,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-0"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 0
+            },
+            {
+              "timeMs": 1500,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 12600,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-1"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 450,
+              "value": 700
+            },
+            {
+              "timeMs": 3050,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 12700,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-1"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 450,
+              "value": 0
+            },
+            {
+              "timeMs": 1950,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 12700,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-2"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 900,
+              "value": 700
+            },
+            {
+              "timeMs": 3500,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 12800,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-2"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 900,
+              "value": 0
+            },
+            {
+              "timeMs": 2400,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 12800,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-3"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 1350,
+              "value": 700
+            },
+            {
+              "timeMs": 3950,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 12900,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-3"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 1350,
+              "value": 0
+            },
+            {
+              "timeMs": 2850,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 12900,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-4"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 1800,
+              "value": 700
+            },
+            {
+              "timeMs": 4400,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 13000,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-4"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 1800,
+              "value": 0
+            },
+            {
+              "timeMs": 3300,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 13000,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-5"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 2250,
+              "value": 700
+            },
+            {
+              "timeMs": 4850,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 13100,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-5"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 2250,
+              "value": 0
+            },
+            {
+              "timeMs": 3750,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 13100,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-6"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 2700,
+              "value": 700
+            },
+            {
+              "timeMs": 5300,
+              "value": 0
+            },
+            {
+              "timeMs": 10200,
+              "value": 0
+            },
+            {
+              "timeMs": 13200,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "part-6"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 2700,
+              "value": 0
+            },
+            {
+              "timeMs": 4200,
+              "value": 1
+            },
+            {
+              "timeMs": 10600,
+              "value": 1
+            },
+            {
+              "timeMs": 13200,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "y",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": -60
+            },
+            {
+              "timeMs": 7000,
+              "value": 478.4
+            },
+            {
+              "timeMs": 14000,
+              "value": -60
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

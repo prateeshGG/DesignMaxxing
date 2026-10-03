@@ -1,0 +1,779 @@
+<title>DesignMaxxing Landing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* v3. Light and editorial. Content is real sections from real sites (the founder's reference captures).
+   Motion comes from pre-rendered videos (Flute scenes and a looping wireframe-conveyor background) plus one
+   scroll-driven story that is cheap to run: no canvases, no blur filters, layout is measured once.
+   Waitlist demo rules (docs/20 F-44): few sites, each attributed, non-affiliation line, no logos as customers.
+   The page says what the product does for the visitor, never how the library is collected. */
+:root {
+  color-scheme: light;
+  --paper: #fff; --ink: #0a0b0d; --ink-2: #3c4046; --ink-3: #6b7077; --line: #e7e8ea; --tile: #f6f6f4;
+  --blue: #2f55ff; --lime: #dcf36b; --navy: #06111d; --r: 12px;
+  --font-display: "Bricolage Grotesque", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --wrap: 1280px; --gutter: 24px; --hh: 68px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+img, video { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.mono { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.tag { display: inline-flex; align-items: center; padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: 500 11.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -.035em; text-wrap: balance; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 44px; padding: 0 20px; border: 0; border-radius: var(--r); background: var(--ink); color: #fff; font: 500 15px/1 var(--font-body); cursor: pointer; transition: background .15s, transform .15s; }
+.btn:hover { background: #22252a; }
+.btn.sm { height: 40px; padding: 0 16px; font-size: 14px; }
+.btn.lime { background: var(--lime); color: var(--ink); } .btn.lime:hover { background: #e7f78f; }
+.textlink { font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+/* ---------- header: brand left, Index + waitlist right; the Index opens a visual contents panel ---------- */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 70; height: var(--hh); background: rgba(255,255,255,.97); border-bottom: 1px solid var(--line); }
+.hd { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font: 600 18px/1 var(--font-display); letter-spacing: -.03em; }
+.brand svg { width: 26px; height: 26px; }
+.hd-r { display: flex; align-items: center; gap: 8px; }
+.idx-btn { height: 40px; padding: 0 14px; border: 1px solid var(--ink); border-radius: var(--r); background: #fff; display: inline-flex; align-items: center; gap: 10px; font: 500 14px/1 var(--font-body); cursor: pointer; }
+.idx-btn:hover { background: var(--tile); }
+.idx-btn i { display: grid; gap: 4px; width: 16px; }
+.idx-btn i b { display: block; height: 1.5px; background: currentColor; transition: transform .25s; }
+.idx-btn[aria-expanded="true"] i b:first-child { transform: translateY(2.75px) rotate(45deg); }
+.idx-btn[aria-expanded="true"] i b:last-child { transform: translateY(-2.75px) rotate(-45deg); }
+.idx { position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 30px 60px rgba(10,11,13,.08); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .2s, transform .2s, visibility .2s; }
+.idx.open { opacity: 1; visibility: visible; transform: none; }
+.idx-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: 56px; padding-block: 28px 44px; }
+.idx ol { list-style: none; margin: 0; padding: 0; }
+.idx li a { display: flex; align-items: baseline; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--line); font: 600 clamp(1.8rem, 3.2vw, 2.9rem)/1.05 var(--font-display); letter-spacing: -.04em; transition: color .15s, padding .2s; }
+.idx li a span { font: 400 12px/1 var(--font-mono); color: var(--ink-3); letter-spacing: .06em; }
+.idx li a:hover, .idx li a:focus-visible { color: var(--blue); padding-left: 10px; }
+.idx-prev { position: relative; aspect-ratio: 16 / 10; border-radius: var(--r); overflow: hidden; background: var(--tile); border: 1px solid var(--line); align-self: start; }
+.idx-prev img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; opacity: 0; transition: opacity .25s; }
+.idx-prev img.on { opacity: 1; }
+
+/* ---------- hero: a looping conveyor of wireframe sections (original artwork, pre-rendered) ---------- */
+main { position: relative; }
+.hero { position: relative; overflow: hidden; isolation: isolate; text-align: center; padding-block: clamp(64px, 9vw, 120px) clamp(72px, 9vw, 130px); background: #fff; }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
+.hero .tag { margin-bottom: 26px; }
+.hero h1 { font-size: clamp(2.6rem, 5.8vw + .4rem, 5.4rem); line-height: .98; max-width: 13em; margin-inline: auto; letter-spacing: -.045em; }
+.hero .lead { margin: 26px auto 0; max-width: 40em; font-size: clamp(1.02rem, .5vw + .9rem, 1.2rem); color: var(--ink-2); }
+.wl { margin: 34px auto 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; max-width: 540px; text-align: left; border-radius: var(--r); box-shadow: 0 14px 40px rgba(10,11,13,.08); }
+.wl input { min-width: 0; height: 52px; padding: 0 18px; border: 1px solid var(--ink); border-right: 0; border-radius: var(--r) 0 0 var(--r); background: #fff; color: var(--ink); font: 400 16px/1 var(--font-body); }
+.wl input::placeholder { color: var(--ink-3); }
+.wl .btn { height: 52px; border-radius: 0 var(--r) var(--r) 0; }
+.wl-note { grid-column: 1 / -1; margin: 14px 0 0; font-size: 13px; color: var(--ink-3); text-align: center; }
+.wl-msg { grid-column: 1 / -1; margin: 10px 0 0; font-size: 14px; text-align: center; }
+.wl-msg.ok { color: #14803f; } .wl-msg.err { color: #c6361f; }
+.hero-links { margin-top: 16px; }
+
+/* showreel */
+.reel { padding-block: 0 clamp(56px, 7vw, 96px); }
+.reel-frame { position: relative; border-radius: 22px; overflow: hidden; background: #000; aspect-ratio: 16 / 8; }
+.reel-frame video { width: 100%; height: 100%; object-fit: cover; }
+.reel-cap { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; }
+
+/* ---------- scroll story ---------- */
+.how { height: 600vh; background: #fff; border-block: 1px solid var(--line); }
+.how-in { position: sticky; top: var(--hh); height: calc(100vh - var(--hh)); height: calc(100svh - var(--hh)); min-height: 580px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.how-t { padding: clamp(24px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; gap: 30px; border-right: 1px solid var(--line); background: #fff; position: relative; z-index: 3; }
+.how-steps { position: relative; min-height: 290px; }
+.hs { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(14px); transition: opacity .4s, transform .4s; pointer-events: none; }
+.hs.on { opacity: 1; transform: none; pointer-events: auto; }
+.hs .num { font: 500 12px/1 var(--font-mono); letter-spacing: .1em; color: var(--blue); }
+.hs h2 { margin: 14px 0 16px; font-size: clamp(2.4rem, 3.6vw + .6rem, 4.2rem); line-height: .98; letter-spacing: -.045em; }
+.hs p { margin: 0 0 20px; color: var(--ink-2); font-size: 18px; max-width: 28em; }
+.chips2 { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips2 span { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border: 1px solid var(--ink); border-radius: 999px; font-size: 14px; background: #fff; }
+.how-rail { display: flex; align-items: center; gap: 8px; }
+.how-rail i { flex: 1; max-width: 72px; height: 3px; background: var(--line); position: relative; border-radius: 2px; overflow: hidden; }
+.how-rail i b { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
+.how-rail .mono { margin-left: 8px; }
+.cam { position: relative; overflow: hidden; background: var(--tile); isolation: isolate; }
+.cam::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 45% at 88% 10%, rgba(220,243,107,.6), transparent 70%), radial-gradient(55% 50% at 6% 96%, rgba(47,85,255,.16), transparent 70%); }
+.cam-src { position: absolute; left: 16px; bottom: 10px; z-index: 5; margin: 0; max-width: calc(100% - 32px); font-size: 10.5px; }
+.lay { position: absolute; inset: 0; display: grid; place-items: center; }
+/* A: browse */
+.aw { width: var(--wa, 720px); }
+.bframe { background: #fff; border: 1px solid var(--ink); border-radius: var(--r); overflow: hidden; box-shadow: 0 30px 70px rgba(10,11,13,.16); }
+.bbar { display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-bottom: 1px solid var(--line); background: #fafafa; }
+.bbar > i { width: 8px; height: 8px; border-radius: 50%; background: #d9dbde; }
+.bbar .url { margin-left: 10px; padding: 3px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 400 11.5px/1.3 var(--font-mono); color: var(--ink-3); }
+.bview { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #fff; }
+.stack img { width: 100%; height: auto; }
+.stack { will-change: transform; }
+/* B: isolate (brackets, not lines) */
+.cutcol { width: var(--wb, 360px); }
+.cs { position: relative; margin-bottom: var(--gap, 3px); }
+.cs img { width: 100%; height: auto; border: 1px solid var(--line); background: #fff; border-radius: 6px; }
+.cs .br { position: absolute; left: -16px; top: 0; bottom: 0; width: 11px; border: 2px solid var(--blue); border-right: 0; border-radius: 8px 0 0 8px; transform: scaleY(var(--cl, 0)); transform-origin: 50% 50%; }
+.cs .lb { position: absolute; right: calc(100% + 26px); top: 50%; transform: translateY(-50%); padding: 6px 10px; border-radius: 999px; background: var(--blue); color: #fff; font: 500 10.5px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; opacity: var(--cl, 0); white-space: nowrap; }
+.cs .tg { position: absolute; left: calc(100% + 18px); top: 50%; transform: translateY(-50%); display: grid; gap: 4px; opacity: var(--tgo, 0); white-space: nowrap; }
+.cs .tg span { font: 400 11px/1 var(--font-mono); letter-spacing: .04em; color: var(--ink-2); padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; background: #fff; justify-self: start; }
+/* C: search */
+.libw { width: var(--wl, 640px); display: grid; gap: 14px; }
+.sbar { display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 16px; border: 1px solid var(--ink); border-radius: var(--r); background: #fff; font-size: 16px; box-shadow: 0 10px 30px rgba(10,11,13,.08); }
+.sbar svg { width: 18px; height: 18px; flex: none; color: var(--ink-3); }
+.sbar .q { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; }
+.sbar .q::after { content: ""; display: inline-block; width: 1px; height: 18px; background: var(--blue); margin-left: 2px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+.sbar .cnt { flex: none; font: 500 11px/1 var(--font-mono); letter-spacing: .06em; color: var(--ink-3); text-transform: uppercase; }
+@keyframes blink { 50% { opacity: 0; } }
+.lib { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.lc { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; position: relative; }
+.lc img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; background: var(--tile); }
+.lc figcaption { padding: 7px 10px; border-top: 1px solid var(--line); }
+.lc::after { content: ""; position: absolute; inset: 0; border-radius: 8px; box-shadow: inset 0 0 0 2px var(--blue); opacity: var(--hit, 0); pointer-events: none; }
+/* D: study */
+.dw { width: var(--wd, 640px); display: grid; gap: 12px; }
+.dframe { position: relative; border: 1px solid var(--ink); border-radius: var(--r); overflow: hidden; background: #fff; box-shadow: 0 30px 70px rgba(10,11,13,.16); }
+.dframe img { width: 100%; height: auto; }
+.dot { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--blue); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(10,11,13,.3); opacity: var(--o, 0); transform: scale(var(--s, .4)); }
+.dot::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 2px solid var(--blue); opacity: .45; animation: ping 1.8s ease-out infinite; }
+@keyframes ping { from { transform: scale(.6); opacity: .6; } to { transform: scale(1.5); opacity: 0; } }
+.dlab { position: absolute; transform: translate(14px, -50%); padding: 6px 10px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 10.5px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; opacity: var(--o, 0); }
+.dmeta { display: flex; flex-wrap: wrap; gap: 8px; }
+.dmeta span { padding: 6px 12px; border: 1px solid var(--ink); border-radius: 999px; background: #fff; font: 500 11.5px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.dmeta span.src { background: var(--lime); border-color: var(--lime); }
+
+/* ---------- section scaffolding ---------- */
+.pad { padding-block: clamp(72px, 10vw, 140px); }
+.center { text-align: center; }
+.sec-title { font-size: clamp(2rem, 3.4vw + .5rem, 3.4rem); line-height: 1; letter-spacing: -.04em; max-width: 14em; margin: 18px auto 0; }
+
+/* tiles */
+.tiles { margin-top: clamp(36px, 5vw, 56px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; text-align: left; }
+.tile { background: var(--tile); padding: 12px 12px 16px; border-radius: 16px; transition: background .2s, transform .25s; }
+.tile:hover { background: #eef0ea; transform: translateY(-3px); }
+.th { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.th > img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .6s cubic-bezier(.2,.8,.2,1); transform-origin: 0 0; }
+.tile:hover .th > img { transform: scale(1.08); }
+.th.strips { display: grid; align-content: center; gap: 10px; padding: 12px; background: var(--tile); }
+.th.strips img { width: 100%; height: auto; border: 1px solid var(--line); background: #fff; border-radius: 4px; }
+.tile h3 { margin: 14px 4px 2px; font-size: 17px; letter-spacing: -.02em; font-weight: 600; }
+.tile p { margin: 0 4px; font-size: 14px; color: var(--ink-3); }
+.tile .src { display: block; margin: 8px 4px 0; font-size: 10.5px; }
+
+/* examples */
+.rows { display: grid; gap: clamp(64px, 9vw, 120px); margin-top: clamp(40px, 6vw, 72px); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 80px); align-items: stretch; }
+.row.flip .row-t { order: 2; }
+.row-t { display: flex; flex-direction: column; justify-content: space-between; gap: 36px; min-width: 0; padding-block: 8px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.pill { display: inline-flex; align-items: center; height: 30px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 500; background: var(--lime); }
+.pill.pk { background: #ffe0ec; } .pill.ol { background: #fff; border: 1px solid var(--ink); }
+.row-t h3 { font-size: clamp(1.7rem, 2.2vw + .6rem, 2.5rem); line-height: 1.04; letter-spacing: -.035em; max-width: 13em; }
+.row-t p { margin: 16px 0 0; color: var(--ink-2); max-width: 30em; }
+.facts { list-style: none; margin: 22px 0 0; padding: 0; max-width: 30em; border-top: 1px solid var(--line); counter-reset: f; }
+.facts li { counter-increment: f; display: flex; align-items: baseline; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; font-weight: 500; }
+.facts li::before { content: "0" counter(f); font: 400 11px/1 var(--font-mono); color: var(--ink-3); letter-spacing: .06em; }
+.row-t .textlink { display: inline-block; margin-top: 22px; }
+.row-meta { border-top: 1px solid var(--line); padding-top: 14px; }
+.vid { position: relative; min-width: 0; display: grid; align-content: start; gap: 12px; }
+.vframe { border-radius: 18px; overflow: hidden; background: #000; aspect-ratio: 16 / 10; box-shadow: 0 24px 60px rgba(10,11,13,.16); }
+.vframe video { width: 100%; height: 100%; object-fit: cover; }
+.vcap { display: flex; justify-content: space-between; gap: 12px; }
+
+/* principles band */
+.band { background: var(--lime); }
+.band .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-block: clamp(56px, 8vw, 104px); }
+.band p { margin: 14px 0 0; font: 600 clamp(1.5rem, 1.8vw + .8rem, 2.2rem)/1.08 var(--font-display); letter-spacing: -.035em; }
+.band .mono { color: rgba(10,11,13,.65); }
+
+/* roadmap */
+.timeline { margin-top: clamp(36px, 5vw, 56px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step { border-top: 1px solid var(--ink); padding-top: 18px; min-width: 0; }
+.step .mono { display: flex; align-items: center; gap: 8px; }
+.step .mono::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--line); border: 1px solid var(--ink-3); }
+.step.now .mono::before { background: var(--blue); border-color: var(--blue); }
+.step h3 { margin: 14px 0 8px; font-size: 20px; letter-spacing: -.03em; }
+.step p { margin: 0; color: var(--ink-2); font-size: 15.5px; max-width: 26em; }
+.fine { margin: 32px 0 0; font-size: 13px; color: var(--ink-3); }
+
+/* ---------- FAQ: pick a question, read the answer on a large card ---------- */
+.faq { background: var(--tile); border-radius: 28px; padding: clamp(24px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 56px); }
+.faq-l { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.faq-l h2 { font-size: clamp(2.2rem, 3.4vw + .5rem, 3.6rem); line-height: .98; letter-spacing: -.045em; }
+.tabs { display: grid; gap: 8px; margin-top: 8px; }
+.tabs button { text-align: left; padding: 14px 18px; border: 1px solid transparent; border-radius: 14px; background: transparent; font: 500 17px/1.3 var(--font-body); cursor: pointer; transition: background .2s, border-color .2s; }
+.tabs button:hover { background: rgba(255,255,255,.7); }
+.tabs button[aria-selected="true"] { background: #fff; border-color: var(--ink); font-weight: 600; }
+.ans { position: relative; background: #fff; border-radius: 22px; padding: clamp(22px, 3vw, 40px); min-height: 440px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-width: 0; }
+.ans-main { display: grid; gap: 18px; align-content: start; }
+.ans-q { font: 500 12px/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.ans-a { margin: 0; font: 500 clamp(1.5rem, 1.6vw + 1rem, 2.2rem)/1.18 var(--font-display); letter-spacing: -.03em; max-width: 22em; transition: opacity .25s, transform .25s; }
+.ans-a.sw { opacity: 0; transform: translateY(8px); }
+.log { display: grid; gap: 10px; max-height: 220px; overflow: auto; }
+.sug { display: flex; flex-wrap: wrap; gap: 8px; }
+.sug button { height: 32px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 14px; cursor: pointer; }
+.sug button:hover { background: var(--lime); border-color: var(--lime); }
+.ask { display: flex; align-items: center; gap: 12px; height: 58px; padding: 0 7px 0 20px; background: var(--tile); border: 1px solid var(--ink); border-radius: 16px; }
+.ask label { flex: none; color: var(--ink-3); font-size: 16px; }
+.ask input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: 400 17px/1 var(--font-body); }
+.ask input::placeholder { color: var(--ink-3); }
+.ask:focus-within { box-shadow: 0 0 0 3px rgba(47,85,255,.25); }
+.ask button { flex: none; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--ink); color: #fff; font-size: 20px; cursor: pointer; }
+.ask button:hover { background: #22252a; }
+.msg { max-width: 38em; font-size: 16px; line-height: 1.5; }
+.msg.u { justify-self: end; padding: 10px 14px; background: var(--ink); color: #fff; border-radius: 14px 14px 4px 14px; }
+.msg.a { padding: 12px 14px; background: var(--tile); border-radius: 14px 14px 14px 4px; }
+.msg.a .mono { display: block; margin-bottom: 6px; }
+.note { margin: 10px 0 0; font: 400 12px/1.4 var(--font-mono); color: var(--ink-3); }
+
+/* ---------- closing: a search bar for an email address, over a cinematic page assembling ---------- */
+.closing { position: relative; overflow: hidden; isolation: isolate; background: #000; color: #fff; text-align: center; }
+.closing video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: .55; }
+.closing::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 55% at 50% 50%, rgba(0,0,0,.78), rgba(0,0,0,.35) 100%); }
+.closing .wrap { padding-block: clamp(110px, 15vw, 200px); }
+.closing .tag { background: transparent; border-color: rgba(255,255,255,.35); color: #dfe6f0; margin-bottom: 26px; }
+.closing h2 { font-size: clamp(2.6rem, 5.4vw + .5rem, 5.6rem); line-height: .96; max-width: 11em; margin-inline: auto; letter-spacing: -.05em; }
+.closing .lead { margin: 22px auto 0; max-width: 32em; color: #c5d0e0; }
+.finder { margin: 38px auto 0; max-width: 640px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; height: 68px; padding: 0 8px 0 22px; background: #fff; color: var(--ink); border-radius: 18px; text-align: left; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+.finder svg { width: 20px; height: 20px; color: var(--ink-3); }
+.finder input { min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: 400 17px/1 var(--font-body); }
+.finder input::placeholder { color: var(--ink-3); }
+.finder .btn { height: 52px; border-radius: 12px; }
+.closing .wl-note { color: #9fb0c8; text-align: center; }
+.closing .wl-msg.ok { color: #6be39c; } .closing .wl-msg.err { color: #ff9a8a; }
+.fwrap { max-width: 640px; margin-inline: auto; }
+
+/* ---------- footer: big links, then the small print ---------- */
+.foot { background: #fff; padding-block: clamp(56px, 8vw, 110px) 36px; }
+.foot-top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); }
+.foot-l p { margin: 18px 0 0; font: 600 clamp(1.5rem, 1.7vw + 1rem, 2.2rem)/1.1 var(--font-display); letter-spacing: -.035em; max-width: 14em; }
+.foot-links { list-style: none; margin: 0; padding: 0; }
+.foot-links a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font: 600 clamp(1.7rem, 3vw, 2.6rem)/1.05 var(--font-display); letter-spacing: -.04em; transition: color .15s, padding .2s; }
+.foot-links a:first-child { border-top: 1px solid var(--line); }
+.foot-links li:first-child a { border-top: 1px solid var(--line); }
+.foot-links a span { font: 400 12px/1 var(--font-mono); color: var(--ink-3); letter-spacing: .06em; }
+.foot-links a:hover { color: var(--blue); padding-left: 10px; }
+.foot-bot { margin-top: clamp(40px, 6vw, 80px); padding-top: 22px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; }
+.foot-legal { margin: 0; color: var(--ink-3); font-size: 13px; max-width: 78ch; }
+.foot-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.foot-mini { display: flex; flex-wrap: wrap; gap: 14px 22px; font-size: 14px; color: var(--ink-2); }
+.soon::after { content: "soon"; margin-left: 8px; font: 500 10px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--ink-3); padding: 3px 6px; border-radius: 999px; color: var(--ink-3); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .idx-in { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: 8px 24px; }
+  .idx-prev { display: none; }
+  .how { height: 560vh; }
+  .how-in { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .how-t { border-right: 0; border-bottom: 1px solid var(--line); gap: 14px; padding: 18px var(--gutter) 14px; justify-content: flex-start; }
+  .how-steps { min-height: 150px; }
+  .hs h2 { font-size: 2rem; margin: 8px 0 8px; }
+  .hs p { font-size: 15px; margin-bottom: 0; }
+  .hs .chips2 { display: none; }
+  .cs .tg { display: none; }
+  .cs .lb { right: auto; left: 10px; top: 10px; transform: none; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .row, .row.flip { grid-template-columns: minmax(0, 1fr); }
+  .row.flip .row-t { order: 0; }
+  .band .wrap { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr 1fr; }
+  .faq { grid-template-columns: minmax(0, 1fr); }
+  .tabs { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; padding-bottom: 4px; }
+  .tabs button { white-space: nowrap; border-color: var(--line); background: #fff; }
+  .foot-top { grid-template-columns: minmax(0, 1fr); }
+  .foot-bot { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  :root { --gutter: 20px; }
+  .hd { gap: 8px; }
+  .site-header .btn { padding-inline: 12px; font-size: 13px; white-space: nowrap; }
+  .idx-btn { padding: 0 11px; font-size: 13px; gap: 8px; }
+  .brand { font-size: 16px; gap: 8px; }
+  .brand svg { width: 22px; height: 22px; }
+  .tag { font-size: 10.5px; letter-spacing: .06em; text-align: center; line-height: 1.45; border-radius: 16px; }
+  .wl { grid-template-columns: 1fr; box-shadow: none; }
+  .wl input { border-right: 1px solid var(--ink); border-bottom: 0; border-radius: var(--r) var(--r) 0 0; }
+  .wl .btn { border-radius: 0 0 var(--r) var(--r); width: 100%; }
+  .reel-frame { aspect-ratio: 4 / 3; border-radius: 16px; }
+  .tiles { gap: 8px; }
+  .tile p { display: none; }
+  .timeline { grid-template-columns: 1fr; }
+  .lib { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .lc:nth-child(n+7) { display: none; }
+  .lc figcaption { display: none; }
+  .ans { min-height: 0; }
+  .ask label { display: none; }
+  .finder { grid-template-columns: minmax(0, 1fr); height: auto; padding: 8px; gap: 8px; }
+  .finder svg { display: none; }
+  .finder input { height: 52px; padding: 0 12px; }
+  .finder .btn { width: 100%; }
+}
+.how.static { height: auto; }
+.how.static .how-in { position: static; height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+.how.static .how-t { border-right: 0; }
+.how.static .hs { position: static; opacity: 1; transform: none; margin-bottom: 28px; }
+.how.static .hs .chips2 { display: flex; }
+.how.static .how-steps { min-height: 0; }
+.how.static .how-rail { display: none; }
+.how.static .cam { height: 560px; }
+.how.static .lay.a, .how.static .lay.b, .how.static .lay.d { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<header class="site-header">
+  <div class="wrap hd">
+    <a class="brand" href="#top" aria-label="DesignMaxxing home">
+      <svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="1" y="3" width="24" height="6" rx="1.5" fill="currentColor"/><rect x="5" y="10.5" width="20" height="6" rx="1.5" fill="#2f55ff"/><rect x="1" y="18" width="14" height="6" rx="1.5" fill="currentColor"/></svg>
+      DesignMaxxing
+    </a>
+    <div class="hd-r">
+      <a class="btn sm" href="#waitlist">Join waitlist</a>
+      <button class="idx-btn" id="idx-btn" type="button" aria-expanded="false" aria-controls="idx">Index <i aria-hidden="true"><b></b><b></b></i></button>
+    </div>
+  </div>
+  <div class="idx" id="idx" aria-label="Index">
+    <div class="wrap idx-in">
+      <ol>
+        <li><a href="#how" data-prev="0"><span>01</span>How it works</a></li>
+        <li><a href="#tiles" data-prev="1"><span>02</span>What you can search</a></li>
+        <li><a href="#find" data-prev="2"><span>03</span>Examples</a></li>
+        <li><a href="#faq" data-prev="3"><span>04</span>Questions</a></li>
+        <li><a href="#join" data-prev="4"><span>05</span>Join the waitlist</a></li>
+      </ol>
+      <div class="idx-prev" aria-hidden="true">
+        <img class="on" src="img/p-bento1.webp" alt="">
+        <img src="img/stripe-bento1.webp" alt="">
+        <img src="img/linear-hero.webp" alt="">
+        <img src="img/studio-case.webp" alt="">
+        <img src="img/stripe-hero.webp" alt="">
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="waitlist">
+    <video class="hero-bg" id="hero-bg" muted loop playsinline autoplay preload="auto" aria-hidden="true"></video>
+    <div class="wrap">
+      <p class="tag">Waitlist open · Early access in small batches</p>
+      <h1>Find the exact section, not the whole website.</h1>
+      <p class="lead">DesignMaxxing is a library of real website design, organised into heroes, feature grids, stats and more that you can search and study.</p>
+      <form class="wl" id="wl-hero" novalidate>
+        <label class="sr" for="email-hero">Email address</label>
+        <input id="email-hero" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+        <button class="btn" type="submit">Join the waitlist <span aria-hidden="true">→</span></button>
+        <p class="wl-note">We email you once, when it is your turn.</p>
+        <p class="wl-msg" role="status" aria-live="polite" hidden></p>
+      </form>
+      <div class="hero-links"><a class="textlink" href="#how">See how it works</a></div>
+    </div>
+  </section>
+
+  <section class="reel wrap" aria-label="A wall of real sections">
+    <div class="reel-frame"><video data-play muted loop playsinline preload="metadata" src="video/wall.mp4" aria-label="A slow camera move across a wall of real website sections"></video></div>
+    <div class="reel-cap"><span class="mono">Real sections from real sites</span><span class="mono">stripe.com · linear.app · studio site</span></div>
+  </section>
+
+  <section class="how" id="how" aria-label="How it works">
+    <div class="how-in">
+      <div class="how-t">
+        <p class="tag" style="align-self:flex-start">How it works</p>
+        <div class="how-steps">
+          <article class="hs on"><span class="num">01</span><h2>Browse</h2><p>Start from real sites. Scroll any page the way a visitor sees it, then keep only the part you came for.</p><div class="chips2"><span>Real sites</span><span>Desktop and phone</span><span>Source linked</span></div></article>
+          <article class="hs"><span class="num">02</span><h2>Isolate</h2><p>Every page is broken into its parts. A hero, a feature grid, a row of stats: each one tagged so you can find it again.</p><div class="chips2"><span>Section type</span><span>Theme</span><span>Viewport</span></div></article>
+          <article class="hs"><span class="num">03</span><h2>Search</h2><p>Describe what you need in plain words. You get that exact section, not the whole site.</p><div class="chips2"><span>Plain-language search</span><span>Filters</span><span>Many sites at once</span></div></article>
+          <article class="hs"><span class="num">04</span><h2>Study</h2><p>Open a section and look closer. See what makes it work, then jump to the live site it came from.</p><div class="chips2"><span>Zoom in</span><span>Compare</span><span>Source link</span></div></article>
+        </div>
+        <div class="how-rail" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><span class="mono" id="how-count">01 / 04</span></div>
+      </div>
+      <div class="cam" id="cam">
+        <div class="lay a" id="layA">
+          <div class="aw" id="aw">
+            <div class="bframe">
+              <div class="bbar"><i></i><i></i><i></i><span class="url">stripe.com</span></div>
+              <div class="bview" id="bv">
+                <div class="stack" id="stk">
+                  <img src="img/stripe-hero.webp" alt="Stripe homepage hero with a colourful ribbon" width="1280" height="541">
+                  <img src="img/stripe-logos.webp" alt="Customer logo row" width="1280" height="47">
+                  <img src="img/p-bento1.webp" alt="Stripe feature cards for payments and billing" width="1280" height="575">
+                  <img src="img/p-bento2.webp" alt="Stripe feature cards for agentic commerce, cards and stablecoins" width="1280" height="462">
+                  <img src="img/p-banner.webp" alt="Stripe Sessions video banner" width="1280" height="373">
+                  <img src="img/p-stats.webp" alt="Stripe statistics row" width="1280" height="313">
+                  <img src="img/p-burst.webp" alt="Stripe animated line burst graphic" width="1280" height="347">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lay b" id="layB">
+          <div class="cutcol" id="cc">
+            <div class="cs"><span class="br"></span><span class="lb">Hero</span><img src="img/stripe-hero.webp" alt="Hero section"><div class="tg"><span>hero</span><span>light</span><span>desktop</span></div></div>
+            <div class="cs opt"><span class="br"></span><span class="lb">Logo row</span><img src="img/stripe-logos.webp" alt="Logo row section"><div class="tg"><span>logo row</span><span>light</span><span>desktop</span></div></div>
+            <div class="cs"><span class="br"></span><span class="lb">Feature grid</span><img src="img/p-bento1.webp" alt="Feature grid section"><div class="tg"><span>feature grid</span><span>gradient</span><span>desktop</span></div></div>
+            <div class="cs opt"><span class="br"></span><span class="lb">Video banner</span><img src="img/p-banner.webp" alt="Video banner section"><div class="tg"><span>video banner</span><span>dark</span><span>desktop</span></div></div>
+            <div class="cs"><span class="br"></span><span class="lb">Stats</span><img src="img/p-stats.webp" alt="Statistics section"><div class="tg"><span>stats</span><span>light</span><span>desktop</span></div></div>
+          </div>
+        </div>
+        <div class="lay c" id="layC">
+          <div class="libw" id="lw">
+            <div class="sbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="q" id="q2"></span><span class="cnt" id="cnt">9 sections</span></div>
+            <div class="lib" id="lib">
+              <figure class="lc" data-hit="1"><img src="img/stripe-hero.webp" alt="Stripe hero"><figcaption class="mono">Hero · stripe.com</figcaption></figure>
+              <figure class="lc" data-hit="1"><img src="img/linear-hero.webp" alt="Linear hero"><figcaption class="mono">Hero · linear.app</figcaption></figure>
+              <figure class="lc" data-hit="1"><img src="img/studio-hero.webp" alt="Design studio hero"><figcaption class="mono">Hero · studio site</figcaption></figure>
+              <figure class="lc"><img src="img/stripe-bento1.webp" alt="Stripe feature grid"><figcaption class="mono">Features · stripe.com</figcaption></figure>
+              <figure class="lc"><img src="img/stripe-stats.webp" alt="Stripe stats"><figcaption class="mono">Stats · stripe.com</figcaption></figure>
+              <figure class="lc"><img src="img/linear-changelog.webp" alt="Linear changelog timeline"><figcaption class="mono">Timeline · linear.app</figcaption></figure>
+              <figure class="lc"><img src="img/stripe-banner.webp" alt="Stripe video banner"><figcaption class="mono">Banner · stripe.com</figcaption></figure>
+              <figure class="lc"><img src="img/studio-case.webp" alt="Design studio case study row"><figcaption class="mono">Case study · studio site</figcaption></figure>
+              <figure class="lc"><img src="img/linear-testimonials.webp" alt="Linear testimonial cards"><figcaption class="mono">Quotes · linear.app</figcaption></figure>
+            </div>
+          </div>
+        </div>
+        <div class="lay d" id="layD">
+          <div class="dw" id="dw">
+            <div class="dframe">
+              <img src="img/stripe-hero.webp" alt="Stripe hero, opened for a closer look" width="1280" height="541">
+              <i class="dot" style="left:47%;top:43%"></i><span class="dlab" style="left:47%;top:43%">Headline</span>
+              <i class="dot" style="left:77%;top:26%"></i><span class="dlab" style="left:77%;top:26%;transform:translate(-110%,-50%)">Gradient art</span>
+              <i class="dot" style="left:28%;top:74%"></i><span class="dlab" style="left:28%;top:74%">One call to action</span>
+            </div>
+            <div class="dmeta"><span>Hero</span><span>Light</span><span>Desktop</span><span class="src">Source: stripe.com</span></div>
+          </div>
+        </div>
+        <p class="cam-src mono">Sections shown are from stripe.com, linear.app and a design studio site. Property of their owners.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad wrap center" id="tiles">
+    <p class="tag">What you can search</p>
+    <h2 class="sec-title">Every page, broken down into parts you can reuse as reference.</h2>
+    <div class="tiles">
+      <div class="tile"><div class="th"><img src="img/stripe-hero.webp" alt="Hero section example" width="1280" height="541"></div><h3>Hero</h3><p>Headlines, art and first impressions.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th strips"><img src="img/stripe-nav.webp" alt="Navigation bar example" width="1100" height="67"><img src="img/linear-nav.webp" alt="Navigation bar example" width="1280" height="43"><img src="img/studio-nav.webp" alt="Navigation bar example" width="1280" height="67"></div><h3>Navigation</h3><p>Menus and header patterns.</p><span class="mono src">stripe.com · linear.app · studio site</span></div>
+      <div class="tile"><div class="th strips"><img src="img/stripe-logos.webp" alt="Logo row example" width="1280" height="47"><img src="img/linear-logos.webp" alt="Logo row example" width="1280" height="53"><img src="img/studio-logos.webp" alt="Logo tiles example" width="1100" height="242"></div><h3>Logo rows</h3><p>Proof strips and customer grids.</p><span class="mono src">stripe.com · linear.app · studio site</span></div>
+      <div class="tile"><div class="th"><img src="img/stripe-bento1.webp" alt="Feature grid example" width="1100" height="750"></div><h3>Feature grids</h3><p>Cards, bento layouts and product UI.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th"><img src="img/stripe-stats.webp" alt="Statistics row example" width="1100" height="396"></div><h3>Stats</h3><p>Big numbers and proof points.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th"><img src="img/linear-testimonials.webp" alt="Testimonial cards example" width="1280" height="267"></div><h3>Testimonials</h3><p>Quotes, people and proof.</p><span class="mono src">linear.app</span></div>
+      <div class="tile"><div class="th"><img src="img/studio-case.webp" alt="Case study row example" width="1100" height="389"></div><h3>Case studies</h3><p>Result-led rows with media.</p><span class="mono src">studio site</span></div>
+      <div class="tile"><div class="th"><img src="img/linear-cta.webp" alt="Closing call to action example" width="1280" height="213"></div><h3>Closing calls</h3><p>Final sections and sign-ups.</p><span class="mono src">linear.app</span></div>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="find" style="padding-top:0">
+    <div class="center"><p class="tag">What you will find</p><h2 class="sec-title">Study the design in motion, not just in a frozen screenshot.</h2></div>
+    <div class="rows">
+      <article class="row">
+        <div class="row-t">
+          <div>
+            <div class="pills"><span class="pill">Section</span><span class="pill ol">Desktop</span></div>
+            <h3>Compare heroes, side by side.</h3>
+            <p>Put the opening screens of different sites next to each other and look closely at what makes them work: headline scale, imagery, and the single call to action.</p>
+            <ul class="facts"><li>Pick any section type</li><li>Zoom into the detail</li><li>Jump to the live source</li></ul>
+            <a class="textlink" href="#waitlist">Get early access</a>
+          </div>
+          <div class="row-meta mono">Section · Hero · 3 sources linked</div>
+        </div>
+        <div class="vid">
+          <div class="vframe"><video data-play muted loop playsinline preload="metadata" src="video/compare-heroes.mp4" aria-label="A slow camera move across three real hero sections"></video></div>
+          <div class="vcap mono"><span>Preview</span><span>Source: stripe.com · linear.app · studio site</span></div>
+        </div>
+      </article>
+
+      <article class="row flip">
+        <div class="row-t">
+          <div>
+            <div class="pills"><span class="pill pk">Motion</span><span class="pill">Desktop</span><span class="pill ol">Next</span></div>
+            <h3>Study the motion, not just the frame.</h3>
+            <p>Scroll-driven pages and animated graphics lose everything in a still image. Library entries will carry short recordings of how a section moves.</p>
+            <ul class="facts"><li>Recordings as the page scrolls</li><li>Hover and scroll states</li><li>Animated graphics, kept moving</li></ul>
+            <a class="textlink" href="#waitlist">Get early access</a>
+          </div>
+          <div class="row-meta mono">Motion · Whole page · Source linked</div>
+        </div>
+        <div class="vid">
+          <div class="vframe"><video data-play muted loop playsinline preload="metadata" src="video/page-recording.mp4" aria-label="A camera travelling down a real page"></video></div>
+          <div class="vcap mono"><span>Preview</span><span>Source: stripe.com</span></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="row-t">
+          <div>
+            <div class="pills"><span class="pill">Section</span><span class="pill ol">Mobile</span></div>
+            <h3>Phone and desktop, together.</h3>
+            <p>Every page comes in a desktop and a phone size, so you can see how a layout changes instead of guessing.</p>
+            <ul class="facts"><li>Desktop and mobile versions</li><li>Menus, open and closed (planned)</li><li>Tablet sizes after that</li></ul>
+            <a class="textlink" href="#waitlist">Get early access</a>
+          </div>
+          <div class="row-meta mono">Mobile · Source linked</div>
+        </div>
+        <div class="vid">
+          <div class="vframe"><video data-play muted loop playsinline preload="metadata" src="video/phones.mp4" aria-label="Three real mobile sections settling into place"></video></div>
+          <div class="vcap mono"><span>Preview</span><span>Source: linear.app</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div><span class="mono">Credit</span><p>Every section links back to the site it came from.</p></div>
+      <div><span class="mono">Control</span><p>Site owners will be able to ask us to take a section down.</p></div>
+      <div><span class="mono">Care</span><p>Only clean, complete sections make it into the library.</p></div>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="roadmap">
+    <p class="tag">Roadmap</p>
+    <h2 class="sec-title" style="margin-left:0">Sections first. The rest in order.</h2>
+    <div class="timeline">
+      <div class="step now"><span class="mono">Now</span><h3>Sections</h3><p>Searchable sections from public marketing sites, starting with software and developer products.</p></div>
+      <div class="step"><span class="mono">Next</span><h3>Components and states</h3><p>Menus, tabs and toggles in their open states, tablet sizes and motion.</p></div>
+      <div class="step"><span class="mono">Later</span><h3>Flows and apps</h3><p>Sign-up and checkout flows, and mobile apps.</p></div>
+      <div class="step"><span class="mono">Later</span><h3>Research</h3><p>Compare sites, spot patterns and ask questions across the library.</p></div>
+    </div>
+    <p class="fine">Plans can change. Early access members see each step first.</p>
+  </section>
+
+  <section class="pad wrap" id="faq" style="padding-top:0">
+    <div class="faq">
+      <div class="faq-l">
+        <p class="tag" style="align-self:flex-start">Questions</p>
+        <h2>Questions, answered.</h2>
+        <div class="tabs" role="tablist" aria-label="Questions" id="tabs"></div>
+      </div>
+      <div class="ans" role="tabpanel" id="ans" aria-live="polite">
+        <div class="ans-main"><span class="ans-q" id="ans-q"></span><p class="ans-a" id="ans-a"></p></div>
+        <div>
+          <div class="log" id="log"></div>
+          <div class="sug" id="sug" style="margin-block:12px"></div>
+          <form class="ask" id="ask" autocomplete="off">
+            <label for="ask-in">Ask anything else:</label>
+            <input id="ask-in" type="text" maxlength="160" placeholder="How much will it cost?">
+            <button type="submit" aria-label="Send question">→</button>
+          </form>
+          <p class="note">Automated answers drawn from this page’s questions. Not a live assistant.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" id="join">
+    <video data-play muted loop playsinline preload="metadata" src="video/plate.mp4" aria-hidden="true"></video>
+    <div class="wrap">
+      <p class="tag">Early access</p>
+      <h2>Stop screenshotting. Start finding.</h2>
+      <p class="lead">Join the waitlist and tell us what you look for. Early members help decide what we build first.</p>
+      <form id="wl-foot" class="wl-f" novalidate>
+        <div class="finder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+          <label class="sr" for="email-foot">Email address</label>
+          <input id="email-foot" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+          <button class="btn lime" type="submit">Join the waitlist <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="fwrap"><p class="wl-note">We email you once, when it is your turn.</p><p class="wl-msg" role="status" aria-live="polite" hidden></p></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-l">
+        <a class="brand" href="#top"><svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="1" y="3" width="24" height="6" rx="1.5" fill="currentColor"/><rect x="5" y="10.5" width="20" height="6" rx="1.5" fill="#2f55ff"/><rect x="1" y="18" width="14" height="6" rx="1.5" fill="currentColor"/></svg>DesignMaxxing</a>
+        <p>Real website design, organised so you can find the exact section.</p>
+      </div>
+      <ul class="foot-links">
+        <li><a href="#how">How it works<span>01</span></a></li>
+        <li><a href="#find">Examples<span>02</span></a></li>
+        <li><a href="#roadmap">Roadmap<span>03</span></a></li>
+        <li><a href="#faq">Questions<span>04</span></a></li>
+      </ul>
+    </div>
+    <div class="foot-bot">
+      <p class="foot-legal">© 2026 DesignMaxxing. Sections shown on this page are from <a href="https://stripe.com" rel="noopener">stripe.com</a>, <a href="https://linear.app" rel="noopener">linear.app</a> and a design studio site (name to be confirmed). They belong to their respective owners. DesignMaxxing is not affiliated with or endorsed by the sites shown.</p>
+      <div class="foot-mini"><span class="soon">Privacy</span><span class="soon">Terms</span><span class="soon">Copyright</span><span class="soon">Contact</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function w(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+  function ease(t) { return t * t * (3 - 2 * t); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  /* ---------- videos: hero loop picks a size; everything plays only while visible ---------- */
+  var hb = $('#hero-bg'), narrowHero = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
+  hb.src = narrowHero ? 'video/hero-tall.mp4' : 'video/hero-wide.mp4';
+  hb.setAttribute('data-play', '');
+  var vids = $$('video[data-play]');
+  if (reduce) { vids.forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); }); }
+  else if ('IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (en) {
+      en.forEach(function (e) { var v = e.target; if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); });
+    }, { threshold: 0.15 });
+    vids.forEach(function (v) { vio.observe(v); });
+  } else { vids.forEach(function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }); }
+
+  /* ---------- index panel ---------- */
+  var ib = $('#idx-btn'), ip = $('#idx'), prevs = $$('.idx-prev img');
+  function setIdx(o) { ip.classList.toggle('open', o); ib.setAttribute('aria-expanded', String(o)); }
+  ib.addEventListener('click', function (e) { e.stopPropagation(); setIdx(!ip.classList.contains('open')); });
+  ip.addEventListener('click', function (e) { if (e.target.closest('a')) setIdx(false); e.stopPropagation(); });
+  document.addEventListener('click', function () { setIdx(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setIdx(false); });
+  function showPrev(i) { prevs.forEach(function (im, k) { im.classList.toggle('on', k === i); }); }
+  $$('.idx li a').forEach(function (a) {
+    var i = +a.getAttribute('data-prev'); a.addEventListener('mouseenter', function () { showPrev(i); }); a.addEventListener('focus', function () { showPrev(i); });
+  });
+
+  /* ---------- sticky scroll story (layout measured once, then only transforms/opacity) ---------- */
+  var how = $('#how'), cam = $('#cam'), layA = $('#layA'), layB = $('#layB'), layC = $('#layC'), layD = $('#layD');
+  var stk = $('#stk'), bv = $('#bv'), aw = $('#aw'), cc = $('#cc'), css = $$('.cs', cc), lib = $$('.lc', $('#lib')), qEl = $('#q2'), cnt = $('#cnt');
+  var dots = $$('.dot', layD), dlabs = $$('.dlab', layD), dw = $('#dw');
+  var steps = $$('.hs', how), rails = $$('.how-rail i b', how), countEl = $('#how-count');
+  var QUERY = 'hero sections', camW = 0, camH = 0, range = 0, narrow = false, lastIdx = -1, howTop = 0, total = 1, hh = 68, lastCnt = '';
+  function measure() {
+    camW = cam.clientWidth; camH = cam.clientHeight; narrow = camW < 600;
+    hh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh')) || 68;
+    var wa = Math.max(240, Math.min(camW - 48, 760, (camH - 90) / .625));
+    cam.style.setProperty('--wa', wa + 'px');
+    var short = camH < 560, nseg = short ? 3 : 5, ratio = short ? 1.117 : 1.445;
+    css.forEach(function (c) { if (c.classList.contains('opt')) c.style.display = short ? 'none' : ''; });
+    var wb = Math.max(150, Math.min(camW - (narrow ? 70 : 330), 440, (camH - 70 - nseg * 22) / ratio));
+    cam.style.setProperty('--wb', wb + 'px');
+    var cols = narrow ? 2 : 3, rows = 3, cardH = (camH - 130 - (rows - 1) * 10) / rows;
+    cam.style.setProperty('--wl', Math.max(220, Math.min(camW - 40, 720, cardH * 1.6 * cols + (cols - 1) * 12)) + 'px');
+    cam.style.setProperty('--wd', Math.max(240, Math.min(camW - 40, 700, (camH - 110) / .423)) + 'px');
+    range = Math.max(0, stk.offsetHeight - bv.clientHeight);
+    var inner = how.firstElementChild.offsetHeight;
+    howTop = how.getBoundingClientRect().top + window.pageYOffset; total = Math.max(1, how.offsetHeight - inner);
+  }
+  function setLayer(el, o, s) { el.style.opacity = o.toFixed(3); el.style.visibility = o < .01 ? 'hidden' : 'visible'; el.style.transform = 'scale(' + s.toFixed(3) + ')'; }
+  function update(p) {
+    var idx = p < .25 ? 0 : p < .5 ? 1 : p < .75 ? 2 : 3;
+    if (idx !== lastIdx) { steps.forEach(function (s, k) { s.classList.toggle('on', k === idx); }); countEl.textContent = '0' + (idx + 1) + ' / 04'; lastIdx = idx; }
+    rails.forEach(function (b, k) { b.style.transform = 'scaleX(' + w(p, k * .25, (k + 1) * .25).toFixed(3) + ')'; });
+    /* A: browse */
+    var cap = ease(w(p, .02, .22)), aExit = ease(w(p, .24, .30));
+    stk.style.transform = 'translate3d(0,' + (-range * cap).toFixed(1) + 'px,0)';
+    setLayer(layA, 1 - aExit, 1 - .14 * aExit);
+    /* B: isolate */
+    var bIn = ease(w(p, .24, .32)), bOut = ease(w(p, .47, .53));
+    setLayer(layB, ease(w(p, .24, .30)) * (1 - bOut), (1.2 - .2 * bIn) * (1 - .28 * bOut));
+    cc.style.setProperty('--gap', (3 + 21 * ease(w(p, .30, .40))).toFixed(1) + 'px');
+    var vis = css.filter(function (c) { return c.style.display !== 'none'; });
+    vis.forEach(function (c, k) { c.style.setProperty('--cl', ease(w(p, .32 + k * .016, .38 + k * .016)).toFixed(3)); c.style.setProperty('--tgo', ease(w(p, .40 + k * .01, .45 + k * .01)).toFixed(3)); });
+    /* C: search */
+    var cOut = ease(w(p, .74, .79));
+    setLayer(layC, ease(w(p, .48, .54)) * (1 - cOut), 1 - .1 * cOut);
+    var f = ease(w(p, .68, .73));
+    lib.forEach(function (c, k) {
+      var t = ease(w(p, .50 + k * .006, .58 + k * .006)), hit = c.getAttribute('data-hit') === '1';
+      c.style.opacity = (t * (hit ? 1 : lerp(1, .14, f))).toFixed(3);
+      c.style.transform = 'translate3d(0,' + ((1 - t) * 28).toFixed(1) + 'px,0) scale(' + (lerp(.96, 1, t) * (hit ? 1 + .025 * f : 1)).toFixed(3) + ')';
+      c.style.setProperty('--hit', hit ? f.toFixed(3) : 0);
+    });
+    qEl.textContent = QUERY.slice(0, Math.round(QUERY.length * w(p, .58, .67)));
+    var ct = f > .5 ? (narrow ? '3 of 9' : '3 of 9 sections · 3 sites') : (narrow ? '9' : '9 sections');
+    if (ct !== lastCnt) { cnt.textContent = ct; lastCnt = ct; }
+    /* D: study */
+    var dIn = ease(w(p, .74, .82));
+    setLayer(layD, dIn, .86 + .14 * dIn);
+    dots.forEach(function (d, k) { var o = ease(w(p, .82 + k * .035, .87 + k * .035)); d.style.setProperty('--o', o.toFixed(3)); d.style.setProperty('--s', (.4 + .6 * o).toFixed(3)); dlabs[k].style.setProperty('--o', o.toFixed(3)); });
+  }
+  var pend = false, lastP = -1;
+  function tick() { pend = false; var p = clamp((window.pageYOffset - (howTop - hh)) / total, 0, 1); if (Math.abs(p - lastP) > .0002) { lastP = p; update(p); } }
+  function req() { if (!pend) { pend = true; requestAnimationFrame(tick); } }
+  function remeasure() { measure(); lastP = -1; req(); }
+  if (reduce) {
+    how.classList.add('static'); measure(); update(1); steps.forEach(function (s) { s.classList.add('on'); });
+    window.addEventListener('resize', function () { measure(); update(1); });
+  } else {
+    measure(); update(0); lastP = 0; req();
+    window.addEventListener('scroll', req, { passive: true });
+    window.addEventListener('resize', remeasure);
+    window.addEventListener('load', remeasure);
+    if (window.ResizeObserver) { new ResizeObserver(remeasure).observe(cam); new ResizeObserver(remeasure).observe(document.body); }
+    $$('img', stk).forEach(function (im) { im.addEventListener('load', remeasure); });
+  }
+
+  /* ---------- FAQ: tabs and answer card ---------- */
+  var FAQ = [
+    ['What is DesignMaxxing?', 'A searchable library of real website designs, organised into sections so you can find the exact reference you need.'],
+    ['Which sites come first?', 'Public marketing websites, starting with software and developer products. Apps and flows come later.'],
+    ['What will it cost?', 'Pricing is not decided yet. Waitlist members will hear first and can tell us what feels fair.'],
+    ['When can I get in?', 'Early access opens in small batches. Join the waitlist and we will email you when it is your turn.'],
+    ['Can a site ask to be removed?', 'Yes. Every section links to the site it came from, and site owners will be able to ask us to take a section down.']
+  ];
+  var tabs = $('#tabs'), aq = $('#ans-q'), aa = $('#ans-a'), cur = 0;
+  FAQ.forEach(function (f, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.id = 'tab' + i; b.textContent = f[0]; b.setAttribute('aria-selected', String(i === 0));
+    b.addEventListener('click', function () { pick(i); }); tabs.appendChild(b);
+  });
+  function pick(i) {
+    cur = i; $$('button', tabs).forEach(function (b, k) { b.setAttribute('aria-selected', String(k === i)); });
+    aa.classList.add('sw');
+    setTimeout(function () { aq.textContent = FAQ[i][0]; aa.textContent = FAQ[i][1]; aa.classList.remove('sw'); }, reduce ? 0 : 200);
+  }
+  aq.textContent = FAQ[0][0]; aa.textContent = FAQ[0][1];
+
+  /* ask box (scripted: answers only from our own questions; no AI call) */
+  // TODO: a live assistant needs a backend with rate limits, a cost cap and answers restricted to our own docs.
+  var KB = [
+    [['cost','price','pricing','pay','free','plan','subscription'], FAQ[2][1]],
+    [['when','access','invite','launch','date','soon','batch','get in'], FAQ[3][1]],
+    [['mobile','phone','responsive','desktop','tablet','breakpoint'], 'Every page comes in a desktop and a phone size, so you can compare how the layout adapts. Tablet sizes come next.'],
+    [['app','ios','android','flow','checkout','signup'], 'Public marketing websites come first, starting with software and developer products. Apps and flows are on the roadmap.'],
+    [['site','which','cover','website','brand','company','companies'], FAQ[1][1]],
+    [['remove','takedown','report','dmca','copyright','legal','permission','allowed','source','attribution'], FAQ[4][1]],
+    [['api','mcp','figma','export','integrat'], 'Not yet. Integrations such as an API or Figma come after the core library.'],
+    [['section','search','find','how','work','what is'], 'Each page is organised into sections such as hero, features and stats. You search for the section you need and get that section, not the whole site.']
+  ];
+  var FALLBACK = 'I do not have a good answer to that yet. Join the waitlist and tell us what you need; early members help decide what we build.';
+  var log = $('#log'), sug = $('#sug');
+  function bubble(cls, text, label) {
+    var d = document.createElement('div'); d.className = 'msg ' + cls;
+    if (label) { var l = document.createElement('span'); l.className = 'mono'; l.textContent = label; d.appendChild(l); }
+    d.appendChild(document.createTextNode(text)); log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
+  }
+  function answerFor(q) {
+    var s = q.toLowerCase();
+    for (var i = 0; i < KB.length; i++) { for (var k = 0; k < KB[i][0].length; k++) { if (s.indexOf(KB[i][0][k]) !== -1) return KB[i][1]; } }
+    return FALLBACK;
+  }
+  function send(q) {
+    q = q.trim(); if (!q) return;
+    bubble('u', q);
+    var a = bubble('a', reduce ? answerFor(q) : '…', 'DesignMaxxing');
+    if (!reduce) setTimeout(function () { a.lastChild.nodeValue = answerFor(q); log.scrollTop = log.scrollHeight; }, 520);
+  }
+  ['When can I get in?', 'Which sites come first?', 'What will it cost?'].forEach(function (q) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = q; b.addEventListener('click', function () { send(q); }); sug.appendChild(b);
+  });
+  $('#ask').addEventListener('submit', function (e) { e.preventDefault(); var i = $('#ask-in'); var v = i.value; i.value = ''; send(v); });
+
+  /* ---------- waitlist forms ---------- */
+  // Prototype: the waitlist forms do not send or store anything yet.
+  // TODO(Part 8.1): POST the address to the waitlist endpoint and handle duplicate/error responses.
+  ['#wl-hero', '#wl-foot'].forEach(function (sel) {
+    var form = $(sel), input = $('input[type="email"]', form), msg = $('.wl-msg', form);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); msg.hidden = false; msg.className = 'wl-msg';
+      if (!input.value.trim() || !input.checkValidity()) { msg.classList.add('err'); msg.textContent = 'Enter a valid email address, like name@company.com.'; input.focus(); return; }
+      msg.classList.add('ok'); msg.textContent = 'You are on the list. We will email you when early access opens.'; input.value = '';
+    });
+  });
+})();
+</script>

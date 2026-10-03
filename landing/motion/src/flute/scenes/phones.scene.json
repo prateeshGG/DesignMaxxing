@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "id": "phones",
+  "title": "Phone and desktop",
+  "description": "Three real mobile sections settle into place.",
+  "definition": {
+    "width": 1280,
+    "height": 800,
+    "scene": {
+      "version": 3,
+      "camera": {
+        "perspective": 1700,
+        "rotateY": -16,
+        "rotateX": 8,
+        "x": -110,
+        "y": -40,
+        "z": 60
+      },
+      "focus": {
+        "distance": 1500,
+        "fStop": 3.4,
+        "maxBlur": 8
+      },
+      "nodes": [
+        {
+          "id": "stage"
+        },
+        {
+          "id": "phone-0",
+          "parentId": "stage"
+        },
+        {
+          "id": "phone-1",
+          "parentId": "stage"
+        },
+        {
+          "id": "phone-2",
+          "parentId": "stage"
+        }
+      ]
+    },
+    "motion": {
+      "durationMs": 12000,
+      "speed": 1,
+      "tracks": [
+        {
+          "target": {
+            "kind": "surface",
+            "id": "phone-0"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 700
+            },
+            {
+              "timeMs": 2600,
+              "value": 0
+            },
+            {
+              "timeMs": 8600,
+              "value": 0
+            },
+            {
+              "timeMs": 11200,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "phone-0"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 0
+            },
+            {
+              "timeMs": 1400,
+              "value": 1
+            },
+            {
+              "timeMs": 9000,
+              "value": 1
+            },
+            {
+              "timeMs": 11200,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "phone-1"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 500,
+              "value": 700
+            },
+            {
+              "timeMs": 3100,
+              "value": 0
+            },
+            {
+              "timeMs": 8800,
+              "value": 0
+            },
+            {
+              "timeMs": 11400,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "phone-1"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 500,
+              "value": 0
+            },
+            {
+              "timeMs": 1900,
+              "value": 1
+            },
+            {
+              "timeMs": 9200,
+              "value": 1
+            },
+            {
+              "timeMs": 11400,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "phone-2"
+          },
+          "property": "z",
+          "keyframes": [
+            {
+              "timeMs": 1000,
+              "value": 700
+            },
+            {
+              "timeMs": 3600,
+              "value": 0
+            },
+            {
+              "timeMs": 9000,
+              "value": 0
+            },
+            {
+              "timeMs": 11600,
+              "value": 700
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "surface",
+            "id": "phone-2"
+          },
+          "property": "opacity",
+          "keyframes": [
+            {
+              "timeMs": 1000,
+              "value": 0
+            },
+            {
+              "timeMs": 2400,
+              "value": 1
+            },
+            {
+              "timeMs": 9400,
+              "value": 1
+            },
+            {
+              "timeMs": 11600,
+              "value": 0
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "x",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": -60
+            },
+            {
+              "timeMs": 12000,
+              "value": 60
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

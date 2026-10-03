@@ -155,6 +155,21 @@ Redesign is "near perfect", but: footer and the CTA above it look bad; FAQ looks
 - **FAQ:** two columns with numbered rows, a gradient line panel, and the ask box in a bordered panel with suggestion chips always visible. The ask box is still **scripted** (keyword match over the FAQ); it is not an AI.
 - **Mobile:** the story stays sticky, with text on top and the scene below; the phone frames use a 10px radius and larger screens.
 
+## Founder feedback on v2 and v3 decisions
+
+Feedback on v2: the page lagged (hero background included); it explained how the library is collected (do not); the search scene is good; the "cut" marker lines should be something like an arrow but not an arrow; "what the heck is check"; use a different word for "cut"; build the example animations with the Flute repo; the nav and the square markers were copied from a reference and must be original; redesign how-it-works, the closing call to action, the footer, the nav and the FAQ; "what you will find" is near perfect, only the video animation is missing.
+
+**Rule from this feedback: the public page never describes how the library is collected** (no mention of capture, automated browsers, robots.txt, request rate, quality gates or scores). It only says what the product does for the visitor and the credit/removal policy.
+
+v3 decisions:
+- **Performance:** no canvases and no blur filters. Motion is pre-rendered video (played only while visible) plus one scroll story that measures layout once and then animates only transforms and opacity. The header no longer uses a backdrop blur.
+- **Videos:** hero background = a seamless loop of a conveyor of wireframe sections (original artwork). Examples and the showreel = Flute scenes (compare-heroes, page-recording, phones, wall); the closing section uses the `plate` scene. See `motion/README.md`.
+- **How it works** is now four steps: Browse, Isolate, Search (kept as the founder liked it), Study (zoom into one section with hotspots and a source link). "Isolate" marks each section with a bracket and a label instead of cut lines.
+- **Originality:** no centred-logo nav with side links and no square markers. The header is brand left, a waitlist button and an **Index** button that opens a contents panel with big links and live previews of real sections. Eyebrows are plain pills, list markers are numbers or circles, corners are rounded.
+- **FAQ:** pick a question on the left, read the answer on a large card, ask your own below (still a scripted answer box, not AI).
+- **Closing section:** a search-bar-shaped email field over the `plate` video. **Footer:** big links, then the small print and attribution.
+- Wording: "cut" is no longer used on the page ("broken down", "isolate").
+
 ## Waiting for
 
 More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.

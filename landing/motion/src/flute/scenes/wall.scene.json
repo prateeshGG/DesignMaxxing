@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "id": "wall",
+  "title": "Wall of sections",
+  "description": "A wall of real sections, surveyed diagonally.",
+  "definition": {
+    "width": 1280,
+    "height": 800,
+    "scene": {
+      "version": 3,
+      "camera": {
+        "perspective": 1600,
+        "rotateY": -20,
+        "rotateX": 14,
+        "x": 200,
+        "y": 100,
+        "z": 160
+      },
+      "focus": {
+        "distance": 1400,
+        "fStop": 2.8,
+        "maxBlur": 10
+      },
+      "nodes": [
+        {
+          "id": "wall"
+        },
+        {
+          "id": "tile-0",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-1",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-2",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-3",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-4",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-5",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-6",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-7",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-8",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-9",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-10",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-11",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-12",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-13",
+          "parentId": "wall"
+        },
+        {
+          "id": "tile-14",
+          "parentId": "wall"
+        }
+      ]
+    },
+    "motion": {
+      "durationMs": 16000,
+      "speed": 1,
+      "tracks": [
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "x",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 200
+            },
+            {
+              "timeMs": 8000,
+              "value": 1260
+            },
+            {
+              "timeMs": 16000,
+              "value": 200
+            }
+          ]
+        },
+        {
+          "target": {
+            "kind": "camera"
+          },
+          "property": "y",
+          "keyframes": [
+            {
+              "timeMs": 0,
+              "value": 40
+            },
+            {
+              "timeMs": 8000,
+              "value": 355
+            },
+            {
+              "timeMs": 16000,
+              "value": 40
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
