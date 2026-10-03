@@ -36,12 +36,22 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; lett
 .btn.lime { background: var(--lime); color: var(--ink); } .btn.lime:hover { background: #e7f78f; }
 .textlink { font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 
-/* ---------- header: brand left, Index + waitlist right; the Index opens a visual contents panel ---------- */
-.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 70; height: var(--hh); background: rgba(255,255,255,.97); border-bottom: 1px solid var(--line); }
-.hd { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font: 600 18px/1 var(--font-display); letter-spacing: -.03em; }
-.brand svg { width: 26px; height: 26px; }
+/* ---------- header: a floating bar. Brand left; status, waitlist and Index right. The Index panel is unchanged ---------- */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 70; height: var(--hh); display: flex; align-items: center; padding-inline: var(--gutter); background: linear-gradient(#fff 55%, rgba(255,255,255,0)); }
+.hd { width: 100%; max-width: calc(var(--wrap) - 2 * var(--gutter)); margin-inline: auto; height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-inline: 10px 8px; border: 1px solid rgba(47,85,255,.12); border-radius: 16px; background: rgba(255,255,255,.92); box-shadow: 0 1px 2px rgba(10,11,13,.04), 0 8px 24px rgba(47,85,255,.08); }
+.brand { display: inline-flex; align-items: center; gap: 10px; padding: 6px; border-radius: 10px; font: 650 18px/1 var(--font-display); letter-spacing: -.035em; }
+.brand b { font-weight: 650; color: var(--blue); }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.brand .lift { transition: transform .35s cubic-bezier(.2,.8,.2,1.2); }
+.brand:hover .lift { transform: translate(3px, -2px); }
 .hd-r { display: flex; align-items: center; gap: 8px; }
+.hd-status { display: inline-flex; align-items: center; gap: 8px; margin-right: 6px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.hd-status i { width: 7px; height: 7px; border-radius: 50%; background: #2bbf6a; box-shadow: 0 0 0 4px rgba(43,191,106,.15); }
+.btn-cta { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px 0 16px; border-radius: var(--r); background: linear-gradient(180deg, #4b6dff, #2f55ff); color: #fff; font: 550 14px/1 var(--font-body); box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 1px 2px rgba(10,11,13,.12), 0 6px 16px rgba(47,85,255,.28); transition: box-shadow .2s, transform .2s; }
+.btn-cta:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 1px 2px rgba(10,11,13,.12), 0 10px 24px rgba(47,85,255,.36); transform: translateY(-1px); }
+.btn-cta .ar { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 7px; background: rgba(255,255,255,.18); transition: transform .2s; }
+.btn-cta:hover .ar { transform: translateX(2px); }
+.btn-cta .l-short { display: none; }
 .idx-btn { height: 40px; padding: 0 14px; border: 1px solid var(--ink); border-radius: var(--r); background: #fff; display: inline-flex; align-items: center; gap: 10px; font: 500 14px/1 var(--font-body); cursor: pointer; }
 .idx-btn:hover { background: var(--tile); }
 .idx-btn i { display: grid; gap: 4px; width: 16px; }
@@ -206,6 +216,9 @@ main { position: relative; }
 .vframe.shots.three img:nth-child(1) { left: 5%; top: 7%; }
 .vframe.shots.three img:nth-child(2) { left: 18%; top: 22%; }
 .vframe.shots.three img:nth-child(3) { left: 31%; top: 37%; }
+.vframe.shots.three img { cursor: pointer; transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+.vframe.shots.three img.front { z-index: 4; transform: translateY(-8px) scale(1.03); box-shadow: 0 2px 4px rgba(10,11,13,.06), 0 24px 50px rgba(30,40,90,.22); }
+.vframe.shots.three img:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 .vframe.shots.phones { grid-template-columns: repeat(3, auto); justify-content: center; gap: 14px; }
 .vframe.shots.phones img { height: 100%; width: auto; aspect-ratio: .52; max-height: 100%; object-fit: contain; object-position: top; background: #08090a; border-radius: 18px; min-height: 0; }
 .vcap { display: flex; justify-content: space-between; gap: 12px; }
@@ -316,7 +329,12 @@ main { position: relative; }
 @media (max-width: 700px) {
   :root { --gutter: 20px; }
   .hd { gap: 8px; }
-  .site-header .btn { padding-inline: 12px; font-size: 13px; white-space: nowrap; }
+  .btn-cta { padding: 0 12px; font-size: 13px; white-space: nowrap; }
+  .btn-cta .ar, .btn-cta .l-full { display: none; }
+  .btn-cta .l-short { display: inline; }
+  .brand { gap: 8px; padding: 4px; }
+  .brand span { font-size: 15px; }
+  .hd { padding-inline: 6px 6px; gap: 8px; }
   .idx-btn { padding: 0 11px; font-size: 13px; gap: 8px; }
   .brand { font-size: 16px; gap: 8px; }
   .brand svg { width: 22px; height: 22px; }
@@ -354,13 +372,13 @@ main { position: relative; }
 </style>
 
 <header class="site-header">
-  <div class="wrap hd">
+  <div class="hd">
     <a class="brand" href="#top" aria-label="DesignMaxxing home">
-      <svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="1" y="3" width="24" height="6" rx="1.5" fill="currentColor"/><rect x="5" y="10.5" width="20" height="6" rx="1.5" fill="#2f55ff"/><rect x="1" y="18" width="14" height="6" rx="1.5" fill="currentColor"/></svg>
-      DesignMaxxing
+      <svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="25" rx="5" stroke="currentColor" stroke-width="2"/><rect x="5.5" y="6" width="13" height="3" rx="1.5" fill="currentColor" opacity=".35"/><rect x="5.5" y="19" width="9" height="3" rx="1.5" fill="currentColor" opacity=".35"/><g class="lift"><rect x="9" y="10.5" width="17.5" height="7" rx="2.5" fill="#2f55ff"/><rect x="9" y="10.5" width="17.5" height="7" rx="2.5" stroke="#fff" stroke-width="1.5"/></g></svg>
+      <span>Design<b>Maxxing</b></span>
     </a>
     <div class="hd-r">
-      <a class="btn sm" href="#waitlist">Join waitlist</a>
+      <a class="btn-cta" href="#waitlist"><span class="l-full">Get early access</span><span class="l-short">Join</span> <span class="ar" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/></svg></span></a>
       <button class="idx-btn" id="idx-btn" type="button" aria-expanded="false" aria-controls="idx">Index <i aria-hidden="true"><b></b><b></b></i></button>
     </div>
   </div>
@@ -502,7 +520,7 @@ main { position: relative; }
           <div class="row-meta mono">Section · Hero · 3 sources linked</div>
         </div>
         <div class="vid">
-          <div class="vframe shots three"><img src="img/x-stripe-hero.webp" alt="Hero section of stripe.com" loading="lazy"><img src="img/x-linear-hero.webp" alt="Hero section of linear.app" loading="lazy"><img src="img/x-studio-hero.webp" alt="Hero section of studiomaydit.com" loading="lazy"></div>
+          <div class="vframe shots three" id="trio"><img src="img/x-stripe-hero.webp" alt="Hero section of stripe.com" loading="lazy" tabindex="0"><img src="img/x-linear-hero.webp" alt="Hero section of linear.app" loading="lazy" tabindex="0"><img class="front" src="img/x-studio-hero.webp" alt="Hero section of studiomaydit.com" loading="lazy" tabindex="0"></div>
           <div class="vcap mono"><span>Preview</span><span>Source: stripe.com · linear.app · studiomaydit.com</span></div>
         </div>
       </article>
@@ -608,7 +626,7 @@ main { position: relative; }
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-l">
-        <a class="brand" href="#top"><svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="1" y="3" width="24" height="6" rx="1.5" fill="currentColor"/><rect x="5" y="10.5" width="20" height="6" rx="1.5" fill="#2f55ff"/><rect x="1" y="18" width="14" height="6" rx="1.5" fill="currentColor"/></svg>DesignMaxxing</a>
+        <a class="brand" href="#top"><svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="25" rx="5" stroke="currentColor" stroke-width="2"/><rect x="5.5" y="6" width="13" height="3" rx="1.5" fill="currentColor" opacity=".35"/><rect x="5.5" y="19" width="9" height="3" rx="1.5" fill="currentColor" opacity=".35"/><g class="lift"><rect x="9" y="10.5" width="17.5" height="7" rx="2.5" fill="#2f55ff"/><rect x="9" y="10.5" width="17.5" height="7" rx="2.5" stroke="#fff" stroke-width="1.5"/></g></svg><span>Design<b>Maxxing</b></span></a>
         <p>Real website design, organised so you can find the exact section.</p>
       </div>
       <ul class="foot-links">
@@ -648,6 +666,12 @@ main { position: relative; }
     film.muted = !on; if (on) film.currentTime = 0;
     var pr = film.play(); if (pr && pr.catch) pr.catch(function () {});
     snd.setAttribute('aria-pressed', String(on)); snd.querySelector('span').textContent = on ? 'Sound off' : 'Sound on';
+  });
+  /* compare heroes: the screenshot you point at, focus or tap comes to the front */
+  var trio = $$('#trio img');
+  trio.forEach(function (im) {
+    function up() { trio.forEach(function (o) { o.classList.toggle('front', o === im); }); }
+    im.addEventListener('pointerenter', up); im.addEventListener('focus', up); im.addEventListener('click', up);
   });
   var vids = $$('video[data-play]');
   if (reduce) { vids.forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); }); }
