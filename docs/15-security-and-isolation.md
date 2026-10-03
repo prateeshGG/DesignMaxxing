@@ -2,12 +2,12 @@
 
 Part of the [engineering docs](README.md). Prev: [14](14-failure-recovery-and-reliability.md). Next: [16 Admin and operations](16-admin-and-operations.md). Authentication workflow: [10](10-authentication-and-permission-workflows.md).
 
-The conversation makes few explicit security decisions. They are listed first; everything else is marked.
+Because the product stores copies of third-party websites and apps (and, for authenticated captures, potentially personal data), security, privacy and legal handling were named as design work to do **before launch**, not after (PLAN§12–14, MB§64). Decisions are listed first; remaining gaps are marked.
 
 ## Explicit security decisions
 
-1. **Crawler environment is the most sensitive environment** (§52). It is a separate boundary ("CRAWLER VPC") containing browsers, devices, credentials and raw captures.
-2. **Public ↔ crawler boundary**: no direct path from the public side into the crawler environment.
+1. **Crawler environment is the most sensitive environment** (§52): a separate boundary ("CRAWLER VPC") with browsers, devices, credentials and raw captures.
+2. **Public ↔ crawler boundary**: no direct path from the public side into the crawler environment; the public frontend never directly accesses crawler credentials or raw authenticated sessions (GAP§28).
 
 ```
         PUBLIC
@@ -18,51 +18,60 @@ The conversation makes few explicit security decisions. They are listed first; e
   │ CRAWLER VPC   │
   │ browsers      │
   │ devices       │
-  │ credentials   │
-  │ raw captures  │
+  │ credentials   │   (credential vault, session profiles,
+  │ raw captures  │    raw capture storage)
   └───────────────┘
 ```
 
 3. **Credentials never enter the normal frontend/API environment** (§52).
-4. **The exploration engine never bypasses authentication**; humans provide an authorized session/test account ([10](10-authentication-and-permission-workflows.md)).
-5. **Dangerous actions default to DO NOT EXECUTE** (§23).
-6. **User-uploaded material is not mixed into the public dataset automatically** (§39).
-7. **Immutable raw evidence** (§6) — integrity of the evidence store is also a data-handling property ([04](04-raw-evidence-and-storage.md)).
-8. **Authorized collection**: `Source.authorization_status`, `Authorization` and `Policy` entities, and the `AUTHORIZED_BUILD` source type indicate collection is gated by authorization ([03](03-capture-and-crawling-workflow.md)).
+4. **No raw passwords in the crawler database**; prefer OAuth, session cookies, encrypted browser state, service accounts, official APIs (IF§9).
+5. **The exploration engine never bypasses authentication**; CAPTCHA/MFA are human checkpoints ([10](10-authentication-and-permission-workflows.md)).
+6. **Dangerous actions default to DO NOT EXECUTE** (§23).
+7. **User-uploaded material is not mixed into the public dataset automatically** (§39).
+8. **Immutable raw evidence** (§6); the unredacted original is kept only in a quarantined layer where retention is justified (GAP§3).
+9. **Crawling is treated as untrusted-code execution** (PLAN§13, MB§61): `Internet → isolated browser sandbox → ephemeral container → restricted network → capture → destroy`. Never run crawled sites inside the same trusted environment as database, API credentials, billing or internal services.
+10. **Captured data is classified by provenance and authorization** (`access_authorization`, `acquisition_method`, data class — [04](04-raw-evidence-and-storage.md)).
 
-## Crawler environment
+## PII detection and redaction (GAP§3) — `pii-service`
 
-Browsers, devices (simulator/emulator/authorized device), credentials and raw captures live inside the boundary. Network egress rules, sandboxing of browsers (they execute untrusted third-party JavaScript), per-job isolation, and device cleanup between runs: **Not decided**. (Disposable browser workers, [14](14-failure-recovery-and-reliability.md), help isolation; **Inferred**.)
+Screenshots can contain names, emails, phone numbers, addresses, profile photos, account balances, messages, order information, notification previews. Pipeline: `Capture → PII detection → Redaction → Storage`, with configurable rules (e.g. `[email] → █████`, `[phone]`, `[account number]`). Keep the original raw capture only in a tightly controlled / quarantined layer where there is a legitimate reason to retain it. Detection techniques, rule set, and whether redaction is applied to DOM/HTML/network metadata as well as pixels: **Not decided**.
+
+## Secrets detection (GAP§4)
+
+The same pipeline looks for API keys, tokens, JWTs, private URLs, credentials, environment values — in HTML, JavaScript, network logs, downloaded JSON and screenshots. **Never put discovered secrets into the searchable dataset.**
+
+## Policy layer, takedown and removal (GAP§2)
+
+Build a policy layer into the crawler (per-domain `crawl_allowed, media_allowed, authenticated_allowed, screenshot_allowed, recrawl_allowed, takedown_status` — [03](03-capture-and-crawling-workflow.md)) and an immediate **Remove source** operation. A legitimate removal request must propagate through: `website → pages → screenshots → assets → embeddings → search index → cached thumbnails → collections`. This defines `TakedownRequest` semantics (§4). Handling of raw evidence in COLD storage and backups on removal: **Not decided** (**Inferred:** raw evidence also removed or quarantined; backups' retention interplay unresolved).
 
 ## Credential isolation
 
-Credentials only in the crawler boundary; the API, frontend and admin product surface never receive them. Secret storage (vault/secret manager), rotation, how operators submit credentials without exposing them to the API: **Not decided**. `packages/auth` exists in the monorepo layout, but its scope (user auth vs. collector credentials) is **Not decided**.
+Credentials only in the crawler boundary: **credential vault → session profiles → browser context** (GAP§5, IF§9). Each session profile has an owner, authorization scope, created/expires/last-verified timestamps and source. Vault product, rotation, and operator-submission path: **Not decided**. `packages/auth` is in the monorepo layout; whether it covers user auth, collector credentials, or both is **Not decided** (managed authentication was suggested for *product* users: MB§71).
 
 ## Authenticated collection security
 
-Authenticated captures may contain personal or confidential data. The model includes a `pii-service` (§2) and a `TakedownRequest` entity (§4), but the conversation does not define:
-
-- what PII is detected or redacted, and when (pre-storage vs. before exposure),
-- whether raw captures from authenticated sessions are ever exposed beyond the crawler boundary,
-- takedown handling flow (what is removed: derived data, raw evidence, index entries).
-
-All **Not decided**. **Inferred:** only derived/CDN output crosses to the product side ([04](04-raw-evidence-and-storage.md)), and `pii-service` runs between capture and exposure.
+Authenticated captures may contain personal or confidential data → PII/secrets pipeline above, session-profile controls, credentials boundary, authorization-scoped provenance. Whether any raw authenticated capture is ever exposed beyond the crawler boundary: **Not decided** (**Inferred:** no; only derived/CDN output crosses, after redaction).
 
 ## Raw capture security
 
-Raw artifacts are the highest-sensitivity data store (COLD tier) ([04](04-raw-evidence-and-storage.md)). Encryption at rest, access control, audit logging: **Not decided**.
+Raw artifacts are the highest-sensitivity data store (COLD tier, [04](04-raw-evidence-and-storage.md)). Encryption at rest, access control, audit logging: PLAN§13 lists "encrypted storage, access control, audit logs, secret management" as needs; concrete design **Not decided**.
 
-## Permissions (product side)
+## SSRF and abuse controls (superseded premise, still useful)
 
-`Collection`/`CollectionMember`/`Comment` and `Organization`/`User` entities exist, and the Feature List describes permissions/sharing. Team workspaces, SSO, and public collections are largely [Deferred] (§72). Authorization model for the product: **Not decided**.
+For a **public-facing** crawler the Master Blueprint specified SSRF protection (block requests to localhost, 127.0.0.1, private IP ranges, metadata endpoints, internal services) and per-user/per-domain abuse controls (max concurrent crawls, pages/day, domains/day, asset size, crawl duration, browser CPU, storage; per-domain rate limit, concurrency, crawl delay) (MB§62–63, PLAN§14). Because crawling is internal, **per-user quotas are moot**, but: SSRF blocking remains sensible wherever seeds/redirects reach the crawler (**Inferred**), and per-domain rate/concurrency limits and asset-size caps remain relevant to the crawl policy engine ([03](03-capture-and-crawling-workflow.md)). Whether SSRF protection is built for an internal-only crawler: **Not decided**.
+
+## Permissions and multi-tenancy (product side)
+
+`Organization`/`User`/`Collection`/`CollectionMember`/`Comment` entities exist. PLAN§13 lists tenant isolation, API authentication and rate limiting for when users, teams, private collections and API keys exist; team workspaces, SSO, public collections are largely [Deferred] (§72). Authorization model and multi-tenancy design: **Not decided**.
+
+## Legal and data policy (PLAN§12, MB§64)
+
+To be designed before public launch: Terms of Service, Privacy Policy, acceptable-use policy, **crawler policy**, takedown mechanism, copyright-complaint (DMCA) mechanism, asset retention policy, user-upload policy, public/private dataset policy. Distinguish **metadata** from **third-party copyrighted assets** and decide what is retained and served. Topics: robots.txt, site terms, copyright of screenshots/cached assets, attribution, crawl frequency, authentication, personal information. **Should be reviewed by qualified counsel before public launch** (MB§64). The conversation sets no concrete positions on any of these; all **Not decided** (see [19](19-decisions-assumptions-open-questions.md)).
 
 ## Data handling rules (stated)
 
-- Raw evidence immutable; derived regenerable.
+- Raw evidence immutable; derived regenerable; raw vs. derived vs. AI-generated vs. human-verified are distinct classes.
 - Uploads private by default relative to the public dataset.
-- Credentials isolated.
-- Every cost/derived attribute traceable to evidence and job ([12](12-data-model-and-events.md)).
-
-## Not discussed
-
-Legal/compliance posture on collecting third-party sites and apps (terms of service, robots handling, copyright of captured content, licensing for public display) — **Not decided**. The user stated the crawler is for their own data collection to power the platform; nothing further is established. The `crawl_policy` and `TakedownRequest` mechanisms exist as placeholders. This is flagged as an open question in [19](19-decisions-assumptions-open-questions.md).
+- Credentials isolated; secrets and (redacted) PII never enter the searchable dataset.
+- Low-quality captures do not enter the public dataset.
+- Every derived attribute traceable to evidence, job, and model/version ([12](12-data-model-and-events.md)).
