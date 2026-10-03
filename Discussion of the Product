@@ -1,0 +1,2234 @@
+Full Conversation — Mobbin-like Design Intelligence Platform
+Raw conversation export from this project context.
+This file preserves the available user and assistant messages in sequence rather than consolidating them into a summary.
+
+User
+Which uses more token
+Browsing via dom manipulation and taking screenshot 
+Or Mcp like mobbin
+User
+How much hogher
+User
+Can I build the workflow which takes screenshots automatically of every section and which has gifs it records them and also in every screen sizes I mean I like to create my own mobbin but for now just for websites and cheaper these are the features of mobbin 
+Worked for 1m 3s
+I researched Mobbin’s current public product pages, pricing, changelog, Help Center, and official MCP documentation, with the cutoff of October 2, 2026. Below is the most complete publicly verifiable feature inventory I could assemble.
+One important distinction: Mobbin has thousands of individual design tags/patterns. I am listing all feature families and individually documented capabilities, rather than pretending that every single tag such as every screen-pattern name is a separate product feature.
+Mobbin — Complete Feature List
+1. Core design library
+Feature	What it does
+Real-world app design library	Library of interfaces captured from real products rather than concept-only designs.
+Screens library	Browse individual UI screens.
+UI Elements library	Search component-level examples such as buttons, cards, tabs, bottom sheets, icons, dialogs, etc.
+User Flows library	Groups screens into complete user journeys rather than isolated screenshots.
+In-screen text search	Finds words appearing inside screenshots.
+Web/app site library	Includes both product interfaces and public-facing websites.
+Animations library/content	Motion-rich screens are represented as short videos.
+Live Activities	iOS Live Activity examples.
+Dynamic Island examples	Dedicated iOS examples/filtering for Dynamic Island UI.
+Widgets	iOS widget examples and dedicated widget filtering.
+Websites / Mobbin Sites	Marketing/public-facing web pages, including landing pages, portfolios, shopfronts and campaign microsites.
+Site Sections	Website content can be categorized by sections such as Hero, Features, Pricing, etc.
+Site Styles	Websites can be explored by styles such as Brutalist, Editorial, Minimal, etc.
+Version history	App content can retain historical versions so you can see how interfaces changed over time.
+Weekly content updates	Mobbin continually adds/updates products in the library.
+Mobbin currently advertises roughly 1,428 apps, 621,500+ screens and 323,900 flows, with new content added weekly. Its current homepage also describes the broader library as 1,000+ iOS/Web apps and 200+ sites. 
+2. Search & discovery
+This is one of Mobbin's largest feature groups.
+Feature	What it does
+Global search	Search across Mobbin content from a central search experience.
+Plain-language search	Describe what you're looking for in ordinary language.
+Search across screens	Search screen examples.
+Search across flows	Search complete user journeys.
+Search across site sections	Search website sections alongside app content.
+Text-in-screenshot search	Find screens/sections containing a particular word or phrase.
+Text-match highlighting	Matched words are visibly highlighted in results.
+Filter suggestions	Mobbin can suggest relevant filters while searching.
+Quick filters	Popular filters are surfaced directly for faster discovery.
+Multi-filter search	Combine filters to narrow results.
+Dynamic/adaptive result types	Results adapt to the types of filters you've selected.
+Trending search	Search UI includes access to trending apps/tags.
+Related-word search	Mobbin can understand related terminology rather than requiring the exact taxonomy word.
+Previous searches	Browse previous searches from the search bar.
+Cross-platform app search	Search for the same product across supported platforms.
+iOS / Android / Web switching	Switch between versions/platforms of an app where available.
+Platform filtering	Narrow research by platform.
+App filtering	Narrow results to particular products/apps.
+Category filtering	Filter by app/product category.
+Screen-pattern filtering	Find particular types of screens.
+UI-element filtering	Find specific interface components.
+Flow/action filtering	Search user journeys based on flow/action patterns.
+Animation filtering	Show screens that contain animations.
+Live Activity filtering	Find Live Activity screens.
+Dynamic Island filtering	Find Dynamic Island examples.
+Widget filtering	Find widget examples.
+Site-section filtering	Find specific website sections.
+Site-style filtering	Find sites by visual style.
+Deep Search	AI/semantic search that interprets the meaning of the request rather than relying only on textual matches.
+Deep Search + animation filter	Semantic search can be combined with animation-related filtering.
+Deep Search + screenshot-text filter	Semantic search can be combined with text-inside-screenshot searching.
+Result diversification	Deep Search favors newer versions and broader coverage across apps instead of allowing a single app to dominate results.
+Search progress feedback	Deep Search can show what stage its result-loading process is at and which apps it is pulling from.
+Visual search	Upload/use an external screenshot to find visually similar Mobbin screens.
+Similar screens	Starting from a Mobbin screen, find visually similar screens within Mobbin.
+Visual-search match count	Visual search reports how many matches it found.
+App quick preview	Hovering over an app logo/name provides a preview.
+Screen zoom	Click the screen to zoom into it.
+Multiple sorting modes	Sort content using availability such as Latest, Most Popular, Trending and Top Rated, depending on the content surface.
+Mobbin's August 5, 2026 search update explicitly introduced plain-language search across screens, flows and site sections, screenshot-text search, Deep Search, diversified/fresher results, and unified ordering across search surfaces. Its February 5, 2025 release added visual search, similar screens, previous searches, app previews and screen zoom. 
+The changelog also documents the earlier quick filters, filter suggestions, combined filters, related-word search, trending search and platform switching. 
+3. Screen-level features
+When you open an individual screen, Mobbin gives you more than simply an image.
+Feature	What it does
+Full screen viewing	Inspect a particular captured UI screen.
+Zoom	Enlarge the screen for detailed inspection.
+Copy screen	Copy an individual screen for use elsewhere.
+Download screen	Download an individual screen.
+Right-click copy/download	Individual screens in flows can be copied/downloaded through contextual controls.
+Screen selection	Select multiple screens.
+Clear-all selection	Clear a multi-screen selection without losing the rest of your browsing context.
+Multi-screen export	Work with groups of selected screens.
+Screen-to-Figma workflow	Send selected screens into the Figma workflow.
+Hide screen footers	Pro users can remove screen footer information when copying/downloading.
+Related screens	Discover visually similar screens from a given reference.
+Pattern metadata	Screens are categorized/tagged by Mobbin's pattern taxonomy.
+UI-element metadata	Screens can carry UI-element classifications.
+Flow metadata	Screens can be associated with user flows/actions.
+In-screen text indexing	Screenshot text can be indexed and searched.
+The screen-copy workflow, keyboard copying, multi-screen selection and footer-hiding capability are documented in Mobbin's changelog. 
+4. User-flow features
+Mobbin's flow system is substantially different from a gallery of screenshots.
+Feature	What it does
+Complete user journeys	Shows multiple screens as a coherent journey.
+Flow overview	See the screens in sequence.
+Flow videos	Watch the interaction as captured video.
+Transitions	Motion between screens can be observed.
+Micro-interactions	Small interaction details are captured in motion.
+Animations in flows	Motion behavior is visible rather than inferred from static images.
+Interactive Mode / Prototype Mode	Step through the flow one screen at a time.
+Interactive hotspots	Click the actual mapped interaction points to progress.
+Screen-to-screen navigation	Follow the journey in sequence.
+Click-anywhere progression	Where no hotspot exists, clicking the screen can advance the flow.
+Drag scrolling	Drag across a screen to navigate/scroll within supported flows.
+Individual screen copy/download inside flows	Copy or download a single screen from a flow.
+Flow selection for Figma	Copy an entire flow through the Figma plugin workflow.
+Flow filtering	Search by specific flow/action patterns.
+Related flows	Navigate from screens into associated user journeys.
+Flow videos with playback controls	Play/pause, scrub through the recording and use the space bar.
+Mobbin originally launched Interactive Mode in July 2023, added flow videos in March 2024, and further improved video playback in August 2026. 
+5. Animation & motion features
+Mobbin now has a distinct motion layer.
+Feature	What it does
+Animation capture	Screens with significant motion can be represented as video instead of static imagery.
+Animated-screen filter	Search only screens containing animation.
+Motion in app previews	Videos can appear in app/result cells.
+Auto-play	Video autoplay can be enabled for supported surfaces.
+Autoplay preference	Users can control video autoplay behavior in settings.
+Playback controls	Play, pause and scrubbing.
+Keyboard playback	Space bar controls video playback.
+Motion/reduced-motion handling	Mobbin has addressed reduced-motion behavior in its video experience.
+The dedicated Animations feature launched in November 2025. 
+6. Collections / Library
+Mobbin is not only a search engine; it also has a research repository.
+Feature	What it does
+Library	Central home for everything you've saved.
+Collections	Organize saved inspiration into sets.
+Unlimited collections on paid plans	Pro/Team/Enterprise remove the free-plan collection limitation.
+Save screens	Store individual Mobbin screens.
+Save flows	Store entire flows.
+Save apps	Collections can include app-level references.
+Save sites	Added in 2026.
+Save site sections	Added in 2026.
+Upload your own screenshots	Add your own references alongside Mobbin content.
+Private/personal reference material	Your uploaded references can be stored in your collections.
+Team/shared collections	Team plans provide shared collections.
+Public collections	Collections can be exposed to the public/community.
+Public-by-default collections	Mobbin changed collections to public by default in 2024.
+Collection comments/context	Leave research notes associated with saved content.
+Collection discovery	Public collections can be discovered by other Mobbin members.
+"Saved in" collections	On a screen/flow, see public collections where that item has been saved.
+The 2024 Library redesign made the Library the central location for saved Mobbin content, uploaded screenshots and collections. In August 2026 Mobbin added saving sites and sections, while January 2026 added Saved in collections discovery. 
+7. Upload/reference features
+Feature	What it does
+Upload your own screenshots	Add screenshots that don't exist in Mobbin.
+Mix uploaded + Mobbin content	Keep external references alongside Mobbin references.
+Collaborative screenshot collections	Teams can use uploaded references in shared collections.
+Visual search from external screenshots	Use a screenshot as the input for similarity search.
+Mobbin initially documented screenshot uploads for iOS/Android references, while its later search system added visual similarity search. 
+8. Comments & collaboration
+There are effectively two collaboration layers: workspace collaboration and public/community collaboration.
+Feature	What it does
+Comments on saved screens	Add notes to saved references.
+Comments on saved flows	Add notes to saved flows.
+Team comments	Discuss saved references inside a team workspace.
+Mentions	Team plans now list comments & mentions as a capability.
+Public comments	Comment publicly on screens and flows.
+Comment counts	Show comment counts on relevant saved/collection surfaces.
+Shared collections	Multiple team members can access a shared collection.
+Public collections	Collections can be shared/discovered publicly.
+Saved-in discovery	See public collections that contain an item.
+Public profiles	Showcase collections on a public profile.
+Community page	Discover collections curated by other Mobbin users.
+Public app reviews	Users can rate/review apps.
+App ratings	App detail pages expose community ratings.
+App reviews	Community-written qualitative reviews of apps.
+Public profiles/community launched in September 2024; app ratings/reviews appeared with the revamped app detail page in July 2024; public comments and Saved-in collection discovery were added in January 2026. 
+9. App detail pages
+A Mobbin app isn't merely a label attached to screenshots.
+Feature	What it does
+App profile/detail page	Dedicated overview of an app.
+App highlights	Hand-picked/high-value screens surfaced prominently.
+Flows tab/content	Explore the app's journeys.
+Screens content	Browse its screens.
+Marketing/web content where applicable	Relevant web/site material.
+Platform switching	See iOS/Android/Web variants when available.
+App ratings	Community rating.
+App reviews	Community feedback.
+Quick app preview	Hover preview from search/browse surfaces.
+Version history	Explore changes across versions.
+Mobbin explicitly describes app-detail pages as exposing highlights, app information, ratings/reviews and content-type navigation. 
+10. Figma integration
+Mobbin has a dedicated Figma workflow.
+Feature	What it does
+Mobbin Figma plugin	Official plugin for moving Mobbin references into Figma.
+Copy to Figma	Copy selected Mobbin content from Mobbin.
+Paste into Figma	Paste the reference directly onto the Figma canvas.
+Multiple-screen transfer	Transfer multiple selected screens.
+Flow transfer	Transfer an entire flow.
+No intermediate download required	Plugin eliminates the manual download/import step for supported workflows.
+Footer-hiding compatibility	Pro users can combine copying/downloading with hidden screen footers.
+Mobbin introduced the official Figma plugin in February 2024 specifically to handle multiple screens and flows more efficiently. 
+11. AI / MCP capabilities
+This is a major newer part of Mobbin.
+Feature	What it does
+Mobbin MCP	Connects Mobbin's design reference library to AI agents.
+AI-agent search	AI tools can search Mobbin's design corpus.
+Real-screen retrieval	Agents can retrieve real product screens and design references.
+Flow research through AI	Agents can reason from user-flow examples.
+Web-design research through AI	Agents can research web/site patterns too.
+Pattern comparison	AI can compare examples from different products.
+Design-decision research	Ask an agent to find references for a particular UX problem.
+Fresh-pattern research	Use current Mobbin references rather than relying purely on an LLM's internal design knowledge.
+Semantic search	Mobbin's Deep Search methodology is also reflected in AI-accessible searching.
+Chat access	Mobbin documents Chat as a search surface sharing the same result ordering as the main search/API system.
+API-connected AI workflows	Mobbin describes the same search ordering across Chat and API.
+No API-key setup for MCP	Mobbin documents browser-based authorization.
+Multiple AI clients	Current MCP page explicitly references tools/clients including Claude Code, Claude, Cursor, Codex, ChatGPT, Manus, Grok, Figma, v0 and others.
+Mobbin states that MCP is included with paid plans, currently has unlimited usage during its beta period, and can be connected to major AI tools. 
+Mobbin also has official ChatGPT setup documentation: connect Mobbin to ChatGPT and then ask ChatGPT to search Mobbin directly. 
+12. API capabilities
+For organizations/developers, Mobbin exposes API access as a separate commercial capability.
+Feature	Availability
+Mobbin API access	Team + Enterprise
+Programmatic search/integration	API-oriented access to Mobbin content
+Shared search ordering with main search	Documented in the 2026 search release
+AI/application integration use cases	Supported through the API/MCP ecosystem
+The current pricing page explicitly lists API access on Team and Enterprise, and Mobbin's August 2026 changelog says the search ranking/order is shared across the site's search, Chat and API. 
+13. Content taxonomy / pattern dictionary
+Mobbin's classification system itself is a major feature.
+Search dimensions
+Screens
+Examples currently surfaced by Mobbin include:
+Checkout
+Settings
+Login
+Subscription & Paywall
+Home
+Account Setup
+Welcome
+Wallet
+Profile
+UI Elements
+Examples:
+Slider
+Carousel
+Sidebar
+Bottom Sheet
+Icon
+Toast
+Progress Indicator
+Dialog
+Tab
+Button
+Flows
+Examples:
+Adding & Creating
+Adding to Cart
+Listening to Audio
+Searching
+Browsing Home
+Starting & Completing
+Browsing Tutorial
+Chatting
+Subscribing
+Onboarding
+Mobbin's homepage explicitly exposes these dimensions and example taxonomies. 
+Additional taxonomy dimensions
+App/product categories
+Screen patterns
+UI elements
+Flow actions/patterns
+Screenshot text
+Platforms
+Animation state
+Live Activities
+Dynamic Island
+Widgets
+Site sections
+Site styles
+The purpose of this taxonomy is to turn a huge screenshot repository into a structured searchable design dictionary. Mobbin's own changelog describes its Flow Pattern, Screen Pattern and UI Element taxonomy as the basis of its search/filtering system. 
+14. Browse, sorting & discovery surfaces
+Feature	What it does
+Explore mobile	Broad mobile-design discovery surface.
+Explore web	Broad web-app discovery surface.
+Explore sites	Dedicated website discovery surface.
+Latest	Browse newer content.
+Most popular	Browse heavily referenced/popular content.
+Trending	Browse content currently trending.
+Top rated	Browse highly rated apps/content.
+Popular collections	Discover collections made by users.
+Suggested filters	Explore common search dimensions directly from discovery pages.
+Trending tags/apps	Find popular/currently searched taxonomy items.
+App category discovery	Browse apps by category.
+The May 2025 homepage update introduced/featured Latest, Most Popular and Top Rated tabs plus suggested filters, while the 2023 changelog documents Trending sorting and trending apps/tags. 
+15. Community features
+Feature	What it does
+Community page	Discover collections made by other members.
+Public profiles	Public profile at mobbin.com/@username.
+Showcase collections	Display selected public collections on your profile.
+Public collections	Make research collections discoverable.
+Public comments	Discuss screens and flows publicly.
+Saved-in discovery	Discover public collections based on an individual reference.
+App ratings/reviews	Community feedback on apps.
+Mobbin introduced its community/public-profile system in September 2024 and expanded public discussion/discovery in January 2026. 
+16. Team workspace features
+Feature	Availability
+Team workspace	Team
+Invite teammates	Team/Enterprise
+Individual member accounts	Team/Enterprise
+Shared collections	Team/Enterprise
+Shared comments	Team/Enterprise
+Mentions	Current Team feature set
+Team admins	Team/Enterprise
+Multiple admins	Supported
+Member management	Team/Enterprise
+Invite links	Team/Enterprise
+Request to join workspace by email domain	Team/Enterprise
+Suggested members to invite	Workspace admins
+Centralized billing	Team/Enterprise
+Seat-based billing	Team
+Unlimited team membership capacity	Team pricing model says unlimited members, with seats billed
+Team activity report	Team/Enterprise
+Last-active visibility	Team/Enterprise
+CSV activity export	Team/Enterprise
+Team name/photo management	Admin
+Team settings	Admin
+Team membership provisioning	Admin
+Automatic seat increase when membership exceeds purchased seats	Team/Enterprise setup behavior
+The Help Center documents invitations, admin access, shared collections, seat management and activity reports; the current pricing page confirms shared collections/comments, team management and centralized billing. 
+17. Enterprise capabilities
+These are not design-library features, but they are part of Mobbin's product offering.
+Feature	Enterprise
+Unlimited members	Yes
+Advanced security	Yes
+Privacy controls	Yes
+SAML SSO	Yes
+SCIM / Directory Sync	Yes
+Priority support	Yes
+Invoice / PO billing	Yes
+Enterprise tools early access
+Yes
+SOC 2 reports
+Available on Team/Enterprise
+Legal/security/procurement review
+Enterprise
+Bank transfer
+Enterprise
+Custom agreements
+Enterprise
+Minimum-seat enterprise configuration
+Yes
+Mobbin's current pricing page lists the Enterprise feature set, while the Help Center explains SSO, Directory Sync, procurement/legal review and enterprise administration. �
+Mobbin +1
+18. Finance+ add-on
+Mobbin now sells a specialized finance-focused library extension.
+Feature
+Description
+Finance+
+Add-on focused on finance product design.
+Finance app library
+Banking, crypto, investment and related finance products.
+Additional finance-focused apps
+Current pricing says 74+ apps.
+Team availability
+Team + Enterprise.
+Separate paid add-on
+Not included in base Team/Enterprise pricing.
+Mobbin currently advertises Finance+ as access to 74+ finance-related apps covering areas such as Banking, Crypto and Investment. �
+Mobbin
+19. User account & personalization
+Feature
+What it does
+User profile
+Personal account identity.
+Profile name
+Editable.
+Profile photo
+Uploadable.
+Public username/profile
+Optional public-facing profile.
+Password login
+Optional password configuration.
+Magic/login link
+Email login without a password.
+Login code
+Alternative to clicking the email login link.
+Google login
+OAuth login.
+Facebook login
+OAuth login.
+X login
+OAuth login.
+SAML SSO
+Enterprise login.
+Dark mode
+Dark visual theme.
+Light mode
+Light visual theme.
+System appearance
+Follow system theme.
+Video autoplay preference
+Control autoplay behavior.
+Email notification preferences
+Manage marketing/product/research/tips emails.
+Weekly mobile content email
+New/update notifications.
+Weekly web content email
+New/update notifications.
+The Help Center documents account profiles, login methods, email preferences and settings, while the changelog documents dark mode and video-autoplay preferences. �
+Mobbin Help Center +3
+20. Content request / contribution features
+Mobbin also has mechanisms for improving its catalog.
+Feature
+What it does
+Request new apps
+Ask Mobbin to add an app.
+Request app/version updates
+Ask for a new version of an existing app.
+Request new Flow Patterns
+Ask for taxonomy coverage.
+Request new Screen Patterns
+Request missing pattern categories.
+Request new UI Elements
+Request additional component taxonomy.
+Contributor Program
+Mobbin has documented a contributor program for submitting screens.
+Filter/result feedback
+Vote up/down on filter results.
+These were explicitly documented in Mobbin's changelog as part of the catalog-maintenance workflow. �
+Mobbin
+21. Small but real product capabilities
+These are easy to miss because they aren't always marketed as headline features.
+Feature
+Notes
+Keyboard shortcut for search
+Cmd/Ctrl + K historically launches search.
+Tab / Shift+Tab navigation in search
+Search UI keyboard navigation.
+Esc to clear selections
+Selection-management shortcut.
+Cmd/Ctrl+C copying
+Fast screen copying.
+Space-bar video control
+Playback shortcut.
+Drag-scrolling in flows
+Flow navigation improvement.
+Sticky content-type tabs on app pages
+Faster switching between content types.
+Cross-platform state persistence
+Filters/preferences can persist when switching platform/content context.
+Immediate filter-result updating
+Search results refresh as filters change.
+App hover preview
+Quick inspection without opening the app.
+Screen click-to-zoom
+Detailed inspection without another dedicated control.
+Search tutorial
+In-product tutorial for understanding Mobbin search.
+These are documented in Mobbin's historical product changelog rather than the current marketing page. �
+Mobbin
+22. Plan-level feature matrix
+This is the cleanest way to see what is actually available where.
+Capability
+Free
+Pro
+Team
+Enterprise
+Apps
+Limited
+Included
+Included
+Included
+Sites
+Limited
+Included
+Included
+Included
+Flows
+No
+Yes
+Yes
+Yes
+Animations
+No
+Yes
+Yes
+Yes
+Search
+No
+Yes
+Yes
+Yes
+Deep Search
+No
+Yes
+Yes
+Yes
+MCP
+No
+Yes
+Yes
+Yes
+Collections
+Max 3
+Unlimited
+Unlimited
+Unlimited
+Copy/download
+Limited
+Included
+Included
+Included
+Version history
+Limited
+Included
+Included
+Included
+Hide screen footers
+No
+Yes
+Yes
+Yes
+API access
+No
+No
+Yes
+Yes
+Invite team members
+No
+No
+Yes
+Yes
+Shared collections
+No
+No
+Yes
+Yes
+Comments & mentions
+No
+Just you
+Yes
+Yes
+Slack integration
+Not available
+Not available
+Soon
+Soon/plan-dependent
+Team management
+No
+No
+Yes
+Yes
+Centralized billing
+No
+No
+Yes
+Yes
+SOC 2 reports
+No
+No
+Yes
+Yes
+Advanced security
+No
+No
+No
+Yes
+Privacy controls
+No
+No
+No
+Yes
+SAML & SCIM
+No
+No
+No
+Yes
+Invoice/PO billing
+No
+No
+No
+Yes
+Priority support
+No
+No
+No
+Yes
+Finance+
+No
+No
+Add-on
+Add-on
+This table comes directly from the current Mobbin pricing page, rather than older third-party pricing summaries. �
+Mobbin
+23. Things that are not the same as a Mobbin feature
+There are several Mobbin properties/resources that should not be confused with product functionality:
+Mobbin Glossary — educational reference pages explaining UI patterns.
+Mobbin Colors — searchable/explorable brand-color and color-meaning resource.
+Mobbin Awards — editorial/community content.
+Mobbin Blog — editorial content.
+Mobbin Changelog — product updates.
+Mobbin Merch — merchandise store.
+Trust Center — security/compliance documentation.
+For example, the current Colors section lets users explore brand colors, color meanings and HEX values used in design references. That's a Mobbin resource, but not the same thing as the core screen-search engine. �
+Mobbin
+24. The Mobbin product, reduced to its actual capability stack
+At the highest level, Mobbin currently consists of:
+1. Reference library
+   Screens + UI elements + flows + animations + app/site content.
+2. Structured taxonomy
+   Apps + categories + screen patterns + UI elements + flow actions + screenshot text + site sections/styles.
+3. Search engine
+   Keyword/plain-language search + filters + sorting + screenshot-text search + Deep Search.
+4. Visual discovery
+   Visual search + similar screens + zoom + previews.
+5. Flow inspection
+   Videos + prototype/interactive mode + hotspots + motion.
+6. Personal research workspace
+   Library + collections + uploads + comments.
+7. Social/community layer
+   Public collections + profiles + public comments + Saved-in discovery + app ratings/reviews.
+8. Design-production integration
+   Figma plugin + copy/download workflows.
+9. AI/developer layer
+   MCP + Chat + API.
+10. Team/workspace layer
+    Shared collections + comments/mentions + member management + activity reporting + billing.
+11. Enterprise layer
+    SSO + SCIM + privacy/security controls + procurement/billing + priority support.
+12. Specialist libraries
+    Finance+ and other curated domain-specific coverage.
+    That is the complete publicly documented feature architecture I can verify for Mobbin as of October 2, 2026. The official current pricing page and changelog are particularly important because some older articles describe the 2023–2024 product rather than the current 2026 version.
+User
+check again you didnt missed anything from the feature list and also what more you can add to increase the effectiveness of our product can you research on x and reddit about this what i am asking the we talk about the architecture of the workflow
+User
+Selected text:
+Selection 1
+Next.js
+React
+Tailwind
+Framer Motion
+GSAP
+Webflow
+Shopify
+WordPress
+Three.js
+Lottie
+Stripe
+Sanity
+Contentful
+My request:
+isnt it hard to find the framework they are built in and things like that if its easy then nevermind and then give me proper feature list to add on the feature list and can we automate all the process of collecting these because some sites have video and some sites have gifs and svgs and animated svgs and many things so it will be hassle to do it manually
+User
+Selected text:
+Selection 1
+can we automate all the media collection?
+My request:
+i meant the whole thing not just these
+User
+is all things decided about features and architecture and edge cases and pricing and expenses to us and other things
+User
+so do it
+User
+Selected text:
+Selection 1
+URL
+My request:
+how it will crawl the authenticated platforms which almost all of the platforms websites are
+User
+bro i am not building this crawling for users it is just for me to collect the data so we can show it in our platform which is like mobbin
+User
+do it
+User
+what about the mobile apps because mobbin has that too
+User
+is anything left to consider
+User
+do it
+Assistant
+Mobbin-like Design Intelligence Platform — Engineering Blueprint
+This is the architecture I would lock before writing production code.
+The central principle is:
+Collect raw evidence once, normalize it into a common design graph, and derive everything else—screens, sections, components, assets, animations, flows, search, taxonomy, embeddings, and version history—from that evidence.
+
+That prevents us from building separate products for web, iOS, and Android.
+1. Product architecture
+                         ┌─────────────────────┐
+                         │      SOURCES        │
+                         ├─────────────────────┤
+                         │ Websites             │
+                         │ Web apps             │
+                         │ iOS apps             │
+                         │ Android apps         │
+                         │ Authorized builds    │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   SOURCE MANAGER    │
+                         │                     │
+                         │ authorization       │
+                         │ scheduling           │
+                         │ crawl policy         │
+                         │ source metadata      │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                    ┌─────────────────────────────────┐
+                    │         INGESTION LAYER         │
+                    ├──────────────┬──────────────────┤
+                    │              │                  │
+                 WEB ENGINE     iOS ENGINE       ANDROID ENGINE
+                    │              │                  │
+                 Browser        Simulator/         Emulator/
+                 workers        authorized        authorized
+                                device             device
+                    │              │                  │
+                    └──────────────┴──────────────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   RAW EVIDENCE      │
+                         ├─────────────────────┤
+                         │ screenshots         │
+                         │ videos              │
+                         │ DOM/UI tree         │
+                         │ network metadata    │
+                         │ assets              │
+                         │ interaction logs    │
+                         │ source files        │
+                         │ device metadata     │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │ NORMALIZATION        │
+                         ├─────────────────────┤
+                         │ canonical screens    │
+                         │ pages               │
+                         │ sections            │
+                         │ components          │
+                         │ assets              │
+                         │ animations           │
+                         │ states              │
+                         │ flows               │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                       ┌─────────────────────────┐
+                       │ INTELLIGENCE PIPELINE   │
+                       ├─────────────────────────┤
+                       │ CV                      │
+                       │ OCR                     │
+                       │ classifiers             │
+                       │ embeddings              │
+                       │ AI taxonomy             │
+                       │ technology detection    │
+                       │ flow reconstruction    │
+                       └────────────┬────────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   DESIGN GRAPH      │
+                         └──────────┬──────────┘
+                                    │
+                  ┌─────────────────┼──────────────────┐
+                  ▼                 ▼                  ▼
+               SEARCH             FLOWS             LIBRARY
+                  │                 │                  │
+                  └─────────────────┼──────────────────┘
+                                    ▼
+                              WEB PRODUCT
+2. Repository structure
+I would use a monorepo.
+design-intelligence/
+│
+├── apps/
+│   ├── web/
+│   │   ├── search
+│   │   ├── screens
+│   │   ├── flows
+│   │   ├── apps
+│   │   ├── sites
+│   │   ├── collections
+│   │   └── admin
+│   │
+│   ├── api/
+│   │
+│   └── worker-dashboard/
+│
+├── services/
+│   ├── source-manager/
+│   ├── crawl-orchestrator/
+│   ├── web-crawler/
+│   ├── ios-collector/
+│   ├── android-collector/
+│   ├── exploration-engine/
+│   ├── screenshot-service/
+│   ├── media-service/
+│   ├── asset-service/
+│   ├── ocr-service/
+│   ├── vision-service/
+│   ├── taxonomy-service/
+│   ├── technology-detector/
+│   ├── flow-builder/
+│   ├── embedding-service/
+│   ├── search-service/
+│   ├── change-detector/
+│   ├── pii-service/
+│   └── notification-service/
+│
+├── packages/
+│   ├── database/
+│   ├── events/
+│   ├── schemas/
+│   ├── storage/
+│   ├── auth/
+│   ├── image-utils/
+│   ├── video-utils/
+│   ├── browser-utils/
+│   ├── device-profiles/
+│   └── taxonomy/
+│
+├── infrastructure/
+│   ├── terraform/
+│   ├── kubernetes/
+│   ├── queues/
+│   ├── monitoring/
+│   └── storage/
+│
+└── ml/
+    ├── classifiers/
+    ├── embeddings/
+    ├── evaluation/
+    └── datasets/
+3. Core database
+Use PostgreSQL as the source of truth.
+Use object storage for heavy files.
+Use a search engine/vector database for retrieval.
+Recommended conceptual stack
+PostgreSQL
+    ↓
+metadata + relationships
+
+Object Storage
+    ↓
+screenshots + videos + assets + raw captures
+
+Search Index
+    ↓
+keyword + filters + OCR
+
+Vector Index
+    ↓
+semantic + visual similarity
+Do not put videos or screenshots directly in Postgres.
+4. Core entities
+The minimum domain model:
+Organization
+User
+
+Source
+SourceVersion
+CaptureJob
+CaptureSession
+
+Product
+ProductVersion
+Platform
+DeviceProfile
+
+Page
+Screen
+Section
+Component
+Asset
+Animation
+
+Flow
+FlowNode
+FlowEdge
+
+Interaction
+UIState
+
+Collection
+CollectionItem
+Comment
+
+Tag
+Pattern
+TaxonomyVersion
+
+Embedding
+SearchDocument
+
+RawArtifact
+DerivedArtifact
+
+Classification
+ClassificationRevision
+
+Technology
+TechnologyEvidence
+
+Policy
+Authorization
+TakedownRequest
+5. Source model
+Everything starts with a source.
+Source
+------
+id
+type
+name
+canonical_url
+domain
+platform
+owner
+authorization_status
+crawl_policy
+created_at
+updated_at
+Types:
+WEBSITE
+WEB_APP
+IOS_APP
+ANDROID_APP
+AUTHORIZED_BUILD
+6. Raw evidence is immutable
+This is a critical design decision.
+Never modify the original capture.
+RawArtifact
+-----------
+id
+source_id
+capture_id
+type
+storage_key
+sha256
+mime_type
+size
+created_at
+Types:
+SCREENSHOT
+VIDEO
+HTML
+DOM
+UI_TREE
+NETWORK_METADATA
+ASSET
+APP_PACKAGE
+LOG
+TRACE
+Then derived versions reference it.
+Raw screenshot
+      ↓
+canonical screenshot
+      ↓
+thumbnail
+      ↓
+OCR
+      ↓
+embedding
+This lets us reprocess the dataset without crawling everything again.
+7. Capture jobs
+Everything asynchronous should be a job.
+CaptureJob
+----------
+id
+source_id
+type
+status
+priority
+attempts
+max_attempts
+started_at
+completed_at
+error
+cost
+Statuses:
+QUEUED
+RUNNING
+PAUSED
+WAITING_FOR_AUTH
+WAITING_FOR_REVIEW
+COMPLETED
+FAILED
+CANCELLED
+8. Event-driven architecture
+Use a queue rather than services calling one another synchronously.
+Example:
+crawl.completed
+        ↓
+capture.normalize
+        ↓
+screen.detected
+        ↓
+media.extract
+        ↓
+ocr.process
+        ↓
+vision.classify
+        ↓
+taxonomy.classify
+        ↓
+embedding.generate
+        ↓
+index.update
+This makes the system resilient.
+If the AI classifier dies, the crawler doesn't have to run again.
+9. Web crawler
+The web collector should have several levels.
+Level 1 — HTTP discovery
+Cheap.
+URL
+ ↓
+HTTP
+ ↓
+HTML
+ ↓
+links
+ ↓
+metadata
+Use this to discover candidate URLs.
+Level 2 — browser rendering
+Use Chromium/Playwright.
+URL
+ ↓
+browser
+ ↓
+render
+ ↓
+wait
+ ↓
+capture
+Collect:
+DOM
+CSS
+viewport
+screenshots
+network metadata
+console errors
+navigation
+links
+assets
+Level 3 — interaction exploration
+Only expensive pages get this treatment.
+render
+ ↓
+detect interactive elements
+ ↓
+rank actions
+ ↓
+execute
+ ↓
+wait for stability
+ ↓
+capture
+ ↓
+compare state
+ ↓
+repeat
+This avoids spending browser time exploring every possible state.
+10. Website section detection
+We shouldn't assume:
+1 URL = 1 screen
+Instead:
+Page
+ ├── Header
+ ├── Hero
+ ├── Social proof
+ ├── Feature section
+ ├── Testimonials
+ ├── Pricing
+ ├── FAQ
+ └── Footer
+Detection combines:
+DOM structure
++
+visual segmentation
++
+semantic analysis
++
+OCR
+Then each section gets its own canonical capture.
+11. Full-page vs section screenshots
+Store both.
+Page
+├── full_page.png
+│
+├── section_hero.png
+├── section_features.png
+├── section_pricing.png
+└── section_footer.png
+This is important because users often want:
+"Show me pricing sections"
+
+rather than:
+"Show me websites containing pricing."
+
+12. Responsive capture matrix
+Initially:
+Desktop
+1440 × 900
+
+Tablet
+1024 × 1366
+
+Mobile
+390 × 844
+Later add more profiles.
+But don't blindly crawl every site at every size.
+Use:
+desktop → baseline
+mobile → baseline
+tablet → conditional
+Then add extra captures when meaningful differences are detected.
+13. Media collection
+This should be automatic.
+The collector identifies:
+<img>
+<video>
+<source>
+<picture>
+<svg>
+<canvas>
+background-image
+CSS animations
+Lottie
+WebGL/canvas
+GIF
+WebP animation
+APNG
+For each media item:
+Asset
+-----
+type
+source_url
+mime
+width
+height
+duration
+animated
+hash
+storage_key
+14. Animated media
+Don't just download the source.
+Capture three representations:
+original
+poster
+normalized_video
+Example:
+hero-animation.json
+hero-animation-poster.webp
+hero-animation.mp4
+This means the frontend can use whichever representation is appropriate.
+15. SVG handling
+SVG needs special handling.
+Store:
+original.svg
+plus:
+normalized.svg
+preview.png
+Extract:
+viewBox
+width
+height
+fill
+stroke
+animation
+embedded assets
+For animated SVG:
+SVG
+ ↓
+detect animation
+ ↓
+render
+ ↓
+capture frames
+ ↓
+encode video
+16. Lottie
+Detect:
+JSON
+Then store:
+original.json
+poster
+video
+metadata
+Extract:
+frame count
+fps
+duration
+dimensions
+layers
+17. Video
+For videos:
+source
+ ↓
+metadata
+ ↓
+thumbnail
+ ↓
+poster
+ ↓
+normalized preview
+Potentially detect whether it is:
+background video
+hero video
+product demo
+UI animation
+advertisement
+18. Technology detection
+Do not make this a mandatory part of the pipeline.
+It's an enrichment field.
+Use evidence from:
+HTML
+headers
+scripts
+bundles
+DOM
+network
+known signatures
+metadata
+Then:
+Technology
+----------
+name
+category
+confidence
+evidence
+detected_at
+Example:
+Next.js
+confidence: 0.99
+evidence:
+  __NEXT_DATA__
+  /_next/
+If uncertain:
+unknown
+Never hallucinate frameworks.
+19. Mobile collector
+The mobile architecture should expose the same normalized interface.
+MobileCollector
+    │
+    ├── install()
+    ├── launch()
+    ├── reset()
+    ├── inspect_ui()
+    ├── screenshot()
+    ├── record()
+    ├── tap()
+    ├── swipe()
+    ├── back()
+    ├── input()
+    └── collect_state()
+Then iOS and Android implement the interface differently.
+20. Mobile exploration engine
+This is one of the most important components.
+Represent the application as a graph.
+                 ┌── Settings
+                 │
+Home ────────────┼── Search
+                 │
+                 └── Profile
+Each node:
+ScreenState
+----------
+visual_hash
+ui_hash
+screenshot
+ui_tree
+device
+app_version
+Each edge:
+FlowEdge
+--------
+from
+to
+action
+coordinates
+target
+duration
+21. State deduplication
+Never assume two screenshots are different because their hashes differ.
+Use multiple signals:
+visual similarity
++
+UI-tree similarity
++
+OCR similarity
++
+URL/navigation state
+Then calculate:
+state_similarity = weighted(...)
+If:
+similarity > threshold
+treat it as the same state.
+This prevents infinite exploration.
+22. Exploration priority
+Don't randomly click.
+Prioritize:
+navigation
+buttons
+tabs
+menus
+CTAs
+forms
+filters
+dialogs
+carousels
+expanders
+Then lower priority:
+decorative elements
+external links
+repeated cards
+social widgets
+The system should assign every candidate action a score.
+action_score =
+  novelty
++ semantic_importance
++ navigation_probability
++ visual_prominence
+- repetition
+- risk
+23. Dangerous actions
+The crawler must recognize actions such as:
+Delete
+Purchase
+Send
+Publish
+Transfer
+Logout
+Subscribe
+Pay
+These should require explicit policy.
+Default:
+DO NOT EXECUTE
+This is particularly important for authenticated apps.
+24. Authentication workflow
+When the collector reaches:
+LOGIN_REQUIRED
+the job enters:
+WAITING_FOR_AUTH
+An operator can provide an authorized session/test account.
+The collector resumes.
+Never make the exploration engine responsible for bypassing authentication.
+25. Permission states
+Create controlled test states:
+fresh_install
+permissions_denied
+permissions_allowed
+logged_out
+logged_in
+Capture each where relevant.
+This gives you:
+permission prompts
+onboarding
+empty states
+first-run UX
+returning-user UX
+26. Flow reconstruction
+A flow is generated from the graph.
+Flow
+ ├── Node A
+ ├── Node B
+ ├── Node C
+ └── Node D
+with:
+A → B
+tap Search
+
+B → C
+type query
+
+C → D
+tap result
+AI can then label:
+SEARCHING
+But the underlying transitions remain evidence-based.
+27. Flow recording
+For important flows:
+screen
+ ↓
+action
+ ↓
+transition recording
+ ↓
+next screen
+Store:
+flow.mp4
+plus individual:
+screens
+edges
+actions
+The video is a derived artifact, not the source of truth.
+28. Version detection
+Every source gets:
+ProductVersion
+---------------
+version
+platform
+release_identifier
+captured_at
+For websites, version can be inferred from:
+crawl timestamp
+deployment metadata
+content hash
+For apps, use the actual:
+versionName
+versionCode
+CFBundleShortVersionString
+CFBundleVersion
+where available.
+29. Change detection
+Compare:
+Version A
+        ↓
+Version B
+At:
+page level
+section level
+screen level
+component level
+asset level
+flow level
+Output:
+ADDED
+REMOVED
+MODIFIED
+UNCHANGED
+This gives us a future feature:
+"What changed in this product's UX?"
+
+30. Design taxonomy
+Use hierarchical taxonomy rather than flat tags.
+Screen
+├── Authentication
+│   ├── Login
+│   ├── Signup
+│   ├── OTP
+│   └── Password Reset
+│
+├── Commerce
+│   ├── Product
+│   ├── Cart
+│   └── Checkout
+│
+└── Account
+    ├── Profile
+    └── Settings
+Same for:
+Components
+Flows
+Website sections
+Animations
+31. Multiple classification sources
+Don't let AI be the only classifier.
+Use:
+DOM rules
++
+UI hierarchy
++
+OCR
++
+CV
++
+heuristics
++
+LLM/VLM
+Then combine the evidence.
+32. Confidence system
+Every derived attribute:
+label
+confidence
+source
+Example:
+screen_type:
+  checkout
+
+confidence:
+  0.97
+
+evidence:
+  classifier
+  OCR
+  DOM
+Low-confidence results can enter human review.
+33. Human review queue
+Admin sees:
+Needs Review
+-----------------------
+42 uncertain screen types
+17 duplicate candidates
+8 bad captures
+6 flow errors
+4 technology uncertainties
+Fixing an item should create training data.
+34. Embedding architecture
+Create separate embeddings for:
+Screen
+Section
+Component
+Asset
+Flow
+Page
+Product
+Use:
+text embedding
++
+visual embedding
++
+multimodal embedding
+Don't rely on one vector.
+35. Search architecture
+The search request becomes:
+USER QUERY
+    │
+    ├── keyword parser
+    ├── taxonomy parser
+    ├── semantic embedding
+    └── visual input
+             │
+             ▼
+       candidate retrieval
+             │
+             ▼
+       metadata filtering
+             │
+             ▼
+       ranking/diversification
+             │
+             ▼
+          results
+36. Search ranking
+Ranking should consider:
+semantic relevance
+visual similarity
+taxonomy match
+freshness
+quality
+popularity
+diversity
+platform match
+user filters
+But don't let popularity overwhelm relevance.
+If someone asks:
+"minimal checkout"
+
+a highly popular unrelated screen shouldn't outrank a less popular exact match.
+37. Search result diversification
+Avoid:
+Stripe
+Stripe
+Stripe
+Stripe
+Stripe
+Instead:
+Stripe
+Shopify
+Linear
+Notion
+Airbnb
+when all are relevant.
+This is particularly useful for design research.
+38. Collections
+Database:
+Collection
+CollectionItem
+CollectionMember
+Comment
+Items can point to:
+Screen
+Flow
+Page
+Section
+Asset
+Product
+Not just screenshots.
+39. User uploads
+Treat uploaded references as another source.
+USER_UPLOAD
+    ↓
+RawArtifact
+    ↓
+OCR
+    ↓
+Embedding
+    ↓
+Visual search
+Don't mix uploaded material into the public dataset automatically.
+40. Admin dashboard
+The admin application should be treated as a core product.
+Dashboard:
+Sources
+Crawl Jobs
+Failures
+Screens
+Flows
+Assets
+Animations
+Technology
+Classifications
+Reviews
+Versions
+Storage
+Costs
+41. Crawl dashboard
+For a source:
+Stripe
+────────────────────────
+Status: Healthy
+
+Pages:             184
+Screens:           742
+Sections:          1,231
+Assets:            4,902
+Animations:          87
+Flows:               42
+
+Last crawl:       2h ago
+Next crawl:       tomorrow
+
+Failures:            3
+Needs review:        7
+42. Cost tracking
+Every expensive operation gets a cost record.
+CostEvent
+---------
+job_id
+service
+operation
+input_units
+output_units
+compute_seconds
+storage_bytes
+estimated_cost
+Then we can calculate:
+cost / site
+cost / screen
+cost / flow
+cost / successful capture
+43. Caching
+Everything expensive should be cacheable.
+Examples:
+screenshot hash
+asset hash
+OCR hash
+embedding hash
+classification hash
+video hash
+If the exact same input appears again:
+CACHE HIT
+No reason to pay for it twice.
+44. Content-addressable storage
+Use hashes.
+sha256(file)
+Storage:
+assets/
+  ab/
+    ab123...
+If 20 sites use the same asset:
+1 physical file
+20 references
+This can save substantial storage.
+45. Storage tiers
+Use:
+HOT
+recent/current screenshots
+
+WARM
+older frequently accessed material
+
+COLD
+raw crawl artifacts
+The user-facing product shouldn't need the full raw crawl dataset online at all times.
+46. CDN
+Frontend should never pull large originals directly.
+Object storage
+      ↓
+Image/video processing
+      ↓
+CDN
+      ↓
+Browser
+Generate:
+thumbnail
+small
+medium
+large
+original
+on demand.
+47. API design
+Core endpoints:
+GET /search
+GET /screens/:id
+GET /flows/:id
+GET /pages/:id
+GET /sections/:id
+GET /products/:id
+GET /collections/:id
+
+POST /visual-search
+POST /collections
+POST /uploads
+
+GET /sources
+POST /sources
+POST /sources/:id/crawl
+
+GET /jobs
+GET /jobs/:id
+Internal APIs:
+POST /internal/capture
+POST /internal/normalize
+POST /internal/classify
+POST /internal/embed
+POST /internal/index
+48. Event schema
+Every event should have:
+event_id
+event_type
+timestamp
+source_id
+job_id
+entity_id
+schema_version
+payload
+Example:
+{
+  "event_type": "screen.captured",
+  "schema_version": 1,
+  "source_id": "...",
+  "job_id": "...",
+  "entity_id": "...",
+  "payload": {
+    "width": 1440,
+    "height": 900,
+    "artifact_id": "..."
+  }
+}
+49. Failure handling
+Every worker needs:
+timeout
+retry
+backoff
+dead-letter queue
+Example:
+Attempt 1
+ ↓ failure
+30 sec
+ ↓
+Attempt 2
+ ↓ failure
+5 min
+ ↓
+Attempt 3
+ ↓ failure
+DLQ
+Admin can retry manually.
+50. Browser crash handling
+Browser workers should be disposable.
+Job
+ ↓
+Browser worker
+ ↓
+crash
+ ↓
+worker destroyed
+ ↓
+new worker
+ ↓
+resume from checkpoint
+Never make one browser session responsible for the entire crawl.
+51. Crawl checkpoints
+For large sites:
+Job
+ ├── discovered URLs
+ ├── completed URLs
+ ├── failed URLs
+ └── pending URLs
+If the process dies, resume.
+52. Security boundary
+The most sensitive environment:
+              PUBLIC
+                │
+                X
+                │
+        ┌───────────────┐
+        │ CRAWLER VPC   │
+        │               │
+        │ browsers      │
+        │ devices       │
+        │ credentials   │
+        │ raw captures  │
+        └───────────────┘
+Credentials never enter the normal frontend/API environment.
+53. Recommended infrastructure
+For the first serious version:
+Frontend
+Next.js
+
+API
+TypeScript / Node
+
+Database
+PostgreSQL
+
+Queue
+Redis + BullMQ
+or a managed queue later.
+Object storage
+S3-compatible
+
+CDN
+CloudFront/Cloudflare
+
+Browser automation
+Playwright + Chromium
+
+Search
+OpenSearch/Elasticsearch
+
+Vector
+pgvector initially
+I would start with pgvector, not immediately introduce a dedicated vector database.
+54. AI architecture
+Do not put an LLM in every step.
+Deterministic
+Use code for:
+URL discovery
+DOM parsing
+asset extraction
+hashing
+dimensions
+MIME detection
+duplicate detection
+state comparison
+metadata
+technology signatures
+CV/OCR
+Use models for:
+layout detection
+OCR
+visual segmentation
+component detection
+visual similarity
+LLM/VLM
+Use it for:
+semantic classification
+taxonomy mapping
+flow naming
+section interpretation
+ambiguous UI understanding
+natural-language query interpretation
+This will reduce cost dramatically.
+55. AI processing pipeline
+Raw evidence
+      │
+      ├── deterministic processing
+      │
+      ├── OCR
+      │
+      ├── computer vision
+      │
+      └── AI/VLM
+             │
+             ▼
+       normalized metadata
+             │
+             ▼
+          embeddings
+             │
+             ▼
+          indexing
+56. AI caching
+Key every inference by:
+input_hash
+model
+model_version
+prompt_version
+taxonomy_version
+Therefore:
+same screenshot
++
+same model
++
+same prompt
+=
+cached answer
+57. Model evaluation
+Maintain a small human-labeled benchmark:
+1,000 screens
+200 sections
+200 components
+100 flows
+Every classifier change gets evaluated against it.
+Track:
+precision
+recall
+F1
+false-positive rate
+Don't blindly deploy a new model because it "looks better."
+58. Product frontend
+Primary navigation:
+Explore
+Search
+Screens
+Flows
+Sites
+Apps
+Collections
+Community
+Individual object pages:
+Screen
+Flow
+App
+Site
+Section
+59. Screen page
+┌──────────────────────────────────────┐
+│                                      │
+│             SCREEN                   │
+│                                      │
+│                                      │
+└──────────────────────────────────────┘
+
+Product
+Platform
+Pattern
+UI elements
+Version
+
+[Similar screens]
+
+[Related flows]
+
+[Save]
+
+[Copy]
+
+[Download]
+60. Flow page
+┌──────────────────────────────────────┐
+│             FLOW VIDEO               │
+└──────────────────────────────────────┘
+
+A → B → C → D
+
+[Interactive]
+
+Flow:
+Checkout
+
+Platform:
+iOS
+
+Actions:
+Tap
+Swipe
+Input
+61. Website page
+Website
+│
+├── Overview
+├── Screenshots
+├── Sections
+├── Animations
+├── Technologies
+├── Versions
+└── Similar Sites
+62. Design intelligence layer
+This is where the product can eventually go beyond Mobbin.
+For each product:
+Design fingerprint
+containing:
+color system
+typography
+spacing
+border radius
+button styles
+navigation patterns
+card patterns
+animation patterns
+layout patterns
+Then:
+"What design patterns does this product use?"
+
+becomes a query over structured data.
+63. Component-level search
+This is potentially one of our strongest differentiators.
+Instead of only:
+Find screens like this.
+
+Support:
+Find navigation bars like this.
+
+Find pricing cards like this.
+
+Find mobile bottom sheets like this.
+
+Find animated hero sections like this.
+
+Pipeline:
+Screen
+ ↓
+component detection
+ ↓
+component crop
+ ↓
+component embedding
+ ↓
+component index
+64. Region-level visual search
+A user can select a region:
+┌─────────────────────────────┐
+│                             │
+│       ┌─────────────┐       │
+│       │   SELECT    │       │
+│       │    THIS     │       │
+│       └─────────────┘       │
+│                             │
+└─────────────────────────────┘
+Then:
+crop
+ ↓
+visual embedding
+ ↓
+similar component search
+This is considerably more useful than whole-screen similarity in many cases.
+65. "Why is this good?" intelligence
+Later, AI can explain:
+This screen uses:
+- high visual hierarchy
+- single primary CTA
+- progressive disclosure
+- compact navigation
+- high contrast
+But keep the underlying evidence separate from generated commentary.
+66. Competitive comparison
+Once version history exists:
+Product A
+Product B
+Product C
+Compare:
+onboarding
+checkout
+navigation
+pricing
+authentication
+and show the underlying screens side-by-side.
+67. Automated design reports
+Eventually:
+Analyze the onboarding UX of these 20 products.
+
+System generates:
+common patterns
+rare patterns
+navigation structures
+visual patterns
+interaction patterns
+examples
+This turns the database into a research tool rather than a screenshot library.
+68. V0 — What I would actually build first
+Do not build everything above.
+V0:
+Website URLs
+    ↓
+Playwright
+    ↓
+crawl pages
+    ↓
+full-page screenshots
+    ↓
+section detection
+    ↓
+asset extraction
+    ↓
+animation detection
+    ↓
+OCR
+    ↓
+basic taxonomy
+    ↓
+Postgres
+    ↓
+S3
+    ↓
+basic search
+Frontend:
+Explore
+Search
+Site
+Page
+Section
+That's enough to validate the core idea.
+69. V1
+Add:
+responsive capture
+component detection
+visual search
+embeddings
+collections
+uploads
+technology detection
+version comparison
+animation viewer
+Now it starts feeling like a serious product.
+70. V2
+Add:
+Android
+iOS
+flow reconstruction
+interaction recording
+mobile screenshots
+device profiles
+app version history
+Now we have the full mobile/web dataset.
+71. V3
+Add:
+AI search
+natural-language research
+component search
+region search
+design fingerprints
+competitive comparison
+automated design reports
+This is where the product becomes a design intelligence platform rather than a Mobbin clone.
+72. What I would NOT build initially
+Avoid:
+❌ Community
+❌ Public profiles
+❌ Team chat
+❌ Enterprise SSO
+❌ Slack integration
+❌ Finance-specific vertical
+❌ Marketplace
+❌ Complex billing
+❌ Mobile app for your own product
+Those don't help validate the core data engine.
+73. The real MVP
+If I had to reduce the entire architecture to one pipeline:
+URL
+ ↓
+Crawler
+ ↓
+Rendered page
+ ↓
+Screenshot
+ ↓
+Section detection
+ ↓
+Asset/media extraction
+ ↓
+OCR
+ ↓
+Visual/semantic classification
+ ↓
+Embedding
+ ↓
+Postgres + Object Storage + Search
+ ↓
+Search UI
+Then:
+URL
+ ↓
+crawl again
+ ↓
+difference detected
+ ↓
+only changed material processed
+That is the economic foundation.
+74. The long-term architecture
+The final system becomes:
+                       DESIGN INTELLIGENCE PLATFORM
+
+ ┌─────────────────────────────────────────────────────────────┐
+ │                         SOURCES                             │
+ │                                                             │
+ │ Websites ─ Web Apps ─ iOS ─ Android ─ Authorized Builds    │
+ └──────────────────────────────┬──────────────────────────────┘
+                                │
+                                ▼
+ ┌─────────────────────────────────────────────────────────────┐
+ │                       CAPTURE ENGINE                        │
+ │                                                             │
+ │ Browser │ Simulator │ Emulator │ Interaction │ Recording    │
+ └──────────────────────────────┬──────────────────────────────┘
+                                │
+                                ▼
+ ┌─────────────────────────────────────────────────────────────┐
+ │                      RAW EVIDENCE                            │
+ │                                                             │
+ │ Screens │ Video │ DOM │ UI Tree │ Assets │ Events │ Logs   │
+ └──────────────────────────────┬──────────────────────────────┘
+                                │
+                                ▼
+ ┌─────────────────────────────────────────────────────────────┐
+ │                    NORMALIZATION                            │
+ │                                                             │
+ │ Pages │ Screens │ Sections │ Components │ States │ Flows   │
+ └──────────────────────────────┬──────────────────────────────┘
+                                │
+                                ▼
+ ┌─────────────────────────────────────────────────────────────┐
+ │                    INTELLIGENCE                             │
+ │                                                             │
+ │ OCR │ CV │ AI │ Taxonomy │ Tech │ Embeddings │ Diffs      │
+ └──────────────────────────────┬──────────────────────────────┘
+                                │
+                                ▼
+ ┌─────────────────────────────────────────────────────────────┐
+ │                     DESIGN GRAPH                            │
+ │                                                             │
+ │ Product → Version → Screen → Section → Component → Asset   │
+ │                    ↕             ↕                          │
+ │                  Flow          Animation                     │
+ └──────────────────────────────┬──────────────────────────────┘
+                                │
+              ┌─────────────────┼──────────────────┐
+              ▼                 ▼                  ▼
+           SEARCH            RESEARCH          LIBRARY
+              │                 │                  │
+              └─────────────────┼──────────────────┘
+                                ▼
+                         USER EXPERIENCE
+The five things I would protect most carefully
+If we're optimizing for a cheap but technically strong Mobbin alternative, these are the architectural assets I would consider most important:
+1. Immutable raw evidence — lets us reprocess everything as our models improve.
+2. Unified design graph — prevents web/iOS/Android from becoming separate systems.
+3. Automated exploration + state deduplication — determines how much useful data we can collect without human labor.
+4. Multimodal indexing — text + metadata + visual + component + flow search.
+5. Incremental crawling/change detection — determines whether the economics work at scale.
+The actual screenshot crawler is comparatively straightforward. The difficult and valuable part is turning millions of heterogeneous captures into a clean, deduplicated, versioned, searchable design dataset.
+That is the architecture I would build around.
