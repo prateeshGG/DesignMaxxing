@@ -34,8 +34,8 @@ Films are deterministic web pages: `window.seek(t)` places every element for sec
    - No camera framing that shows past the edge of the world.
    - Loops are seamless where the film loops.
    - File size is under about 10 MB for 20 s at 1920×1200 (H.264 CRF 22 plus VP9 CRF 33).
-7. **Sound** (see `references/audio.md`): write a cues file timed to the beats, synthesise UI sounds and a soft pad, and add a voiceover when there is TTS credit. Ship a silent file for autoplay and a "-sound" file behind an unmute button.
-8. **Ship.** Put the silent MP4 and WebM in the page with `muted autoplay loop playsinline`, play only while visible, and add a sound toggle that swaps to the "-sound" file. Commit the film sources, not the `out/` renders.
+7. **Sound** (see `references/audio.md`): write a cues file timed to the beats, synthesise UI sounds and a soft pad, and add a voiceover when there is TTS credit. Ship **one** file that carries the audio track (the mux output), not a silent file plus a separate sound file.
+8. **Ship.** Put the MP4 and WebM (with audio) in the page with `muted autoplay loop playsinline`, play only while visible, and add a clearly visible "Play with sound" / "Sound on" button that sets `muted = false` and restarts from 0. Browsers block autoplay with sound, so a film with only the native player controls looks silent to the founder. Verify in a headless browser that after the click `muted` is false and `webkitAudioDecodedByteCount` grows. Commit the film sources, not the `out/` renders.
 
 ## Hard rules
 - Never describe on a public page how the library is collected (no capture, crawler or quality-gate talk).

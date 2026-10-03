@@ -636,13 +636,13 @@ main { position: relative; }
   var ext = document.createElement('video').canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4';
   hb.src = (narrowHero ? 'video/hero-silk-tall' : 'video/hero-silk') + ext;
   hb.setAttribute('data-play', '');
-  /* the parts film: silent loop by default, sound version on request */
+  /* the parts film: one file with voice and sound; it autoplays muted and the button unmutes it */
   var film = $('#film'), snd = $('#snd'), fbase = film.getAttribute('data-src');
   film.src = fbase + ext; film.setAttribute('data-play', '');
   snd.addEventListener('click', function () {
-    var on = snd.getAttribute('aria-pressed') !== 'true', t = film.currentTime || 0;
-    film.src = fbase + (on ? '-sound' : '') + ext; film.muted = !on;
-    film.addEventListener('loadedmetadata', function once() { film.removeEventListener('loadedmetadata', once); film.currentTime = on ? 0 : t; var pr = film.play(); if (pr && pr.catch) pr.catch(function () {}); });
+    var on = snd.getAttribute('aria-pressed') !== 'true';
+    film.muted = !on; if (on) film.currentTime = 0;
+    var pr = film.play(); if (pr && pr.catch) pr.catch(function () {});
     snd.setAttribute('aria-pressed', String(on)); snd.querySelector('span').textContent = on ? 'Sound off' : 'Sound on';
   });
   var vids = $$('video[data-play]');
