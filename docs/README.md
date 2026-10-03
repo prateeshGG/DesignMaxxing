@@ -1,4 +1,4 @@
-# Engineering Documentation — Design Intelligence Platform
+# Engineering Documentation — DesignMaxxing
 
 This directory explains **how the product works and how it will be built**. It is extracted from the project conversation, not designed from scratch.
 
@@ -75,6 +75,7 @@ Status markers used everywhere:
 | 18 | [Roadmap V0–V3](18-mvp-v1-v2-v3-roadmap.md) | Phases, deferred items, superseded roadmap history |
 | 19 | [Decisions, assumptions, open questions](19-decisions-assumptions-open-questions.md) | Consolidated register + conflicts between iterations |
 | 20 | [Founder decisions and plan validation](20-founder-decisions-and-plan-validation.md) | Decisions on the open questions (`F-xx`), plan validation, scale posture, experiments, stage gates, risk register. **Overrides 01–19 where they conflict** |
+| 22 | [Data collection resilience architecture](22-data-collection-resilience-architecture.md) | Never-stuck collection: supervised bounded execution, strategy ladder, publishability gate (no unusable data to users), self-healing, torture suite. Decisions `DC-01…DC-13` |
 | 21 | [Parts hierarchy](21-parts-hierarchy.md) | Stage 1 of the [breakdown protocol](process/project-breakdown-protocol.md): ordered Groups → Parts |
 
 ## Cross-document dependency map

@@ -16,7 +16,7 @@ How the framing evolved (all agreed in the conversation):
 - Not "cheaper Mobbin" as identity; price is an advantage, not the identity. The assistant's positioning: *"the searchable intelligence layer for the web"* / *"one machine-readable research layer for real websites"* (MB§52, §76). **Provisional** (written under the since-superseded SaaS premise, but not contradicted).
 - Stronger thesis at the end: the product becomes a design-intelligence platform "rather than a Mobbin clone" once V3 features land (§71). The moat is "the dataset + observation graph" (MB§73), operationalized as the five protected assets (§ closing).
 
-Product name: **Not decided.** The Blueprint titles it "Design Intelligence Platform" and uses `design-intelligence/` as the monorepo root; this repository is named DesignMaxxing.
+Product name: **DesignMaxxing** (founder decision: the product name is the repository name; see [20](20-founder-decisions-and-plan-validation.md) F-05). The Blueprint's working titles "Design Intelligence Platform" and the `design-intelligence/` monorepo root are descriptive/internal only. The landing page is deferred until the founder provides design references.
 
 ## Core problem
 

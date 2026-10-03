@@ -113,7 +113,7 @@ Status: **Open** = Not decided; **Partly** = the conversation addresses part of 
 | Q-03 | Is incremental crawling / scheduled re-crawl a V0 requirement even though "version comparison" is V1? | Open |
 | Q-04 | Phase of the human review queue, diversification, "why is this good?", MCP/API exposure, trend detection, website DNA. | Open |
 | Q-05 | How are Feature List sections M (accessibility) and N (performance), Laptop profile, breakpoint detection, Figma and the browser extension phased? | Partly — accessibility/performance capture and the 1280×800 laptop profile appear in the capture design; no phase |
-| Q-06 | Product name. | Open |
+| Q-06 | Product name. | **Resolved** — "DesignMaxxing" (the repo name), [20](20-founder-decisions-and-plan-validation.md) F-05 |
 
 ### Business
 

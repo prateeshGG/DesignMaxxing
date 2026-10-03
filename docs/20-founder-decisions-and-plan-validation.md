@@ -43,7 +43,7 @@ All **[Decision]**. "Revisit" = the evidence that would change it.
 | F-02 | Q-02 | **V0/V1 = public marketing websites only.** Web interaction exploration (Level 3) lands in **V1 as a fixed, small, deterministic set** (open nav menu, tabs, accordion, pricing toggle) — not open-ended exploration. **Authenticated web (`WEB_APP`) and mobile = V2, gated** (F-40). | Marketing sites are legally and technically simplest, match the Feature List's site sections, and are enough to test the thesis. | Waitlist feedback demands app/dashboard coverage |
 | F-03 | Q-04 | Review queue: **V0 minimal** (table + override form; founder is reviewer). Diversification: **V0** (per-site cap: max 2 results per site in top 20). "Why is this good", trend detection, website DNA: **V3**. **MCP/API: not built until ≥ 50 activated users or paying customers ask** (it is a thin layer over the search API). | Cheap items now, expensive/speculative items gated on users. | Usage evidence |
 | F-04 | Q-05 | **Capture accessibility tree and basic performance timings into raw evidence in V0** (cheap, cannot be recreated later); **no product surface before V2.** No "Laptop" profile, no breakpoint-detection or responsive-timeline feature before V2. Figma/browser extension: V3+ / deferred. | Raw evidence is immutable and reusable — capture once. UI for it has no validated demand. | Demand for accessibility/performance filters |
-| F-05 | Q-06 | **Keep codename "DesignMaxxing"/`design-intelligence` internally.** Public brand name and trademark check are due **before the waitlist page goes live** (founder-only decision; no engineering dependency). | Name blocks only the waitlist. | — |
+| F-05 | Q-06 | **Product name = the repository name: "DesignMaxxing".** (Founder decision, superseding the earlier codename-only decision.) A trademark/availability check is still advisable before the waitlist page goes public. **Landing page: deferred** — not started until the founder supplies design reference images; no landing-page code or copy work before then. |
 
 ### Business
 
@@ -56,7 +56,7 @@ All **[Decision]**. "Revisit" = the evidence that would change it.
 
 | ID | Resolves | Decision | Why |
 |---|---|---|---|
-| F-10 | Q-09 | **Honor robots.txt always** (default). Overriding a domain requires an explicit logged policy override by the founder. Honest user-agent string with a contact URL. Limits: **1 request/s and 2 concurrent per domain; max 25 pages/site (V0), depth ≤ 3, asset ≤ 25 MB, site job ≤ 20 min.** Use sitemap + links; prioritize by page-type score (home 100, pricing 90, product 85, features 80, about 60, contact 40, blog 20, legal 5). Re-crawl: manual in V0; monthly cron in V1. | Respecting robots is the cheapest legal-risk reduction available and costs little coverage on marketing sites. |
+| F-10 | Q-09 | **Honor robots.txt always** (default). Overriding a domain requires an explicit logged policy override by the founder. Honest user-agent string with a contact URL. Limits: **1 request/s and 2 concurrent per domain; max 25 pages/site (V0), depth ≤ 3, asset ≤ 25 MB, site job ≤ 30 min (DC-13).** Use sitemap + links; prioritize by page-type score (home 100, pricing 90, product 85, features 80, about 60, contact 40, blog 20, legal 5). Re-crawl: manual in V0; monthly cron in V1. | Respecting robots is the cheapest legal-risk reduction available and costs little coverage on marketing sites. |
 | F-11 | Q-10 | "Wait for stability" = **network idle ≥ 500 ms + `document.fonts.ready` + no layout shift for 1 s, hard cap 15 s** [Estimate; tune on the 20-site spike]. "Expensive page" for Level 3 (V1) = pages classified **home / pricing / product**, ≤ 10 HIGH-ranked candidate actions per page. | Bounded, deterministic, measurable. |
 | F-12 | Q-11 | **Capture desktop 1440×900 and mobile 390×844 by default in V0** (mobile sections matter; marginal cost is low); **tablet 1024×1366 only in V1 and only when the desktop↔mobile layout signature differs** (column-count change or hidden/shown block). Responsive-difference score: simple signature comparison, not a learned model. | Cheap and explainable. |
 | F-13 | Q-12 | V1: one scroll-pass video (motion mode) for hero + sections, **only on sites where an animation library/video/canvas is detected.** Canvas/WebGL: record rendered output. **HLS/M3U8: store poster + metadata only; do not download streams** (cost and copyright). GIF/WebP/APNG: standard three-representation rule. | Keeps video storage and copyright exposure small. |
@@ -103,7 +103,7 @@ All **[Decision]**. "Revisit" = the evidence that would change it.
 
 | ID | Resolves | Decision |
 |---|---|---|
-| F-32 | Q-32 | Retries: **3 attempts, backoff 30 s then 5 min, then DLQ** (the §49 example adopted). Timeouts: page capture 90 s, site job 20 min, AI call 60 s. `PARTIAL`: a site job with **≥ 70% of target pages captured completes with `partial = true`; below 70% it fails.** Manual retry re-runs only failed units (pages/stages) and resets their attempts. Checkpoint granularity = URL. |
+| F-32 | Q-32 | Retries: **3 attempts, backoff 30 s then 5 min, then DLQ** (the §49 example adopted). Timeouts: page capture 90 s, site job **30 min** (raised from 20 by DC-13 in [22](22-data-collection-resilience-architecture.md): 50 units at ~40 s and 2 concurrent ≈ 17 min leaves no headroom), AI call 60 s. `PARTIAL`: a site job with **≥ 70% of target pages captured completes with `partial = true`; below 70% it fails.** Manual retry re-runs only failed units (pages/stages) and resets their attempts. Checkpoint granularity = URL. |
 | F-33 | Q-33 | **No storage tiering in V0** (single bucket). Add lifecycle rules later: raw HTML/DOM/traces → cold after 90 days; raw recordings kept 180 days. Mass reprocessing requires a `CostEvent`-based estimate and explicit founder approval. |
 | F-34 | Q-34 | "Healthy" source = last crawl ≥ 90% pages OK **and** ≤ 5% items `needs_review` **and** last crawl < 35 days old. Alerting = Sentry email alerts + one daily summary email; **no pager.** **One admin area inside the web app** (`/admin`, role-gated); **`apps/worker-dashboard` and `notification-service` are not built.** |
 | F-35 | Q-35 | **Hosting: two small VMs with Docker Compose** (one provider; Hetzner-class pricing assumed). *App VM:* web/API, Postgres+pgvector, Redis. *Crawler VM:* browser workers, raw captures, any credentials — separate to honor the §52 boundary; may be **started on demand** for batch crawls. Object storage + CDN: Cloudflare R2 + Cloudflare. **No Kubernetes, no Terraform, no OpenSearch until the triggers in §5.** Backups: nightly `pg_dump` to R2 + R2 versioning; **RPO 24 h, RTO 1 day; do one restore test before launch.** |
@@ -124,6 +124,7 @@ All **[Decision]**. "Revisit" = the evidence that would change it.
 | [15](15-security-and-isolation.md) | Concrete V0 security/legal posture F-18–F-20. |
 | [16](16-admin-and-operations.md) | One `/admin` area; no worker-dashboard/notification-service. |
 | [19](19-decisions-assumptions-open-questions.md) | Open questions Q-01…Q-35 marked as decided here. |
+| [08](08-web-collection.md), [14](14-failure-recovery-and-reliability.md), [03](03-capture-and-crawling-workflow.md) | Data-collection reliability is specified in [22](22-data-collection-resilience-architecture.md) (`DC-01`…`DC-13`): supervised bounded execution, strategy ladder, publishability gate, self-healing loops. Site job deadline is 30 min. |
 
 ## 4. Build shape: modular monolith, three deployables
 
@@ -135,7 +136,7 @@ Replace the 19-service target with **one repo, three deployables** (the director
 | `worker` (Node/TypeScript, BullMQ) | source/policy, discovery, capture runtime, media, dedup, normalization, PII regex screen, change hash, embedding/classification jobs, cost ledger | Crawler VM (browser jobs) and App VM (non-browser jobs) |
 | `ml` (scripts/notebooks, Python optional) | benchmark, bake-off, evaluation, offline reindex | founder machine / on demand |
 
-**Build vs buy (decisions):** *Buy:* managed auth, object storage + CDN (R2/Cloudflare), hosted AI models behind one abstraction, Sentry, Stripe (later), transactional email. *Build:* capture runtime, section segmentation, normalization/graph, taxonomy, evaluation harness — this is the differentiating value. *Browser hosting:* **[Estimate]** V0 needs ≈ 10,000 pages × 2 viewports × ~30 s ≈ **167 browser-hours**; at the conversation's quoted Browserbase rate (≈ $20/mo for 100 h, then ≈ $0.12/h) that is **≈ $28** — comparable to a small VM. We still **self-host** for isolation, video recording and instrumentation control, and keep a hosted browser as a fallback if our IPs get blocked.
+**Build vs buy (decisions):** *Buy:* managed auth, object storage + CDN (R2/Cloudflare), hosted AI models behind one abstraction, Sentry, Stripe (later), transactional email. *Build:* capture runtime, section segmentation, normalization/graph, taxonomy, evaluation harness — this is the differentiating value. *Browser hosting:* **[Estimate]** V0 needs ≈ 10,000 pages × 2 viewports × ~30 s ≈ **167 browser-hours**; at the conversation's quoted Browserbase rate (≈ $20/mo for 100 h, then ≈ $0.12/h) that is **≈ $28** — comparable to a small VM. We still **self-host** for isolation, video recording and instrumentation control, and may use a hosted browser **only as a reliability fallback if our own VM is unavailable — never to evade a block** (DC-08 in [22](22-data-collection-resilience-architecture.md)).
 
 ## 5. Scale posture and economics (no excessive scaling)
 
@@ -161,12 +162,12 @@ Format: Hypothesis → Experiment → Metric → Threshold → Decision. **Thres
 | # | Hypothesis | Experiment | Metric | Threshold | Decision |
 |---|---|---|---|---|---|
 | E1 | Designers/devs want section-level web search enough to join a waitlist | Landing page + short demo (hand-run on ≈ 50 sites) posted to 3–5 relevant communities | Visitor→waitlist conversion; total signups in 60 days | ≥ 15% on targeted traffic **and** ≥ 500 signups | Pass: continue. 8–15% or 200–500: iterate positioning/niche. Below: stop and re-interview |
-| E2 | Automated capture is good enough to publish | 20-site end-to-end spike (then 50) | % pages with quality score ≥ 80; section-type accuracy on auto-accepted items; cost/page | ≥ 90% pages pass; ≥ 85% accuracy at ≥ 0.90 confidence; ≤ $0.10/page (target ≤ $0.05) | Pass: scale to V0 dataset. Fail: fix capture quality before anything else |
+| E2 | Automated capture is good enough to publish (gate and resilience design in [22](22-data-collection-resilience-architecture.md)) | 20-site end-to-end spike (then 50) | % pages with quality score ≥ 80; section-type accuracy on auto-accepted items; cost/page | ≥ 90% pages pass; ≥ 85% accuracy at ≥ 0.90 confidence; ≤ $0.10/page (target ≤ $0.05) | Pass: scale to V0 dataset. Fail: fix capture quality before anything else |
 | E3 | Search finds useful references fast | 20 target users × 5 tasks on the demo | Task success; time to useful reference | ≥ 70% success in < 60 s | Pass: proceed to beta. Fail: fix taxonomy/embeddings/ranking |
 | E4 | People will pay | Price-intent question (at $9 and $19) + fake-door upgrade for beta users | Paid-intent click-through among activated users | ≥ 5% at one price point | Pass: build billing + V1. Fail: reconsider model/niche |
 | E5 | Display of screenshots is acceptable | Legal consult (F-18) | Counsel's written guidance | No blocking issue, or a workable policy | Gate for public library launch |
 
-**Gates:** **G1** waitlist live (needs brand name, F-05) → **G2** internal alpha: 100 sites searchable (needs E2) → **G3** private beta to top waitlist (needs E3 + E5) → **G4** public launch + paid test; V1 work begins (needs E1 + E4) → **G5** mobile/authenticated spike (needs paid-demand evidence; F-36). Nothing in a later gate starts before the earlier gate passes.
+**Gates:** **G1** waitlist live (name decided — F-05; needs the landing page, which waits on the founder's design references) → **G2** internal alpha: 100 sites searchable (needs E2) → **G3** private beta to top waitlist (needs E3 + E5) → **G4** public launch + paid test; V1 work begins (needs E1 + E4) → **G5** mobile/authenticated spike (needs paid-demand evidence; F-36). Nothing in a later gate starts before the earlier gate passes.
 
 ## 7. Risk register (top items)
 
@@ -178,12 +179,12 @@ Format: Hypothesis → Experiment → Metric → Threshold → Decision. **Thres
 | Incumbent response / low differentiation | Med | Med | Churn to Mobbin features; waitlist stall | Web-first depth: sections, states, tech stack, versions | Narrow to a niche incumbents ignore |
 | AI cost blowout | Med | Med | `CostEvent` > 70% of cap | Deterministic-first, routing, cache keys, caps | Pause AI stage; use review queue |
 | Founder overload / scope creep | High | High | Work not tied to a gate | Gates in §6; modular monolith; no new docs | Cut to E1/E2 only |
-| Crawler IP blocked / site blocking | Med | Low–Med | Rising `BLOCKED` rate | Rate limits, honest UA, robots compliance | Hosted browser fallback; drop site |
+| Crawler IP blocked / site blocking | Med | Low–Med | Rising `BLOCKED` rate | Rate limits, honest UA, robots compliance | Mark `BLOCKED`, open the domain breaker, drop the site — **no evasion** (DC-08) |
 | Data loss | Low | High | Backup failure alert | F-35 backups + restore test | Rebuild from raw evidence + manifests |
 
 ## 8. Next 1–3 actions (this is the answer to "what should I do?")
 
-1. **Waitlist + demo (E1).** Decide the public name (F-05), publish a landing page with a 60-second demo from the V0 spike's output, and add the price-intent question. *Why:* it produces the traffic number that sizes everything and the first behavioral demand evidence. *Success metric:* ≥ 500 signups in 60 days at ≥ 15% conversion.
+1. **Waitlist + demo (E1).** The name is decided (F-05: DesignMaxxing); once the founder supplies design references, build and publish a landing page with a 60-second demo from the V0 spike's output, and add the price-intent question. *Why:* it produces the traffic number that sizes everything and the first behavioral demand evidence. *Success metric:* ≥ 500 signups in 60 days at ≥ 15% conversion.
 2. **Capture spike (E2).** Build only: discovery → capture runtime → section segmentation → classification → section embeddings → Postgres + R2 → bare search UI, for 20 sites on one VM. *Why:* proves quality and real cost/page, the two numbers that decide whether this is viable. *Success metric:* thresholds in E2.
 3. **Book the legal consult (E5)** before any public library. *Why:* the only risk that can end the company post-launch.
 
