@@ -8,7 +8,14 @@ const [, , name, url, W = "1440", H = "900", DPR = "2", MOBILE = "0", OUT = "./c
 if (!name || !url) { console.error("usage: node capture.mjs <name> <url> [w h dpr mobile outDir]"); process.exit(1); }
 fs.mkdirSync(OUT, { recursive: true });
 const exe = fs.existsSync("/opt/pw-browsers/chromium-1194/chrome-linux/chrome") ? "/opt/pw-browsers/chromium-1194/chrome-linux/chrome" : undefined;
-const b = await chromium.launch({ executablePath: exe, args: ["--no-sandbox"] });
+// Behind a TLS-terminating egress proxy, trust exactly its CA (by public-key pin) instead of ignoring certificate errors.
+const CA = "/root/.ccr/agent-proxy-ca.crt", args = ["--no-sandbox"];
+if (fs.existsSync(CA)) {
+  const { createPublicKey, createHash } = await import("node:crypto");
+  const spki = createPublicKey(fs.readFileSync(CA)).export({ type: "spki", format: "der" });
+  args.push("--ignore-certificate-errors-spki-list=" + createHash("sha256").update(spki).digest("base64"));
+}
+const b = await chromium.launch({ executablePath: exe, args });
 for (const mode of ["motion", "still"]) {
   const ctx = await b.newContext({ viewport: { width: +W, height: +H }, deviceScaleFactor: +DPR, isMobile: MOBILE === "1", hasTouch: MOBILE === "1", reducedMotion: mode === "still" ? "reduce" : "no-preference", locale: "en-US" });
   const pg = await ctx.newPage();

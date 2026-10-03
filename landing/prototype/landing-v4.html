@@ -75,11 +75,6 @@ main { position: relative; }
 .wl-msg.ok { color: #14803f; } .wl-msg.err { color: #c6361f; }
 .hero-links { margin-top: 16px; }
 
-/* showreel */
-.reel { padding-block: 0 clamp(56px, 7vw, 96px); }
-.reel-frame { position: relative; border-radius: 22px; overflow: hidden; background: #000; aspect-ratio: 16 / 8; }
-.reel-frame video { width: 100%; height: 100%; object-fit: cover; }
-.reel-cap { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; }
 
 /* ---------- scroll story ---------- */
 .how { height: 600vh; background: #fff; border-block: 1px solid var(--line); }
@@ -199,6 +194,17 @@ main { position: relative; }
 .vid { position: relative; min-width: 0; display: grid; align-content: start; gap: 12px; }
 .vframe { border-radius: 18px; overflow: hidden; background: #000; aspect-ratio: 16 / 10; box-shadow: 0 24px 60px rgba(10,11,13,.16); }
 .vframe video { width: 100%; height: 100%; object-fit: cover; }
+.vframe.shots { position: relative; display: grid; place-items: center; padding: 22px; background: linear-gradient(160deg, #f3f5fb, #e9edf7); }
+.vframe.shots img { display: block; border-radius: 10px; box-shadow: 0 1px 2px rgba(10,11,13,.06), 0 12px 30px rgba(30,40,90,.16); }
+.vframe.shots.one img { width: 100%; height: auto; }
+/* three heroes fanned like cards on a desk: the front one is whole, the others show their top half */
+.vframe.shots.three { display: block; padding: 0; }
+.vframe.shots.three img { position: absolute; width: 64%; height: auto; }
+.vframe.shots.three img:nth-child(1) { left: 5%; top: 7%; }
+.vframe.shots.three img:nth-child(2) { left: 18%; top: 22%; }
+.vframe.shots.three img:nth-child(3) { left: 31%; top: 37%; }
+.vframe.shots.phones { grid-template-columns: repeat(3, auto); justify-content: center; gap: 14px; }
+.vframe.shots.phones img { height: 100%; width: auto; aspect-ratio: .52; max-height: 100%; object-fit: contain; object-position: top; background: #08090a; border-radius: 18px; min-height: 0; }
 .vcap { display: flex; justify-content: space-between; gap: 12px; }
 
 /* principles band */
@@ -315,7 +321,6 @@ main { position: relative; }
   .wl { grid-template-columns: 1fr; box-shadow: none; }
   .wl input { border-right: 1px solid var(--soft-border); border-bottom: 0; border-radius: var(--r) var(--r) 0 0; }
   .wl .btn { border-radius: 0 0 var(--r) var(--r); width: 100%; }
-  .reel-frame { aspect-ratio: 4 / 3; border-radius: 16px; }
   .tiles { gap: 8px; }
   .tile p { display: none; }
   .timeline { grid-template-columns: 1fr; }
@@ -393,10 +398,6 @@ main { position: relative; }
     </div>
   </section>
 
-  <section class="reel wrap" aria-label="A wall of real sections">
-    <div class="reel-frame"><video data-play muted loop playsinline preload="metadata" src="video/wall.mp4" aria-label="A slow camera move across a wall of real website sections"></video></div>
-    <div class="reel-cap"><span class="mono">Real sections from real sites</span><span class="mono">stripe.com · linear.app · studiomaydit.com</span></div>
-  </section>
 
   <section class="how" id="how" aria-label="How it works">
     <div class="how-in">
@@ -439,18 +440,17 @@ main { position: relative; }
           <div class="dw" id="dw">
             <div class="dbox">
               <div class="dframe"><img src="img/s-hero-top.webp" alt="Stripe hero, opened for a closer look" width="2880" height="1376"></div>
-              <!-- hand-drawn callouts: a mark on the target, a line that follows through to a label in empty space -->
+              <!-- callouts: a label in empty space, a straight arrow to the target, then a pen mark on compact or wide targets -->
               <svg class="anno" viewBox="0 0 100 100" aria-hidden="true">
-                <path pathLength="1" d="M13.4 45.4 Q24 46.6 35 45.8 T52 45.9 T66.2 45.3"/><path class="ghost" pathLength="1" d="M13.8 46.3 Q26 47 40 46.4 T65.6 46.1"/>
-                <path pathLength="1" d="M-2 41.5 Q6 44.6 13.1 45.4"/>
-                <path pathLength="1" d="M88.6 17.6 C98.4 17.4, 98.6 62.6, 88.4 62.4 C78.6 62.2, 78.8 18.4, 90.2 18.9"/>
-                <path pathLength="1" d="M102 40.6 Q99.6 39.4 97.3 40.1"/>
-                <path pathLength="1" d="M18.8 72.2 C25.8 72.1, 25.9 88, 18.6 87.9 C11.6 87.8, 11.8 72.6, 19.7 72.9"/>
-                <path pathLength="1" d="M18.6 106 Q17.7 97 18.7 88.2"/>
+                <path pathLength="1" d="M13.8 46.4 Q30 47.1 46 46.5 T78.6 46.2"/><path class="ghost" pathLength="1" d="M14.2 47.3 Q34 47.8 54 47.2 T78 46.9"/>
+                <path pathLength="1" d="M-2 42 L12.4 42"/><path pathLength="1" d="M11.2 39.7 L12.4 42 L11.2 44.3"/>
+                <path pathLength="1" d="M102 20 L84.5 20"/><path pathLength="1" d="M85.7 17.7 L84.5 20 L85.7 22.3"/>
+                <path pathLength="1" d="M19.8 71.6 C26.6 71.5, 26.7 86.3, 19.5 86.2 C12.4 86.1, 12.6 72, 20.6 72.3"/>
+                <path pathLength="1" d="M19.3 106 L19.3 88.5"/><path pathLength="1" d="M18.1 91 L19.3 88.5 L20.5 91"/>
               </svg>
-              <span class="clab" style="left:-2%;top:41.5%;transform:translate(-100%,-50%)">Headline</span>
-              <span class="clab" style="left:102%;top:40.6%;transform:translate(0,-50%)">Gradient art</span>
-              <span class="clab" style="left:18.6%;top:106%;transform:translate(-50%,0)">One call to action</span>
+              <span class="clab" style="left:-2%;top:42%;transform:translate(-100%,-50%)">Headline</span>
+              <span class="clab" style="left:102%;top:20%;transform:translate(0,-50%)">Gradient art</span>
+              <span class="clab" style="left:19.3%;top:106%;transform:translate(-50%,0)">One call to action</span>
             </div>
             <div class="dnotes mono">Headline · Gradient art · One call to action</div>
             <div class="dmeta"><span>Hero</span><span>Light</span><span>Desktop</span><span class="src">Source: stripe.com</span></div>
@@ -498,7 +498,7 @@ main { position: relative; }
           <div class="row-meta mono">Section · Hero · 3 sources linked</div>
         </div>
         <div class="vid">
-          <div class="vframe"><video data-play muted loop playsinline preload="metadata" src="video/compare-heroes.mp4" aria-label="A slow camera move across three real hero sections"></video></div>
+          <div class="vframe shots three"><img src="img/x-stripe-hero.webp" alt="Hero section of stripe.com" loading="lazy"><img src="img/x-linear-hero.webp" alt="Hero section of linear.app" loading="lazy"><img src="img/x-studio-hero.webp" alt="Hero section of studiomaydit.com" loading="lazy"></div>
           <div class="vcap mono"><span>Preview</span><span>Source: stripe.com · linear.app · studiomaydit.com</span></div>
         </div>
       </article>
@@ -515,7 +515,7 @@ main { position: relative; }
           <div class="row-meta mono">Motion · Whole page · Source linked</div>
         </div>
         <div class="vid">
-          <div class="vframe"><video data-play muted loop playsinline preload="metadata" src="video/page-recording.mp4" aria-label="A camera travelling down a real page"></video></div>
+          <div class="vframe shots one"><img src="img/x-stripe-banner.webp" alt="Video banner section of stripe.com" loading="lazy"></div>
           <div class="vcap mono"><span>Preview</span><span>Source: stripe.com</span></div>
         </div>
       </article>
@@ -532,7 +532,7 @@ main { position: relative; }
           <div class="row-meta mono">Mobile · Source linked</div>
         </div>
         <div class="vid">
-          <div class="vframe"><video data-play muted loop playsinline preload="metadata" src="video/phones.mp4" aria-label="Three real mobile sections settling into place"></video></div>
+          <div class="vframe shots phones"><img src="img/x-lm-hero.webp" alt="Mobile hero of linear.app" loading="lazy"><img src="img/x-lm-intake.webp" alt="Mobile intake section of linear.app" loading="lazy"><img src="img/x-lm-planning.webp" alt="Mobile planning section of linear.app" loading="lazy"></div>
           <div class="vcap mono"><span>Preview</span><span>Source: linear.app</span></div>
         </div>
       </article>
@@ -583,7 +583,6 @@ main { position: relative; }
   </section>
 
   <section class="closing" id="join">
-    <video data-play muted loop playsinline preload="metadata" src="video/plate.mp4" aria-hidden="true"></video>
     <div class="wrap">
       <p class="tag">Early access</p>
       <h2>Stop screenshotting. Start finding.</h2>
@@ -724,14 +723,14 @@ main { position: relative; }
     /* D: study */
     var dIn = ease(w(p, .74, .82));
     setLayer(layD, dIn, .86 + .14 * dIn);
-    /* paths: [underline, ghost underline, line 1, ring 2, line 2, ring 3, line 3]; each callout = mark, then line, then label */
-    var groups = [[0, 1, 2], [3, 4], [5, 6]];
+    /* paths: [underline, ghost, arrow 1, head 1, arrow 2, head 2, ring 3, arrow 3, head 3]; each callout = label, arrow, head, then mark */
+    var groups = [[[0, 1], 2, 3], [[], 4, 5], [[6], 7, 8]];
     groups.forEach(function (g, k) {
       var a = .82 + k * .055;
-      annos[g[0]].style.strokeDashoffset = (1 - ease(w(p, a, a + .025))).toFixed(3);
-      if (g.length === 3) annos[g[1]].style.strokeDashoffset = (1 - ease(w(p, a + .005, a + .03))).toFixed(3);
-      annos[g[g.length - 1]].style.strokeDashoffset = (1 - ease(w(p, a + .02, a + .045))).toFixed(3);
-      clabs[k].style.opacity = ease(w(p, a + .035, a + .05)).toFixed(3);
+      clabs[k].style.opacity = ease(w(p, a, a + .012)).toFixed(3);
+      annos[g[1]].style.strokeDashoffset = (1 - ease(w(p, a + .008, a + .025))).toFixed(3);
+      annos[g[2]].style.strokeDashoffset = (1 - w(p, a + .023, a + .03)).toFixed(3);
+      g[0].forEach(function (m) { annos[m].style.strokeDashoffset = (1 - ease(w(p, a + .028, a + .05))).toFixed(3); });
     });
   }
   var pend = false, lastP = -1;

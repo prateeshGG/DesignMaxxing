@@ -15,13 +15,14 @@
     { "kind": "click", "t": 11.85, "gain": 0.6 },
     { "kind": "whooshShort", "t": 12.15, "gain": 0.35 },
     { "kind": "thump", "t": 12.55, "gain": 0.45 },
-    { "kind": "scribble", "t": [13.55, 13.95, 14.95, 15.35, 16.35, 16.75], "gain": 0.32 },
-    { "kind": "popHi", "t": [14.3, 15.7, 17.1], "gain": 0.28 },
-    { "kind": "popLo", "t": 17.7, "gain": 0.3 },
-    { "kind": "shimmer", "t": 17.9, "gain": 0.5 }
+    { "kind": "popHi", "t": [13.55, 15.15, 16.4], "gain": 0.28 },
+    { "kind": "whooshShort", "t": [13.8, 15.4, 16.65], "gain": 0.18 },
+    { "kind": "scribble", "t": [14.15, 17.0], "gain": 0.32 },
+    { "kind": "popLo", "t": 17.9, "gain": 0.3 },
+    { "kind": "shimmer", "t": 18.1, "gain": 0.5 }
   ],
   "vo": [
-    { "t": 0.35, "text": "Every website, broken into the parts you actually need." },
+    { "t": 0.35, "text": "Search real websites, section by section." },
     { "t": 4.0, "text": "The hero. The features. The stats. Each one on its own." },
     { "t": 8.95, "text": "Describe what you're looking for," },
     { "t": 10.7, "text": "and get the exact section, from real sites." },

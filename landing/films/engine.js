@@ -214,36 +214,38 @@
     svg.setAttribute('width', o.w || 1440); svg.setAttribute('height', o.h || 900); svg.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;z-index:28;pointer-events:none';
     parent.appendChild(svg);
     var r = o.target, cx = r.x + r.w / 2, cy = r.y + r.h / 2, rx = r.w / 2 + (o.pad || 14), ry = r.h / 2 + (o.pad || 14);
-    var L = o.label, ring = [], ex, ey;
+    var L = o.label, S0 = o.from || L, ring = [], ex, ey;
     if (o.shape === 'underline') {
       /* wide text: a hand-drawn underline (circling a whole line would cut through the letters) */
       for (var ku = 0; ku <= 1; ku++) { var pu = []; for (var iu = 0; iu <= 30; iu++) { var tu = iu / 30; pu.push([r.x - 6 + (r.w + 12) * tu, r.y + r.h + 3 + Math.sin(tu * 9 + ku) * 1.6 + (rnd() - .5) * 1.4 + ku * 2.5]); } ring.push(pu); }
-      var leftEnd = Math.abs(L.x - r.x) < Math.abs(L.x - (r.x + r.w));
-      ex = leftEnd ? r.x - 6 : r.x + r.w + 6; ey = r.y + r.h + 3;
-    } else {
-      /* loose ellipse: a little over one turn, slightly wobbly, like a pen circle */
+    } else if (o.shape !== 'arrow') {
+      /* small loose ellipse: a little over one turn, like a pen circle (only for compact targets) */
       for (var k = 0; k <= 1; k++) {
         var pts = [], a0 = -2.2 + rnd() * .3, turn = 2 * Math.PI * (1.08 + k * .02);
         for (var i = 0; i <= 40; i++) { var a = a0 + turn * i / 40, wob = 1 + (rnd() - .5) * .05; pts.push([cx + Math.cos(a) * rx * wob, cy + Math.sin(a) * ry * wob]); }
         ring.push(pts);
       }
-      var ang = Math.atan2(L.y - cy, L.x - cx); ex = cx + Math.cos(ang) * rx; ey = cy + Math.sin(ang) * ry;
     }
-    /* connector: starts at the label's edge (o.from), never under its text, and curves to the target */
-    var S0 = o.from || L;
-    var bend = o.bend === undefined ? .25 : o.bend, mx = (S0.x + ex) / 2, my = (S0.y + ey) / 2, nx = -(ey - S0.y), ny = ex - S0.x;
-    var c1 = [mx + nx * bend, my + ny * bend];
-    var line = [];
-    for (var k2 = 0; k2 < 2; k2++) { var pts2 = []; for (var j = 0; j <= 24; j++) { var t = j / 24, u = 1 - t; pts2.push([u * u * S0.x + 2 * u * t * c1[0] + t * t * ex, u * u * S0.y + 2 * u * t * c1[1] + t * t * ey]); } line.push(jitterPts(pts2, k2 ? 2.2 : 1.2, rnd)); }
+    /* end point: given (o.to), or the nearest edge of the ring, or the target's edge for a bare arrow */
+    if (o.to) { ex = o.to.x; ey = o.to.y; }
+    else { var ang = Math.atan2(S0.y - cy, S0.x - cx); ex = cx + Math.cos(ang) * (rx + 6); ey = cy + Math.sin(ang) * (ry + 6); }
+    /* connector: one straight stroke from the label's edge, finished with an arrowhead that points at the target */
+    var dx = ex - S0.x, dy = ey - S0.y, dl = Math.hypot(dx, dy) || 1, ux = dx / dl, uy = dy / dl, hl = o.head || 15, hw = .5;
+    var w1 = [ex - hl * (ux * Math.cos(hw) - uy * Math.sin(hw)), ey - hl * (uy * Math.cos(hw) + ux * Math.sin(hw))];
+    var w2 = [ex - hl * (ux * Math.cos(-hw) - uy * Math.sin(-hw)), ey - hl * (uy * Math.cos(-hw) + ux * Math.sin(-hw))];
     function mk(d, wdt, op) { var pth = document.createElementNS(SVGNS, 'path'); pth.setAttribute('d', d); pth.setAttribute('fill', 'none'); pth.setAttribute('stroke', o.color || '#2f55ff'); pth.setAttribute('stroke-width', wdt); pth.setAttribute('stroke-linecap', 'round'); pth.setAttribute('stroke-linejoin', 'round'); pth.setAttribute('opacity', op); svg.appendChild(pth); var len = pth.getTotalLength(); pth.style.strokeDasharray = len; pth.style.strokeDashoffset = len; return { p: pth, len: len }; }
-    var rings = [mk(polyPath(ring[0]), 2.6, 1), mk(polyPath(ring[1]), 1.4, .55)];
-    var lines = [mk(polyPath(line[0]), 2.4, 1), mk(polyPath(line[1]), 1.3, .5)];
+    var rings = ring.length ? [mk(polyPath(ring[0]), 2.6, 1), mk(polyPath(ring[1]), 1.4, .55)] : [];
+    var line = mk('M' + S0.x + ' ' + S0.y + 'L' + ex + ' ' + ey, 2.6, 1);
+    var head = mk('M' + w1[0] + ' ' + w1[1] + 'L' + ex + ' ' + ey + 'L' + w2[0] + ' ' + w2[1], 2.6, 1);
     var lab = F.el(parent, 'div', 'pill', 'z-index:31;font-size:15px;padding:10px 16px;transform-origin:50% 50%');
     lab.textContent = o.text;
+    function draw(x, p) { x.p.style.strokeDashoffset = x.len * (1 - F.clamp(p)); }
     return {
+      /* order: label pops, the arrow shoots to the target, then the ring or underline is drawn */
       update: function (pRing, pLine, pLab) {
-        rings.forEach(function (x) { x.p.style.strokeDashoffset = x.len * (1 - F.ease.inOut(F.clamp(pRing))); });
-        lines.forEach(function (x) { x.p.style.strokeDashoffset = x.len * (1 - F.ease.inOut(F.clamp(pLine))); });
+        rings.forEach(function (x) { draw(x, F.ease.inOut(F.clamp(pRing))); });
+        var pl = F.ease.out(F.clamp(pLine));
+        draw(line, pl / .82); draw(head, (pl - .8) / .2);
         var s = F.spring(F.clamp(pLab), .45);
         F.box(lab, L.x, L.y); lab.style.transform = 'translate(' + (o.anchor || '-50%,-50%') + ') scale(' + F.lerp(.6, 1, s) + ')';
         F.show(lab, F.clamp(pLab * 3), lab.style.transform);

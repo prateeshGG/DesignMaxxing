@@ -42,7 +42,7 @@
   var R1 = rooms[0].el, R2 = rooms[1].el, R3 = rooms[2].el;
 
   /* room 1: title, then a page whose sections are found, bracketed and lifted out */
-  var t1 = F.maskLine(R1, 'Every page,', 'title', 'top:250px'), t2 = F.maskLine(R1, 'broken into <em>parts.</em>', 'title', 'top:390px');
+  var t1 = F.maskLine(R1, 'Search real websites,', 'title', 'top:250px'), t2 = F.maskLine(R1, '<em>section by section.</em>', 'title', 'top:390px');
   var SEGS = [['s-hero-top', 1376 / 2880, 'Hero', ['hero', 'light', 'desktop']], ['s-logos', 146 / 2880, 'Logo row', null], ['s-bento1', 1918 / 2880, 'Feature grid', ['feature grid', 'gradient']], ['s-banner', 1120 / 2880, 'Video banner', ['banner', 'dark']], ['s-stats', 916 / 2880, 'Stats', ['stats', 'light']]];
   var PW = 400, ph = SEGS.map(function (s) { return Math.round(s[1] * PW); }), PH = ph.reduce(function (a, b) { return a + b; }, 0);
   var PX0 = 510, PX1 = 200, PY = Math.round((900 - PH) / 2);
@@ -85,18 +85,18 @@
   /* room 3: the section opened up, toured by the camera */
   var DW = 1040, DH = Math.round(DW * 1376 / 2880), DX = 200, DY = 130;
   var det = F.el(R3, 'div', 'card', 'z-index:10;border-radius:20px'); F.box(det, DX, DY, DW, DH); F.img(det, IMG + 's-hero-top.webp'); var detSheen = F.sheen(det);
-  /* callouts: each label sits in empty space (the peach margin or the card's white margin) and a hand-drawn line runs to a circled target */
+  /* callouts: each label sits in empty space (the peach margin or below the card); a straight arrow points from it to the target */
   function R(x0, y0, x1, y1) { return { x: DX + x0 * DW, y: DY + y0 * DH, w: (x1 - x0) * DW, h: (y1 - y0) * DH }; }
   var CALL = [
-    F.callout(R3, { seed: 11, text: 'Headline', shape: 'underline', target: R(.142, .37, .655, .443), label: { x: 100, y: DY + .46 * DH }, from: { x: 168, y: DY + .46 * DH }, anchor: '-50%,-50%', bend: .1 }),
-    F.callout(R3, { seed: 23, text: 'Gradient art', target: R(.80, .18, .97, .62), label: { x: 1318, y: DY + .4 * DH }, from: { x: 1244, y: DY + .4 * DH }, anchor: '-50%,-50%', bend: -.15, pad: 10 }),
-    F.callout(R3, { seed: 37, text: 'One call to action', target: R(.142, .765, .232, .835), label: { x: DX + .19 * DW, y: DY + DH + 66 }, from: { x: DX + .19 * DW, y: DY + DH + 44 }, anchor: '-50%,-50%', bend: .2, pad: 12 })
+    F.callout(R3, { seed: 11, text: 'Headline', shape: 'underline', target: R(.1444, .387, .781, .454), label: { x: 100, y: DY + .42 * DH }, from: { x: 166, y: DY + .42 * DH }, to: { x: DX + .1444 * DW - 16, y: DY + .42 * DH } }),
+    F.callout(R3, { seed: 23, text: 'Gradient art', shape: 'arrow', target: R(.80, .18, .97, .62), label: { x: 1318, y: DY + .2 * DH }, from: { x: 1240, y: DY + .2 * DH }, to: { x: DX + .845 * DW, y: DY + .2 * DH } }),
+    F.callout(R3, { seed: 37, text: 'One call to action', target: R(.1444, .7544, .2424, .8241), label: { x: DX + .193 * DW, y: DY + DH + 66 }, from: { x: DX + .193 * DW, y: DY + DH + 44 }, pad: 12 })
   ];
   var meta = F.el(R3, 'div', 'meta flow', 'z-index:30');
   meta.innerHTML = "<span class='pill'>Hero</span><span class='pill'>Light</span><span class='pill'>Desktop</span><span class='pill lime'>Source · stripe.com</span><span class='pill open'>Open live site ↗</span>";
 
   F.grain(S, 0.035);
-  var QUERY = 'hero with a product visual';
+  var QUERY = 'hero with a big, bold headline';
   var CAM = [
     [0, [720, 450, 1]], [2.0, [720, 450, 1.04], 'linear'],
     [2.9, [720, 230, 1.8], 'inOut'], [3.3, [720, 240, 1.82], 'linear'], [4.0, [720, 450, 1], 'outExpo'],
@@ -105,10 +105,10 @@
     [10.3, [2160, 246, 1.47], 'linear'], [11.0, [2160, 450, 1], 'outExpo'], [11.9, [2150, 452, 1.01], 'linear'],
     [12.55, [RX0 + 1440 + RW / 2, RY + RH / 2, 3.1], 'inOut'],
     [12.551, [2880 + DX + DW * .5, DY + DH * .45, 1.55], 'linear'], [13.0, [2880 + DX + DW * .5, DY + DH * .47, 1.3], 'outExpo'],
-    [13.7, [2880 + 380, DY + DH * .41, 1.8], 'inOut'], [14.45, [2880 + 395, DY + DH * .41, 1.82], 'linear'],
-    [15.1, [2880 + 960, DY + DH * .4, 1.45], 'inOut'], [15.85, [2880 + 955, DY + DH * .4, 1.46], 'linear'],
-    [16.5, [2880 + DX + .19 * DW, DY + DH * .8 + 70, 1.9], 'inOut'], [17.1, [2880 + DX + .19 * DW, DY + DH * .8 + 66, 1.92], 'linear'],
-    [17.9, [2880 + 720, 450, 1], 'outExpo'], [19.5, [2880 + 720, 455, 1.02], 'linear']
+    [13.7, [2880 + 525, DY + DH * .41, 1.32], 'inOut'], [14.65, [2880 + 535, DY + DH * .41, 1.33], 'linear'],
+    [15.3, [2880 + 960, DY + DH * .3, 1.45], 'inOut'], [15.85, [2880 + 955, DY + DH * .3, 1.46], 'linear'],
+    [16.5, [2880 + DX + .193 * DW, DY + DH * .8 + 70, 1.9], 'inOut'], [17.45, [2880 + DX + .193 * DW, DY + DH * .8 + 66, 1.92], 'linear'],
+    [18.1, [2880 + 720, 450, 1], 'outExpo'], [19.5, [2880 + 720, 455, 1.02], 'linear']
   ];
   function render(t) {
     var cam = F.track(t, CAM), pc = F.track(Math.max(0, t - 1 / 30), CAM);
@@ -164,10 +164,10 @@
     /* room 3 */
     F.sweep(detSheen, seg(t, 12.7, 13.6));
     CALL.forEach(function (c, i) {
-      var ta = [13.55, 14.95, 16.35][i];
-      c.update(seg(t, ta, ta + .5), seg(t, ta + .4, ta + .85), seg(t, ta + .75, ta + 1.3));
+      var ta = [13.55, 15.15, 16.4][i];
+      c.update(seg(t, ta + .6, ta + 1.0), seg(t, ta + .25, ta + .65), seg(t, ta, ta + .4));
     });
-    var mo = sp(t, 17.7, 18.4, .45);
+    var mo = sp(t, 17.9, 18.6, .45);
     F.box(meta, DX + DW / 2, DY + DH + 140 + (1 - mo) * 24); meta.style.transform = 'translateX(-50%)'; F.show(meta, F.clamp(mo * 1.6), 'translateX(-50%)');
   }
   F.boot(19.5, render);
