@@ -100,6 +100,8 @@ Items below are **Inferred** by the documentation author, not stated in the conv
 
 ## 3. Open questions
 
+> **Update:** the founder delegated these questions and they were decided in [20](20-founder-decisions-and-plan-validation.md) (decisions `F-01`…`F-40`, each citing the `Q-xx` it resolves). Items below still show their pre-decision status for traceability; treat **20 as authoritative** where it addresses a question. Not decided by 20: none of Q-01…Q-35 remain open, but several decisions are explicitly provisional pending experiments E1–E5 (thresholds, price points, model choice via bake-off).
+
 Status: **Open** = Not decided; **Partly** = the conversation addresses part of it; **Resolved** = settled by the updated conversation (kept for traceability).
 
 ### Scope and phasing

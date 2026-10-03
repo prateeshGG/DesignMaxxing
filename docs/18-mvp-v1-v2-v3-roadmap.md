@@ -102,6 +102,16 @@ Also stated "do not build initially" in earlier iterations and not contradicted 
 
 These differ from the final lists on purpose (the product direction changed from a user-facing SaaS toward an internal data engine plus product). The final blueprint is the roadmap of record; items appearing only above are tracked as "no phase" in the table.
 
+## Addendum — founder adjustments (see [20](20-founder-decisions-and-plan-validation.md))
+
+These override the placements above where they differ:
+
+- **V0 adds:** section-level embeddings and "similar sections" (F-01), hash-skip on re-crawl (F-01, F-25), minimal admin/review (F-03), per-site diversification cap (F-03), raw accessibility-tree and performance capture without UI (F-04).
+- **V1 adds:** fixed-set web interaction capture (F-02), conditional tablet capture (F-12), scroll-pass video (F-13).
+- **V2 = authenticated web + mobile, gated** behind demand/legal evidence (F-02, F-36, F-40); Android before iOS.
+- **Gates:** nothing in a later gate starts before the earlier gate passes (F-40; gates G1–G5 in [20 §6](20-founder-decisions-and-plan-validation.md)).
+- MCP/API stays unbuilt until ≥ 50 activated users or paying customers ask (F-03).
+
 ## Rule for architecture
 
 Do not pre-build future-phase functionality (mobile collectors, flow reconstruction, region search, etc.) in V0. Keep the data model and event contracts forward-compatible so later phases extend rather than rewrite ([05](05-normalization-and-design-graph.md), [12](12-data-model-and-events.md)).

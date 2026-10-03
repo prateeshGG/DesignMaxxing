@@ -30,7 +30,11 @@ The conversation iterates. Later material overrides earlier material; the user's
 | `GAP§n` | "Is anything left to consider?", sections 1–30 | 11553–12557 | Current |
 | `§n` | **Engineering Blueprint**, sections 1–74 (final) | 12561–14983 | **Final / authoritative** |
 
-Precedence rule used throughout: **Engineering Blueprint (`§n`) > clarifications by the user > `INT`/`IF`/`MOB`/`GAP` > earlier iterations**. Material from superseded iterations is kept only where it adds detail the final blueprint does not contradict, and is tagged. Conflicts are listed in [19](19-decisions-assumptions-open-questions.md) §4.
+Precedence rule used throughout: **founder decisions in [20](20-founder-decisions-and-plan-validation.md) > Engineering Blueprint (`§n`) > clarifications by the user > `INT`/`IF`/`MOB`/`GAP` > earlier iterations**. Material from superseded iterations is kept only where it adds detail the final blueprint does not contradict, and is tagged. Conflicts are listed in [19](19-decisions-assumptions-open-questions.md) §4.
+
+## Process
+
+Specification work follows [`process/project-breakdown-protocol.md`](process/project-breakdown-protocol.md) (Stage 1 Parts Hierarchy → Stage 2 Part-Spec per Part → Stage 3 task lists). Current position: **Stage 1 complete and awaiting founder review** ([21](21-parts-hierarchy.md)); Stage 2 has not started.
 
 ## How to read these docs
 
@@ -70,6 +74,8 @@ Status markers used everywhere:
 | 17 | [AI architecture](17-ai-architecture.md) | Where AI is and is not used, routing, cache keys, evaluation |
 | 18 | [Roadmap V0–V3](18-mvp-v1-v2-v3-roadmap.md) | Phases, deferred items, superseded roadmap history |
 | 19 | [Decisions, assumptions, open questions](19-decisions-assumptions-open-questions.md) | Consolidated register + conflicts between iterations |
+| 20 | [Founder decisions and plan validation](20-founder-decisions-and-plan-validation.md) | Decisions on the open questions (`F-xx`), plan validation, scale posture, experiments, stage gates, risk register. **Overrides 01–19 where they conflict** |
+| 21 | [Parts hierarchy](21-parts-hierarchy.md) | Stage 1 of the [breakdown protocol](process/project-breakdown-protocol.md): ordered Groups → Parts |
 
 ## Cross-document dependency map
 
