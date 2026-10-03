@@ -133,6 +133,28 @@ White page `#ffffff`; logo tiles `#fafafa`; cream media backdrop `#faf7f2`; deep
 - Borrowed *patterns* only: sharp-cornered buttons, mono-caps eyebrows, navy | blue split, dither/noise art, accordion FAQ with an ask row, closing CTA.
 - The ask-box is **scripted** (keyword match over the page's FAQ). A real assistant needs a backend, rate limits, a cost cap and answers restricted to published docs.
 
+## Batch 6 (Stripe marketing site, 5 desktop screenshots) — `stripe-01…05-*`
+
+- **Frame:** a centered column with 1px vertical rails and full-width horizontal hairlines; sections are separated by rules rather than boxes.
+- **Hero:** a live GDP counter eyebrow, a two-tone headline (dark first sentence, grey rest), one CTA, and a large silk-like gradient ribbon behind the text; the ribbon tints the letters it crosses. A logo strip closes the hero.
+- **Bento:** one wide + one narrow card, then three equal cards, then a wide one. Each shows real-looking product UI (localised currency and language) cropped by the card edge on its own gradient or particle art; a small expand button sits top-right of every card.
+- **Banner + stats:** a full-column video banner, then a lavender-tinted section with four stats between hairlines (the first dark, the rest dimmed).
+- **Graphic:** a half-fan of thin lines with dot tips on a lavender glow. The founder reports the lines move on hover, so it is a live interactive graphic, not a video.
+
+## Founder feedback on v1 (after reviewing the published artifact)
+
+Redesign is "near perfect", but: footer and the CTA above it look bad; FAQ looks bad; the mobile screen in the demo is too small and too curved; **how it works** looks completely bad; the sites are very **scroll-driven**; use **real screenshots**; **What you will find** needs real motion-graphics video (code is fine) and feels empty; videos or motion graphics behind the hero are common.
+
+## Prototype v2 decisions
+
+- **Real content:** all captures on the page are crops of the founder's reference screenshots (Stripe, Linear, one design-studio site whose name is still to be confirmed). Crops live in `prototype/img/` (stored as WebP). Docs/20 F-44 allows a waitlist demo of ≤ 8 sites if each is attributed with a link, with a non-affiliation line and no logos as customers; the page carries those. F-44 also prefers sites whose owners agreed, and counsel (E5) has not reviewed this — **keep it a private prototype**, and remove `img/` and `references/` before the repository is ever public.
+- **Hero:** a canvas of ~90 thin gradient lines flows behind the headline and shifts with the pointer. A strip of real section crops scrolls under it.
+- **How it works:** one sticky scroll story, driven by scroll position and reversible. 1 Capture (a scroll recording of a real page), 2 Check (a checklist ticking to an illustrative score; scores of 80+ publish, per docs/22), 3 Cut (the page zooms out and splits into labelled sections), 4 Search (a library of real sections; a typed query highlights three heroes).
+- **What you will find:** each row has a code-made looping "recording": hero comparison with pan and zoom, a page scroll with camera zoom and a timeline, and three phone screens drifting. Rows now carry pills, a short paragraph, three facts, a link and a meta line.
+- **Closing:** a navy section with a pointer-reactive burst of lines (our own, in the spirit of the Stripe graphic). The footer has hairline columns, the attribution line and a large wordmark.
+- **FAQ:** two columns with numbered rows, a gradient line panel, and the ask box in a bordered panel with suggestion chips always visible. The ask box is still **scripted** (keyword match over the FAQ); it is not an AI.
+- **Mobile:** the story stays sticky, with text on top and the scene below; the phone frames use a 10px radius and larger screens.
+
 ## Waiting for
 
 More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.

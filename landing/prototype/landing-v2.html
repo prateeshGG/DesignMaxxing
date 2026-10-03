@@ -1,0 +1,894 @@
+<title>DesignMaxxing Landing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* v2. Light, editorial, scroll-driven. Real captured sections (founder's reference screenshots) are the
+   content; motion is built in code: a silk-line hero, a sticky scroll story (capture -> check -> cut -> search),
+   looping "recordings", and a pointer-reactive burst. Hairline rails frame the page like a drawn grid.
+   Waitlist demo rules (docs/20 F-44): few sites, each attributed, non-affiliation line, no logos as customers. */
+:root {
+  color-scheme: light;
+  --paper: #ffffff; --ink: #0a0b0d; --ink-2: #3c4046; --ink-3: #6b7077; --line: #e7e8ea; --tile: #f6f6f4;
+  --blue: #2f55ff; --lime: #dcf36b; --navy: #06111d; --orange: #ff9d3d; --pink: #ff6fb1;
+  --font-display: "Bricolage Grotesque", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --wrap: 1280px; --gutter: 24px; --hh: 72px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.mono { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 11.5px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.eyebrow::before { content: ""; width: 8px; height: 8px; background: var(--blue); flex: none; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -.035em; text-wrap: balance; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 44px; padding: 0 20px; border: 0; border-radius: 2px; background: var(--ink); color: #fff; font: 500 15px/1 var(--font-body); cursor: pointer; transition: background .15s; }
+.btn:hover { background: #22252a; }
+.btn.sm { height: 40px; padding: 0 16px; font-size: 14px; }
+.btn .ar { transition: transform .2s; } .btn:hover .ar { transform: translateX(3px); }
+.textlink { font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+/* ---------- header ---------- */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 60; height: var(--hh); background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.site-header .wrap { height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.nav { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+.nav a { display: inline-flex; align-items: center; gap: 8px; }
+.nav a::after { content: ""; width: 6px; height: 6px; background: var(--blue); }
+.brand { display: inline-flex; align-items: center; gap: 10px; font: 600 18px/1 var(--font-display); letter-spacing: -.03em; }
+.brand svg { width: 26px; height: 26px; }
+.header-r { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+.menu-btn { display: none; width: 40px; height: 40px; background: none; border: 0; cursor: pointer; }
+.menu-btn svg { width: 24px; height: 24px; }
+.mobile-menu { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-bottom: 1px solid var(--line); }
+.mobile-menu a { display: block; padding: 16px var(--gutter); border-top: 1px solid var(--line); font-size: 17px; font-weight: 500; }
+
+/* hairline rails, like a drawn grid */
+main { position: relative; }
+main::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: min(var(--wrap), 100%); transform: translateX(-50%); border-inline: 1px solid var(--line); pointer-events: none; z-index: 0; }
+main > section { position: relative; z-index: 1; }
+
+/* ---------- hero ---------- */
+.hero { text-align: center; padding-block: clamp(64px, 9vw, 120px) clamp(64px, 8vw, 104px); overflow: hidden; isolation: isolate; }
+.silk { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
+.hero .eyebrow { margin-bottom: 28px; }
+.hero h1 { font-size: clamp(2.6rem, 5.8vw + .4rem, 5.4rem); line-height: .98; max-width: 13em; margin-inline: auto; letter-spacing: -.045em; }
+.hero .lead { margin: 26px auto 0; max-width: 40em; font-size: clamp(1.02rem, .5vw + .9rem, 1.2rem); color: var(--ink-2); }
+.wl { margin: 34px auto 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0; max-width: 520px; text-align: left; }
+.wl input { min-width: 0; height: 48px; padding: 0 16px; border: 1px solid var(--ink); border-right: 0; border-radius: 2px 0 0 2px; background: #fff; color: var(--ink); font: 400 16px/1 var(--font-body); }
+.wl input::placeholder { color: var(--ink-3); }
+.wl .btn { height: 48px; border-radius: 0 2px 2px 0; }
+.wl-note { grid-column: 1 / -1; margin: 12px 0 0; font-size: 13px; color: var(--ink-3); text-align: center; }
+.wl-msg { grid-column: 1 / -1; margin: 10px 0 0; font-size: 14px; text-align: center; }
+.wl-msg.ok { color: #14803f; } .wl-msg.err { color: #c6361f; }
+.hero-links { margin-top: 18px; display: flex; justify-content: center; gap: 24px; }
+
+/* ticker of real captured sections */
+.ticker { position: relative; overflow: hidden; background: #fff; border-block: 1px solid var(--line); }
+.ticker::before, .ticker::after { content: ""; position: absolute; top: 0; bottom: 0; width: 90px; z-index: 2; pointer-events: none; }
+.ticker::before { left: 0; background: linear-gradient(90deg, #fff, transparent); }
+.ticker::after { right: 0; background: linear-gradient(270deg, #fff, transparent); }
+.tk-track { display: flex; gap: 16px; width: max-content; padding: 22px 0 18px; animation: tk 80s linear infinite; }
+.ticker:hover .tk-track { animation-play-state: paused; }
+.tk { margin: 0; flex: none; }
+.tk img { height: 170px; width: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--tile); }
+.tk figcaption { margin-top: 8px; }
+@keyframes tk { to { transform: translateX(calc(-50% - 8px)); } }
+
+/* ---------- scroll story ---------- */
+.how { height: 620vh; background: #fff; border-bottom: 1px solid var(--line); }
+.how-in { position: sticky; top: var(--hh); height: calc(100vh - var(--hh)); height: calc(100svh - var(--hh)); min-height: 580px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.how-t { padding: clamp(24px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; gap: 30px; border-right: 1px solid var(--line); background: #fff; position: relative; z-index: 3; }
+.how-steps { position: relative; min-height: 300px; }
+.hs { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(14px); transition: opacity .45s, transform .45s; pointer-events: none; }
+.hs.on { opacity: 1; transform: none; pointer-events: auto; }
+.hs .num { font: 500 12px/1 var(--font-mono); letter-spacing: .1em; color: var(--blue); }
+.hs h2 { margin: 14px 0 16px; font-size: clamp(2.4rem, 3.6vw + .6rem, 4.2rem); line-height: .98; letter-spacing: -.045em; }
+.hs p { margin: 0 0 20px; color: var(--ink-2); font-size: 18px; max-width: 28em; }
+.chips2 { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips2 span { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border: 1px solid var(--ink); border-radius: 999px; font-size: 14px; background: #fff; }
+.how-rail { display: flex; align-items: center; gap: 8px; }
+.how-rail i { flex: 1; max-width: 72px; height: 3px; background: var(--line); position: relative; }
+.how-rail i b { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
+.how-rail .mono { margin-left: 8px; }
+.cam { position: relative; overflow: hidden; background: var(--tile); isolation: isolate; }
+.cam::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(50% 45% at 88% 10%, rgba(220,243,107,.6), transparent 70%), radial-gradient(55% 50% at 6% 96%, rgba(47,85,255,.16), transparent 70%); }
+.cam-src { position: absolute; left: 16px; bottom: 10px; z-index: 5; margin: 0; max-width: calc(100% - 32px); font-size: 10.5px; }
+.lay { position: absolute; inset: 0; display: grid; place-items: center; will-change: transform, opacity; }
+/* layer A: capture + check */
+.aw { display: grid; gap: 12px; justify-items: stretch; width: var(--wa, 720px); transform-origin: 50% 50%; }
+.bframe { background: #fff; border: 1px solid var(--ink); border-radius: 6px; overflow: hidden; box-shadow: 0 30px 70px rgba(10,11,13,.16); }
+.bbar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-bottom: 1px solid var(--line); background: #fafafa; }
+.bbar > i { width: 8px; height: 8px; border-radius: 50%; background: #d9dbde; }
+.bbar .url { margin-left: 10px; font: 400 12px/1 var(--font-mono); color: var(--ink-3); }
+.bbar .rec { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font: 500 10.5px/1 var(--font-mono); letter-spacing: .08em; color: var(--ink-2); }
+.bbar .rec b { width: 7px; height: 7px; border-radius: 50%; background: #e5382a; animation: blink 1s steps(1) infinite; }
+.bbar .rec.done b { background: #14803f; animation: none; }
+.bview { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #fff; }
+.stack img { width: 100%; height: auto; }
+.stack { will-change: transform; }
+.scan { position: absolute; left: 0; right: 0; height: 2px; top: 0; background: var(--blue); box-shadow: 0 0 18px 4px rgba(47,85,255,.5); animation: scan 2.4s ease-in-out infinite; pointer-events: none; }
+@keyframes scan { 0%, 100% { top: 0; } 50% { top: calc(100% - 2px); } }
+@keyframes blink { 50% { opacity: 0; } }
+.ruler { display: flex; align-items: center; gap: 12px; }
+.ruler i { flex: 1; height: 3px; background: rgba(10,11,13,.12); position: relative; }
+.ruler i b { position: absolute; inset: 0; background: var(--blue); transform-origin: 0 50%; transform: scaleX(0); }
+.gate { position: absolute; z-index: 4; right: clamp(14px, 2.4vw, 36px); top: 50%; width: min(300px, calc(100% - 28px)); background: #fff; border: 1px solid var(--ink); border-radius: 6px; padding: 16px; box-shadow: 0 30px 70px rgba(10,11,13,.18); opacity: 0; pointer-events: none; }
+.gate header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; font-weight: 600; font-size: 15px; }
+.gate ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; }
+.gate li { display: flex; align-items: center; gap: 9px; color: var(--ink-3); transition: color .25s; }
+.gate li i { width: 16px; height: 16px; border: 1px solid var(--ink-3); border-radius: 2px; display: grid; place-items: center; flex: none; transition: all .25s; }
+.gate li i::after { content: ""; width: 8px; height: 4px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.gate li.ok { color: var(--ink); } .gate li.ok i { background: #14803f; border-color: #14803f; } .gate li.ok i::after { opacity: 1; }
+.gate .score { display: flex; align-items: baseline; justify-content: space-between; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.gate .score b { font: 600 38px/1 var(--font-display); letter-spacing: -.04em; color: #14803f; font-variant-numeric: tabular-nums; }
+.gate .score small { font-size: 13px; color: var(--ink-3); }
+.rej { margin-top: 14px; display: grid; grid-template-columns: 74px 1fr; gap: 12px; align-items: center; padding-top: 12px; border-top: 1px dashed var(--ink-3); opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .4s; font-size: 13px; color: var(--ink-2); }
+.rej.show { opacity: 1; transform: none; }
+.rej .mini { position: relative; height: 52px; border: 1px solid var(--ink-3); background: #fff; }
+.rej .mini::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 18px; background: #3c4046; }
+.rej .mini::before { content: "REJECTED"; position: absolute; z-index: 1; left: 50%; top: 40%; transform: translate(-50%, -50%) rotate(-12deg); padding: 2px 5px; border: 2px solid #c6361f; color: #c6361f; background: rgba(255,255,255,.85); font: 600 9px/1 var(--font-mono); letter-spacing: .08em; }
+/* layer B: cut */
+.cutcol { width: var(--wb, 360px); display: block; }
+.cs { position: relative; margin-bottom: var(--gap, 3px); }
+.cs img { width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+.cs::before { content: ""; position: absolute; left: -40px; right: -40px; top: calc(var(--gap, 3px) / -2 - 1px); height: 1px; background: var(--blue); transform: scaleX(var(--cl, 0)); transform-origin: 0 50%; }
+.cs .lb { position: absolute; left: 0; top: calc(var(--gap, 3px) / -2 - 1px); transform: translateY(-50%); padding: 4px 7px; background: var(--blue); color: #fff; font: 500 10px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; opacity: var(--cl, 0); z-index: 2; }
+.cs .tg { position: absolute; left: calc(100% + 14px); top: 50%; transform: translateY(-50%); display: grid; gap: 4px; opacity: var(--tgo, 0); white-space: nowrap; }
+.cs .tg span { font: 400 11px/1 var(--font-mono); letter-spacing: .04em; color: var(--ink-2); padding: 4px 8px; border: 1px solid var(--ink-3); background: #fff; }
+/* layer C: search */
+.libw { width: var(--wl, 640px); display: grid; gap: 14px; }
+.sbar { display: flex; align-items: center; gap: 12px; height: 50px; padding: 0 16px; border: 1px solid var(--ink); border-radius: 2px; background: #fff; font-size: 16px; box-shadow: 0 10px 30px rgba(10,11,13,.08); }
+.sbar svg { width: 18px; height: 18px; flex: none; color: var(--ink-3); }
+.sbar .q { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; }
+.sbar .q::after { content: ""; display: inline-block; width: 1px; height: 18px; background: var(--blue); margin-left: 2px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+.sbar .cnt { flex: none; font: 500 11px/1 var(--font-mono); letter-spacing: .06em; color: var(--ink-3); text-transform: uppercase; }
+.lib { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.lc { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; position: relative; }
+.lc img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; background: var(--tile); }
+.lc figcaption { padding: 7px 10px; border-top: 1px solid var(--line); }
+.lc::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px var(--blue); opacity: var(--hit, 0); pointer-events: none; }
+
+/* ---------- section scaffolding ---------- */
+.pad { padding-block: clamp(72px, 10vw, 140px); }
+.center { text-align: center; }
+.sec-title { font-size: clamp(2rem, 3.4vw + .5rem, 3.4rem); line-height: 1; letter-spacing: -.04em; max-width: 14em; margin: 18px auto 0; }
+.sec-sub { margin: 18px auto 0; max-width: 40em; color: var(--ink-2); }
+
+/* tiles */
+.tiles { margin-top: clamp(36px, 5vw, 56px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; text-align: left; }
+.tile { background: var(--tile); padding: 12px 12px 16px; transition: background .2s, transform .25s; }
+.tile:hover { background: #eef0ea; transform: translateY(-3px); }
+.th { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); border-radius: 2px; background: #fff; }
+.th > img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .6s cubic-bezier(.2,.8,.2,1); transform-origin: 0 0; }
+.tile:hover .th > img { transform: scale(1.08); }
+.th.strips { display: grid; align-content: center; gap: 10px; padding: 12px; background: var(--tile); }
+.th.strips img { width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+.tile h3 { margin: 14px 4px 2px; font-size: 17px; letter-spacing: -.02em; font-weight: 600; }
+.tile p { margin: 0 4px; font-size: 14px; color: var(--ink-3); }
+.tile .src { display: block; margin: 8px 4px 0; font-size: 10.5px; }
+
+/* use-case rows */
+.rows { display: grid; gap: clamp(56px, 8vw, 104px); margin-top: clamp(40px, 6vw, 72px); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 80px); align-items: stretch; }
+.row.flip .row-t { order: 2; }
+.row-t { display: flex; flex-direction: column; justify-content: space-between; gap: 36px; min-width: 0; padding-block: 8px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.pill { display: inline-flex; align-items: center; height: 30px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 500; background: var(--lime); }
+.pill.pk { background: #ffe0ec; } .pill.ol { background: #fff; border: 1px solid var(--ink); }
+.row-t h3 { font-size: clamp(1.7rem, 2.2vw + .6rem, 2.5rem); line-height: 1.04; letter-spacing: -.035em; max-width: 13em; }
+.row-t p { margin: 16px 0 0; color: var(--ink-2); max-width: 30em; }
+.facts { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 0; max-width: 30em; border-top: 1px solid var(--line); }
+.facts li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; font-weight: 500; }
+.facts li::before { content: ""; width: 7px; height: 7px; background: var(--blue); flex: none; }
+.row-t .textlink { display: inline-block; margin-top: 22px; }
+.row-meta { border-top: 1px solid var(--line); padding-top: 14px; }
+.media { position: relative; min-width: 0; background: var(--tile); padding: clamp(16px, 2.6vw, 32px); display: grid; align-content: center; gap: 12px; min-height: 420px; overflow: hidden; }
+.media::before { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 50% at 90% 8%, rgba(220,243,107,.55), transparent 70%), radial-gradient(50% 55% at 6% 100%, rgba(255,157,61,.22), transparent 70%); }
+.media > * { position: relative; }
+.mframe { background: #fff; border: 1px solid var(--ink); border-radius: 6px; overflow: hidden; box-shadow: 0 24px 60px rgba(10,11,13,.14); }
+.mview { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #fff; }
+.mcap { display: flex; justify-content: space-between; gap: 12px; }
+/* compare heroes */
+.cmp-track { display: flex; width: 400%; height: 100%; animation: cmpPan 24s cubic-bezier(.65,0,.35,1) infinite; }
+.cmp-slide { position: relative; flex: 0 0 25%; overflow: hidden; }
+.cmp-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transform-origin: var(--zo, 50% 50%); animation: cmpZoom 24s ease-in-out infinite; animation-delay: calc(var(--k) * 6s); }
+.cmp-slide.clone img { animation: none; }
+@keyframes cmpPan { 0%, 20% { transform: translateX(0); } 25%, 45% { transform: translateX(-25%); } 50%, 70% { transform: translateX(-50%); } 75%, 100% { transform: translateX(-75%); } }
+@keyframes cmpZoom { 0% { transform: scale(1); } 12% { transform: scale(1.5); } 20%, 100% { transform: scale(1); } }
+.cmp-chip { position: absolute; left: 12px; bottom: 12px; z-index: 2; display: grid; }
+.cmp-chip span { grid-area: 1 / 1; padding: 6px 9px; background: var(--ink); color: #fff; font: 500 10.5px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; opacity: 0; animation: chipOn 24s infinite; animation-delay: calc(var(--k) * 6s); }
+@keyframes chipOn { 0% { opacity: 0; } 3%, 18% { opacity: 1; } 22%, 100% { opacity: 0; } }
+/* scroll recording */
+.rz { position: absolute; inset: 0; transform-origin: 62% 24%; animation: recZoom 16s ease-in-out infinite alternate; }
+.rs { animation: recScroll 16s cubic-bezier(.45,0,.55,1) infinite alternate; }
+.rs img { width: 100%; height: auto; }
+@keyframes recScroll { 0%, 8% { transform: translateY(0); } 92%, 100% { transform: translateY(-69.9%); } }
+@keyframes recZoom { 0%, 10% { transform: scale(1); } 24%, 36% { transform: scale(1.6); } 50%, 100% { transform: scale(1); } }
+.rtl { display: flex; align-items: center; gap: 12px; }
+.rtl i { flex: 1; height: 3px; background: rgba(10,11,13,.12); position: relative; overflow: hidden; }
+.rtl i b { position: absolute; inset: 0; background: var(--blue); transform-origin: 0 50%; animation: recProg 16s cubic-bezier(.45,0,.55,1) infinite alternate; }
+@keyframes recProg { 0%, 8% { transform: scaleX(0); } 92%, 100% { transform: scaleX(1); } }
+/* phones */
+.phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 2vw, 22px); align-items: start; }
+.ph { border: 1px solid var(--ink); border-radius: 10px; overflow: hidden; background: #000; box-shadow: 0 24px 50px rgba(10,11,13,.18); }
+.ph:nth-child(2) { margin-top: 26px; }
+.phv { position: relative; aspect-ratio: 414 / 760; overflow: hidden; }
+.phv img { width: 100%; height: auto; animation: phPan 14s ease-in-out infinite alternate; animation-delay: calc(var(--k) * -3s); }
+@keyframes phPan { from { transform: translateY(0); } to { transform: translateY(-10.1%); } }
+
+/* principles band */
+.band { background: var(--lime); }
+.band .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-block: clamp(56px, 8vw, 104px); }
+.band p { margin: 14px 0 0; font: 600 clamp(1.5rem, 1.8vw + .8rem, 2.2rem)/1.08 var(--font-display); letter-spacing: -.035em; }
+.band .mono { color: rgba(10,11,13,.65); }
+
+/* roadmap */
+.timeline { margin-top: clamp(36px, 5vw, 56px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step { border-top: 1px solid var(--ink); padding-top: 18px; min-width: 0; }
+.step .mono { display: flex; align-items: center; gap: 8px; }
+.step .mono::before { content: ""; width: 8px; height: 8px; background: var(--line); border: 1px solid var(--ink-3); }
+.step.now .mono::before { background: var(--blue); border-color: var(--blue); }
+.step h3 { margin: 14px 0 8px; font-size: 20px; letter-spacing: -.03em; }
+.step p { margin: 0; color: var(--ink-2); font-size: 15.5px; max-width: 26em; }
+.fine { margin: 32px 0 0; font-size: 13px; color: var(--ink-3); }
+
+/* faq */
+.faq-g { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 80px); }
+.faq-l { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.faq-l h2 { font-size: clamp(2.2rem, 3.4vw + .5rem, 3.6rem); line-height: .98; letter-spacing: -.045em; }
+.faq-l > p { margin: 0; color: var(--ink-2); max-width: 24em; }
+.faq-art { position: relative; flex: 1; min-height: 240px; border: 1px solid var(--line); background: linear-gradient(180deg, #fbfbfa, #f1f3ee); overflow: hidden; }
+.faq-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.faq-r { min-width: 0; }
+.faq-r details { border-top: 1px solid var(--ink); }
+.faq-r details:last-of-type { border-bottom: 1px solid var(--ink); }
+.faq-r summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: baseline; gap: 8px; padding: 22px 0; font: 500 clamp(1.1rem, .6vw + 1rem, 1.35rem)/1.25 var(--font-display); letter-spacing: -.02em; }
+.faq-r summary::-webkit-details-marker { display: none; }
+.faq-r summary .n { font: 400 12px/1 var(--font-mono); color: var(--ink-3); letter-spacing: .06em; }
+.faq-r summary::after { content: "+"; font: 300 26px/1 var(--font-body); transition: transform .2s; }
+.faq-r details[open] summary::after { transform: rotate(45deg); }
+.faq-r details[open] summary { color: var(--blue); }
+.faq-r details p { margin: -6px 0 24px 52px; color: var(--ink-2); max-width: 36em; font-size: 16.5px; }
+.askp { margin-top: 28px; border: 1px solid var(--ink); background: var(--tile); }
+.askp-h { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); background: #fff; }
+.askp-b { padding: 16px; display: grid; gap: 12px; }
+.log { display: grid; gap: 10px; }
+.sug { display: flex; flex-wrap: wrap; gap: 8px; }
+.sug button { height: 32px; padding: 0 14px; border: 1px solid var(--ink); border-radius: 999px; background: #fff; font-size: 14px; cursor: pointer; }
+.sug button:hover { background: var(--lime); }
+.ask { display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 6px 0 18px; background: #fff; border: 1px solid var(--ink); border-radius: 2px; }
+.ask label { flex: none; color: var(--ink-3); font-size: 16px; }
+.ask input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: 400 17px/1 var(--font-body); }
+.ask input::placeholder { color: var(--ink-3); }
+.ask:focus-within { box-shadow: 0 0 0 3px rgba(47,85,255,.25); }
+.ask button { flex: none; width: 44px; height: 44px; border: 0; border-radius: 2px; background: var(--ink); color: #fff; font-size: 20px; cursor: pointer; }
+.ask button:hover { background: #22252a; }
+.msg { max-width: 38em; font-size: 16px; line-height: 1.5; }
+.msg.u { justify-self: end; padding: 10px 14px; background: var(--ink); color: #fff; border-radius: 2px; }
+.msg.a { padding: 12px 14px; background: #fff; border: 1px solid var(--line); border-radius: 2px; }
+.msg.a .mono { display: block; margin-bottom: 6px; }
+.askp .note { margin: 0; font: 400 12px/1.4 var(--font-mono); color: var(--ink-3); }
+
+/* closing */
+.closing { background: var(--navy); color: #fff; text-align: center; overflow: hidden; isolation: isolate; border-top: 1px solid var(--ink); }
+.closing canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.closing .wrap { padding-block: clamp(96px, 13vw, 190px) clamp(220px, 26vw, 380px); position: relative; }
+.closing .eyebrow { color: #aebbd0; margin-bottom: 26px; }
+.closing h2 { font-size: clamp(2.6rem, 5.4vw + .5rem, 5.6rem); line-height: .96; max-width: 11em; margin-inline: auto; letter-spacing: -.05em; }
+.closing .lead { margin: 22px auto 0; max-width: 32em; color: #b8c6da; }
+.closing .wl input { background: rgba(255,255,255,.06); color: #fff; border-color: #fff; }
+.closing .wl input::placeholder { color: #8fa3bd; }
+.closing .wl .btn { background: #fff; color: var(--ink); }
+.closing .wl-note { color: #8fa3bd; }
+.closing .wl-msg.ok { color: #6be39c; } .closing .wl-msg.err { color: #ff9a8a; }
+
+/* footer */
+.foot { position: relative; z-index: 1; background: #fff; border-top: 1px solid var(--line); padding-top: 56px; overflow: hidden; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px; }
+.foot h4 { margin: 0 0 14px; font-size: 14px; font-weight: 600; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 15px; color: var(--ink-2); }
+.foot a:hover { text-decoration: underline; }
+.foot p.tag { margin: 14px 0 0; color: var(--ink-3); font-size: 14px; max-width: 18em; }
+.soon::after { content: "soon"; margin-left: 8px; font: 500 10px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--ink-3); padding: 3px 6px; color: var(--ink-3); }
+.foot-legal { margin: 44px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 13px; max-width: 80ch; }
+.wm span { display: inline-block; }
+.foot-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.wm { margin: 28px 0 -.3em; font: 700 120px/1.02 var(--font-display); letter-spacing: -.06em; text-align: center; white-space: nowrap; overflow: hidden; background: linear-gradient(180deg, #d5dae2 0%, #fff 85%); -webkit-background-clip: text; background-clip: text; color: transparent; user-select: none; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1000px) {
+  .site-header .wrap { grid-template-columns: auto 1fr; }
+  .nav { display: none; }
+  .brand { order: 0; } .header-r { order: 1; }
+  .menu-btn { display: inline-flex; align-items: center; justify-content: center; }
+  .mobile-menu:not([hidden]) { display: block; }
+  .how { height: 560vh; }
+  .how-in { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .how-t { border-right: 0; border-bottom: 1px solid var(--line); gap: 14px; padding: 18px var(--gutter) 14px; justify-content: flex-start; }
+  .how-steps { min-height: 150px; }
+  .hs h2 { font-size: 2rem; margin: 8px 0 8px; }
+  .hs p { font-size: 15px; margin-bottom: 0; }
+  .hs .chips2 { display: none; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .row, .row.flip { grid-template-columns: minmax(0, 1fr); }
+  .row.flip .row-t { order: 0; }
+  .band .wrap { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: 1fr 1fr; }
+  .faq-g { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .faq-art { min-height: 200px; flex: none; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .cs .tg { display: none; }
+}
+@media (max-width: 700px) {
+  :root { --gutter: 20px; }
+  .eyebrow { display: block; line-height: 1.6; text-align: center; }
+  .eyebrow::before { display: inline-block; margin-right: 10px; vertical-align: 1px; }
+  .site-header .btn { padding-inline: 14px; font-size: 14px; }
+  .brand { font-size: 17px; }
+  .wl { grid-template-columns: 1fr; }
+  .wl input { border-right: 1px solid var(--ink); border-bottom: 0; border-radius: 2px 2px 0 0; }
+  .wl .btn { border-radius: 0 0 2px 2px; width: 100%; }
+  .closing .wl input { border-right: 1px solid #fff; }
+  .tk img { height: 124px; }
+  .tiles { gap: 8px; }
+  .tile p { display: none; }
+  .timeline { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-grid > :first-child { grid-column: 1 / -1; }
+  .media { min-height: 0; }
+  .phones { gap: 8px; }
+  .lib { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .lc:nth-child(n+7) { display: none; }
+  .lc figcaption { display: none; }
+  .faq-r summary { grid-template-columns: 34px minmax(0, 1fr) auto; }
+  .faq-r details p { margin-left: 42px; }
+  .ask label { display: none; }
+}
+/* reduced motion: the story becomes a static, readable stack */
+.how.static { height: auto; }
+.how.static .how-in { position: static; height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+.how.static .how-t { border-right: 0; }
+.how.static .hs { position: static; opacity: 1; transform: none; margin-bottom: 28px; }
+.how.static .hs .chips2 { display: flex; }
+.how.static .how-steps { min-height: 0; }
+.how.static .how-rail { display: none; }
+.how.static .cam { height: 560px; }
+.how.static .lay.a, .how.static .lay.b { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .ticker { overflow-x: auto; }
+}
+</style>
+
+<header class="site-header">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary"><a href="#how">How it works</a><a href="#find">Examples</a><a href="#faq">FAQ</a></nav>
+    <a class="brand" href="#top" aria-label="DesignMaxxing home">
+      <svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="1" y="3" width="24" height="6" fill="currentColor"/><rect x="5" y="10.5" width="20" height="6" fill="#2f55ff"/><rect x="1" y="18" width="14" height="6" fill="currentColor"/></svg>
+      DesignMaxxing
+    </a>
+    <div class="header-r">
+      <a class="btn sm" href="#waitlist">Join waitlist</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"><path d="M4 8h16M4 16h16"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden><a href="#how">How it works</a><a href="#find">Examples</a><a href="#faq">FAQ</a></div>
+</header>
+
+<main id="top">
+  <section class="hero" id="waitlist">
+    <canvas class="silk" id="silk-hero" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="eyebrow">Waitlist open · Early access in small batches</p>
+      <h1>Find the exact section, not the whole website.</h1>
+      <p class="lead">DesignMaxxing is a library of real website design, cut into heroes, feature grids, stats and footers you can search and study.</p>
+      <form class="wl" id="wl-hero" novalidate>
+        <label class="sr" for="email-hero">Email address</label>
+        <input id="email-hero" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+        <button class="btn" type="submit">Join the waitlist <span class="ar" aria-hidden="true">→</span></button>
+        <p class="wl-note">We email you once, when it is your turn.</p>
+        <p class="wl-msg" role="status" aria-live="polite" hidden></p>
+      </form>
+      <div class="hero-links"><a class="textlink" href="#how">See how it works</a></div>
+    </div>
+  </section>
+
+  <section class="ticker" aria-label="Examples of captured sections">
+    <div class="tk-track" id="tk"></div>
+  </section>
+
+  <section class="how" id="how" aria-label="How it works">
+    <div class="how-in">
+      <div class="how-t">
+        <p class="eyebrow">How it works</p>
+        <div class="how-steps">
+          <article class="hs on"><span class="num">01</span><h2>Capture</h2><p>Our browsers visit public sites at a desktop and a phone size and record the page as it scrolls, following robots.txt at a polite pace.</p><div class="chips2"><span>Desktop 1440</span><span>Mobile 390</span><span>Source linked</span></div></article>
+          <article class="hs"><span class="num">02</span><h2>Check</h2><p>Every capture is scored before it is published. Blank pages, error pages, cookie walls and half-loaded layouts never reach the library.</p><div class="chips2"><span>About 15 checks</span><span>Review queue</span><span>Blocked sites skipped</span></div></article>
+          <article class="hs"><span class="num">03</span><h2>Cut</h2><p>Each page is cut into sections such as hero, features and stats, then tagged by type, theme and viewport.</p><div class="chips2"><span>Section type</span><span>Theme</span><span>Viewport</span></div></article>
+          <article class="hs"><span class="num">04</span><h2>Search</h2><p>Describe what you need and get that exact section, with a link back to the site it came from.</p><div class="chips2"><span>Plain-language search</span><span>Filters</span><span>Source link</span></div></article>
+        </div>
+        <div class="how-rail" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><span class="mono" id="how-count">01 / 04</span></div>
+      </div>
+      <div class="cam" id="cam">
+        <div class="lay a" id="layA">
+          <div class="aw" id="aw">
+            <div class="bframe" id="bf">
+              <div class="bbar"><i></i><i></i><i></i><span class="url">stripe.com</span><span class="rec" id="rec"><b></b>REC <em id="tc" style="font-style:normal">00:00</em></span></div>
+              <div class="bview" id="bv">
+                <div class="stack" id="stk">
+                  <img src="img/stripe-hero.webp" alt="Stripe homepage hero with a colourful ribbon" width="1280" height="541">
+                  <img src="img/stripe-logos.webp" alt="Customer logo row" width="1280" height="47">
+                  <img src="img/p-bento1.webp" alt="Stripe feature cards for payments and billing" width="1280" height="575">
+                  <img src="img/p-bento2.webp" alt="Stripe feature cards for agentic commerce, cards and stablecoins" width="1280" height="462">
+                  <img src="img/p-banner.webp" alt="Stripe Sessions video banner" width="1280" height="373">
+                  <img src="img/p-stats.webp" alt="Stripe statistics row" width="1280" height="313">
+                  <img src="img/p-burst.webp" alt="Stripe animated line burst graphic" width="1280" height="347">
+                </div>
+                <div class="scan" id="scan"></div>
+              </div>
+            </div>
+            <div class="ruler"><span class="mono">Desktop 1440</span><i><b id="rb"></b></i></div>
+          </div>
+          <aside class="gate" id="gate" aria-hidden="true">
+            <header><span>Publishability check</span><span class="mono">Illustrative</span></header>
+            <ul id="gl">
+              <li><i></i>Page is not blank</li>
+              <li><i></i>Not an error page</li>
+              <li><i></i>No cookie wall over content</li>
+              <li><i></i>Fully loaded, fonts and images</li>
+              <li><i></i>Text is readable</li>
+              <li><i></i>Matches a second capture</li>
+            </ul>
+            <div class="score"><b id="score">0</b><small>/ 100 · 80 or more publishes</small></div>
+            <div class="rej" id="rej"><div class="mini"></div><span>A capture covered by a cookie wall is rejected and never shown.</span></div>
+          </aside>
+        </div>
+        <div class="lay b" id="layB">
+          <div class="cutcol" id="cc">
+            <div class="cs"><span class="lb">Hero</span><img src="img/stripe-hero.webp" alt="Hero section cut from the page"><div class="tg"><span>hero</span><span>light</span><span>desktop</span></div></div>
+            <div class="cs opt"><span class="lb">Logo row</span><img src="img/stripe-logos.webp" alt="Logo row section"><div class="tg"><span>logo row</span><span>light</span><span>desktop</span></div></div>
+            <div class="cs"><span class="lb">Feature grid</span><img src="img/p-bento1.webp" alt="Feature grid section"><div class="tg"><span>feature grid</span><span>gradient</span><span>desktop</span></div></div>
+            <div class="cs opt"><span class="lb">Video banner</span><img src="img/p-banner.webp" alt="Video banner section"><div class="tg"><span>video banner</span><span>dark</span><span>desktop</span></div></div>
+            <div class="cs"><span class="lb">Stats</span><img src="img/p-stats.webp" alt="Statistics section"><div class="tg"><span>stats</span><span>light</span><span>desktop</span></div></div>
+          </div>
+        </div>
+        <div class="lay c" id="layC">
+          <div class="libw" id="lw">
+            <div class="sbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="q" id="q2"></span><span class="cnt" id="cnt">9 sections</span></div>
+            <div class="lib" id="lib">
+              <figure class="lc" data-hit="1"><img src="img/stripe-hero.webp" alt="Stripe hero"><figcaption class="mono">Hero · stripe.com</figcaption></figure>
+              <figure class="lc" data-hit="1"><img src="img/linear-hero.webp" alt="Linear hero"><figcaption class="mono">Hero · linear.app</figcaption></figure>
+              <figure class="lc" data-hit="1"><img src="img/studio-hero.webp" alt="Design studio hero"><figcaption class="mono">Hero · studio site</figcaption></figure>
+              <figure class="lc"><img src="img/stripe-bento1.webp" alt="Stripe feature grid"><figcaption class="mono">Features · stripe.com</figcaption></figure>
+              <figure class="lc"><img src="img/stripe-stats.webp" alt="Stripe stats"><figcaption class="mono">Stats · stripe.com</figcaption></figure>
+              <figure class="lc"><img src="img/linear-changelog.webp" alt="Linear changelog timeline"><figcaption class="mono">Timeline · linear.app</figcaption></figure>
+              <figure class="lc"><img src="img/stripe-banner.webp" alt="Stripe video banner"><figcaption class="mono">Banner · stripe.com</figcaption></figure>
+              <figure class="lc"><img src="img/studio-case.webp" alt="Design studio case study row"><figcaption class="mono">Case study · studio site</figcaption></figure>
+              <figure class="lc"><img src="img/linear-testimonials.webp" alt="Linear testimonial cards"><figcaption class="mono">Quotes · linear.app</figcaption></figure>
+            </div>
+          </div>
+        </div>
+        <p class="cam-src mono">Sections shown are captures of stripe.com, linear.app and a design studio site. Property of their owners.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad wrap center" id="tiles">
+    <p class="eyebrow">What you can search</p>
+    <h2 class="sec-title">Every page, cut into parts you can actually reuse as reference.</h2>
+    <div class="tiles">
+      <div class="tile"><div class="th"><img src="img/stripe-hero.webp" alt="Hero section example" width="1280" height="541"></div><h3>Hero</h3><p>Headlines, art and first impressions.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th strips"><img src="img/stripe-nav.webp" alt="Navigation bar example" width="1100" height="67"><img src="img/linear-nav.webp" alt="Navigation bar example" width="1280" height="43"><img src="img/studio-nav.webp" alt="Navigation bar example" width="1280" height="67"></div><h3>Navigation</h3><p>Menus and header patterns.</p><span class="mono src">stripe.com · linear.app · studio site</span></div>
+      <div class="tile"><div class="th strips"><img src="img/stripe-logos.webp" alt="Logo row example" width="1280" height="47"><img src="img/linear-logos.webp" alt="Logo row example" width="1280" height="53"><img src="img/studio-logos.webp" alt="Logo tiles example" width="1100" height="242"></div><h3>Logo rows</h3><p>Proof strips and customer grids.</p><span class="mono src">stripe.com · linear.app · studio site</span></div>
+      <div class="tile"><div class="th"><img src="img/stripe-bento1.webp" alt="Feature grid example" width="1100" height="750"></div><h3>Feature grids</h3><p>Cards, bento layouts and product UI.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th"><img src="img/stripe-stats.webp" alt="Statistics row example" width="1100" height="396"></div><h3>Stats</h3><p>Big numbers and proof points.</p><span class="mono src">stripe.com</span></div>
+      <div class="tile"><div class="th"><img src="img/linear-testimonials.webp" alt="Testimonial cards example" width="1280" height="267"></div><h3>Testimonials</h3><p>Quotes, people and proof.</p><span class="mono src">linear.app</span></div>
+      <div class="tile"><div class="th"><img src="img/studio-case.webp" alt="Case study row example" width="1100" height="389"></div><h3>Case studies</h3><p>Result-led rows with media.</p><span class="mono src">studio site</span></div>
+      <div class="tile"><div class="th"><img src="img/linear-cta.webp" alt="Closing call to action example" width="1280" height="213"></div><h3>Closing calls</h3><p>Final sections and sign-ups.</p><span class="mono src">linear.app</span></div>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="find" style="padding-top:0">
+    <div class="center"><p class="eyebrow">What you will find</p><h2 class="sec-title">Study the design in motion, not just in a frozen screenshot.</h2></div>
+    <div class="rows">
+      <article class="row">
+        <div class="row-t">
+          <div>
+            <div class="pills"><span class="pill">Section</span><span class="pill ol">Desktop</span></div>
+            <h3>Compare heroes, side by side.</h3>
+            <p>Put the opening screens of different sites next to each other and look closely at what makes them work: headline scale, imagery, and the single call to action.</p>
+            <ul class="facts"><li>Pick any section type</li><li>Zoom into the detail</li><li>Jump to the live source</li></ul>
+            <a class="textlink" href="#waitlist">Get early access</a>
+          </div>
+          <div class="row-meta mono">Section · Hero · 3 sources linked</div>
+        </div>
+        <div class="media">
+          <div class="mframe"><div class="mview">
+            <div class="cmp-track">
+              <div class="cmp-slide" style="--k:0;--zo:72% 26%"><img src="img/stripe-hero.webp" alt="Stripe hero, zooming into the ribbon" width="1280" height="541"></div>
+              <div class="cmp-slide" style="--k:1;--zo:34% 52%"><img src="img/linear-hero.webp" alt="Linear hero, zooming into the product window" width="1280" height="720"></div>
+              <div class="cmp-slide" style="--k:2;--zo:52% 72%"><img src="img/studio-hero.webp" alt="Design studio hero, zooming into the centre card" width="1280" height="720"></div>
+              <div class="cmp-slide clone" style="--k:3"><img src="img/stripe-hero.webp" alt="" width="1280" height="541"></div>
+            </div>
+            <div class="cmp-chip"><span style="--k:0">stripe.com · ribbon</span><span style="--k:1">linear.app · product window</span><span style="--k:2">studio site · centre card</span></div>
+          </div></div>
+          <div class="mcap mono"><span>Looping preview</span><span>Source: stripe.com · linear.app · studio site</span></div>
+        </div>
+      </article>
+
+      <article class="row flip">
+        <div class="row-t">
+          <div>
+            <div class="pills"><span class="pill pk">Motion</span><span class="pill">Desktop</span><span class="pill ol">Next</span></div>
+            <h3>Study the motion, not just the frame.</h3>
+            <p>Scroll-driven pages and animated graphics lose everything in a still image. Library entries will carry short recordings of how a section moves.</p>
+            <ul class="facts"><li>Recordings as the page scrolls</li><li>Hover and scroll states</li><li>Animated graphics, kept moving</li></ul>
+            <a class="textlink" href="#waitlist">Get early access</a>
+          </div>
+          <div class="row-meta mono">Motion · Recorded scroll · Source linked</div>
+        </div>
+        <div class="media">
+          <div class="mframe"><div class="mview">
+            <div class="rz"><div class="rs">
+              <img src="img/stripe-hero.webp" alt="Stripe page recording: hero" width="1280" height="541">
+              <img src="img/stripe-logos.webp" alt="" width="1280" height="47">
+              <img src="img/p-bento1.webp" alt="" width="1280" height="575">
+              <img src="img/p-bento2.webp" alt="" width="1280" height="462">
+              <img src="img/p-banner.webp" alt="" width="1280" height="373">
+              <img src="img/p-stats.webp" alt="" width="1280" height="313">
+              <img src="img/p-burst.webp" alt="" width="1280" height="347">
+            </div></div>
+          </div></div>
+          <div class="rtl"><span class="mono">Rec</span><i><b></b></i><span class="mono">Looping preview</span></div>
+          <div class="mcap mono"><span>Page scroll with camera zoom</span><span>Source: stripe.com</span></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="row-t">
+          <div>
+            <div class="pills"><span class="pill">Section</span><span class="pill ol">Mobile</span></div>
+            <h3>Phone and desktop, together.</h3>
+            <p>Every page is captured at a desktop and a phone size, so you can see how a layout changes instead of guessing.</p>
+            <ul class="facts"><li>Desktop 1440 and mobile 390</li><li>Menus, open and closed (planned)</li><li>Tablet sizes after that</li></ul>
+            <a class="textlink" href="#waitlist">Get early access</a>
+          </div>
+          <div class="row-meta mono">Mobile · 390 px · Source linked</div>
+        </div>
+        <div class="media">
+          <div class="phones">
+            <div class="ph"><div class="phv"><img style="--k:0" src="img/linear-m-hero.webp" alt="Linear mobile hero" width="414" height="846"></div></div>
+            <div class="ph"><div class="phv"><img style="--k:1" src="img/linear-m-intake.webp" alt="Linear mobile feature section" width="414" height="846"></div></div>
+            <div class="ph"><div class="phv"><img style="--k:2" src="img/linear-m-planning.webp" alt="Linear mobile planning section" width="414" height="846"></div></div>
+          </div>
+          <div class="mcap mono"><span>Mobile 414 px captures</span><span>Source: linear.app</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div><span class="mono">Attribution</span><p>Every capture links to the site it came from.</p></div>
+      <div><span class="mono">Respect</span><p>We follow robots.txt and leave out sites that say no.</p></div>
+      <div><span class="mono">Quality</span><p>Blank pages and cookie walls never reach the library.</p></div>
+    </div>
+  </section>
+
+  <section class="pad wrap" id="roadmap">
+    <p class="eyebrow">Roadmap</p>
+    <h2 class="sec-title" style="margin-left:0">Sections first. The rest in order.</h2>
+    <div class="timeline">
+      <div class="step now"><span class="mono">Now</span><h3>Sections</h3><p>Capturing public marketing sites and cutting them into searchable sections.</p></div>
+      <div class="step"><span class="mono">Next</span><h3>Components and states</h3><p>Menus, tabs and toggles in their open states, tablet sizes and motion.</p></div>
+      <div class="step"><span class="mono">Later</span><h3>Flows and apps</h3><p>Sign-up and checkout flows, and mobile apps.</p></div>
+      <div class="step"><span class="mono">Later</span><h3>Research</h3><p>Compare sites, spot patterns and ask questions across the library.</p></div>
+    </div>
+    <p class="fine">Plans can change. Early access members see each step first.</p>
+  </section>
+
+  <section class="pad wrap" id="faq" style="padding-top:0">
+    <div class="faq-g">
+      <div class="faq-l">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions, answered.</h2>
+        <p>The short version of what we are building and how we collect it. Anything missing, ask below.</p>
+        <div class="faq-art"><canvas id="silk-faq" aria-hidden="true"></canvas></div>
+      </div>
+      <div class="faq-r">
+        <details open><summary><span class="n">01</span>What is DesignMaxxing?</summary><p>A searchable library of real website designs, cut into sections so you can find the exact reference you need.</p></details>
+        <details><summary><span class="n">02</span>Which sites come first?</summary><p>Public marketing websites, starting with software and developer products. Apps and flows come later.</p></details>
+        <details><summary><span class="n">03</span>Where do the screenshots come from?</summary><p>We capture them ourselves with automated browsers. We follow robots.txt, limit our request rate and link each capture to its source.</p></details>
+        <details><summary><span class="n">04</span>What will it cost?</summary><p>Pricing is not decided yet. Waitlist members will hear first and can tell us what feels fair.</p></details>
+        <details><summary><span class="n">05</span>When can I get in?</summary><p>Early access opens in small batches. Join the waitlist and we will email you when it is your turn.</p></details>
+        <div class="askp">
+          <div class="askp-h"><span class="mono">Ask anything else</span><span class="mono">Answers from this FAQ</span></div>
+          <div class="askp-b">
+            <div class="log" id="log" aria-live="polite"></div>
+            <div class="sug" id="sug"></div>
+            <form class="ask" id="ask" autocomplete="off">
+              <label for="ask-in">Ask anything else:</label>
+              <input id="ask-in" type="text" maxlength="160" placeholder="How much will it cost?">
+              <button type="submit" aria-label="Send question">→</button>
+            </form>
+            <p class="note">Automated answers drawn from this page’s FAQ. Not a live assistant.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <canvas id="burst" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="eyebrow">Early access</p>
+      <h2>Stop screenshotting. Start finding.</h2>
+      <p class="lead">Join the waitlist and tell us what you look for. Early members help decide what we build first.</p>
+      <form class="wl" id="wl-foot" novalidate>
+        <label class="sr" for="email-foot">Email address</label>
+        <input id="email-foot" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+        <button class="btn" type="submit">Join the waitlist <span class="ar" aria-hidden="true">→</span></button>
+        <p class="wl-note">We email you once, when it is your turn.</p>
+        <p class="wl-msg" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><a class="brand" href="#top"><svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="1" y="3" width="24" height="6" fill="currentColor"/><rect x="5" y="10.5" width="20" height="6" fill="#2f55ff"/><rect x="1" y="18" width="14" height="6" fill="currentColor"/></svg>DesignMaxxing</a><p class="tag">Real website design, cut into sections you can search.</p></div>
+      <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#find">Examples</a></li><li><a href="#roadmap">Roadmap</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><span class="soon">About</span></li><li><span class="soon">Contact</span></li></ul></div>
+      <div><h4>Legal</h4><ul><li><span class="soon">Privacy</span></li><li><span class="soon">Terms</span></li><li><span class="soon">Copyright</span></li></ul></div>
+    </div>
+    <p class="foot-legal">© 2026 DesignMaxxing. Screens on this page are captures of <a href="https://stripe.com" rel="noopener">stripe.com</a>, <a href="https://linear.app" rel="noopener">linear.app</a> and a design studio site (name to be confirmed). They belong to their respective owners. DesignMaxxing is not affiliated with or endorsed by the sites shown.</p>
+    <div class="wm" id="wm" aria-hidden="true"><span>DesignMaxxing</span></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function w(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+  function ease(t) { return t * t * (3 - 2 * t); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  /* ---------- ticker of real sections ---------- */
+  var TK = [
+    ['stripe-hero', 'Hero', 'stripe.com'], ['linear-hero', 'Hero', 'linear.app'], ['studio-hero', 'Hero', 'studio site'],
+    ['stripe-bento1', 'Feature grid', 'stripe.com'], ['linear-changelog', 'Timeline', 'linear.app'], ['studio-case', 'Case study', 'studio site'],
+    ['stripe-stats', 'Stats', 'stripe.com'], ['stripe-banner', 'Video banner', 'stripe.com'], ['linear-testimonials', 'Testimonials', 'linear.app'], ['linear-figures', 'Principles', 'linear.app']
+  ];
+  var tk = $('#tk');
+  [0, 1].forEach(function (copy) {
+    TK.forEach(function (t) {
+      var f = document.createElement('figure'); f.className = 'tk'; if (copy) f.setAttribute('aria-hidden', 'true');
+      var i = document.createElement('img'); i.src = 'img/' + t[0] + '.webp'; i.alt = copy ? '' : t[1] + ' section from ' + t[2]; i.height = 170;
+      var c = document.createElement('figcaption'); c.className = 'mono'; c.textContent = t[1] + ' · ' + t[2];
+      f.appendChild(i); f.appendChild(c); tk.appendChild(f);
+    });
+  });
+
+  /* ---------- canvas motion: silk lines + pointer burst ---------- */
+  var ptr = { x: .5, y: .5, cx: -1, cy: -1 };
+  window.addEventListener('pointermove', function (e) { ptr.x = e.clientX / innerWidth; ptr.y = e.clientY / innerHeight; ptr.cx = e.clientX; ptr.cy = e.clientY; }, { passive: true });
+  var STOPS = [[220, 243, 107], [255, 157, 61], [255, 111, 177], [47, 85, 255]];
+  function stopCol(u, a) {
+    var s = clamp(u, 0, .999) * (STOPS.length - 1), i = Math.floor(s), f = s - i, A = STOPS[i], B = STOPS[i + 1];
+    return 'rgba(' + Math.round(lerp(A[0], B[0], f)) + ',' + Math.round(lerp(A[1], B[1], f)) + ',' + Math.round(lerp(A[2], B[2], f)) + ',' + a + ')';
+  }
+  function silkDraw(ctx, W, H, t, o) {
+    ctx.clearRect(0, 0, W, H);
+    var N = W < 700 ? Math.round(o.n * .6) : o.n, M = 70, m = Math.min(W, H);
+    var dx = o.x1 - o.x0, dy = o.y1 - o.y0, L = Math.sqrt(dx * dx * W * W + dy * dy * H * H) || 1;
+    var nx = -(dy * H) / L, ny = (dx * W) / L;
+    var ph = t * .5 + (o.pointer ? (ptr.x - .5) * 1.4 : 0), amp = o.amp * (o.pointer ? 1 + (ptr.y - .5) * .5 : 1);
+    ctx.lineWidth = o.lw; var al = W < 700 ? o.a * .7 : o.a;
+    for (var i = 0; i < N; i++) {
+      var u = i / (N - 1);
+      ctx.beginPath();
+      for (var j = 0; j <= M; j++) {
+        var s = j / M;
+        var cx = W * (o.x0 + dx * s) + Math.sin(s * 5.2 + ph * .7) * W * .045 * amp;
+        var cy = H * (o.y0 + dy * s) + Math.cos(s * 4.1 + ph * .55) * H * .1 * amp;
+        var wf = o.wid * (.28 + .72 * Math.pow(Math.abs(Math.sin(s * Math.PI * 1.35 + ph * .45 + .6)), 1.3));
+        var off = (u - .5) * wf * m + Math.sin(u * 6.2 + s * 9 + ph) * 3;
+        var px = cx + nx * off, py = cy + ny * off;
+        if (j) ctx.lineTo(px, py); else ctx.moveTo(px, py);
+      }
+      ctx.strokeStyle = stopCol(u, al);
+      ctx.stroke();
+    }
+  }
+  function burstDraw(ctx, W, H, t, o, cv) {
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2, cy = H * 1.02, R = Math.min(W * .46, H * .4), N = W < 700 ? 110 : 190;
+    var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.1);
+    g.addColorStop(0, 'rgba(255,157,61,.55)'); g.addColorStop(.45, 'rgba(255,111,177,.18)'); g.addColorStop(1, 'rgba(47,85,255,0)');
+    ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    var r = cv.getBoundingClientRect(), pa = null;
+    if (ptr.cx >= 0) { var px = ptr.cx - r.left - cx, py = ptr.cy - r.top - cy; if (py < 0) pa = Math.atan2(py, px); }
+    ctx.globalCompositeOperation = 'lighter'; ctx.lineWidth = 1;
+    for (var i = 0; i < N; i++) {
+      var f = i / (N - 1), th = Math.PI + f * Math.PI;
+      var n = .5 + .5 * Math.sin(i * .37 + t * .9) * Math.cos(i * .11 - t * .6);
+      var Ln = R * (.34 + .5 * n) * (.62 + .38 * Math.sin(Math.PI * f));
+      if (pa !== null) { var d = Math.atan2(Math.sin(th - pa), Math.cos(th - pa)); Ln *= 1 + .5 * Math.exp(-(d * d) / .05); }
+      var r0 = R * .05, x0 = cx + Math.cos(th) * r0, y0 = cy + Math.sin(th) * r0, x1 = cx + Math.cos(th) * (r0 + Ln), y1 = cy + Math.sin(th) * (r0 + Ln);
+      ctx.strokeStyle = stopCol(1 - f * .95, .5); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+      ctx.fillStyle = stopCol(1 - f * .95, .95); ctx.beginPath(); ctx.arc(x1, y1, 1.6, 0, 6.3); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  var anims = [];
+  function reg(cv, kind, opt) {
+    var ctx = cv.getContext('2d'), a = { cv: cv, ctx: ctx, vis: false, W: 0, H: 0, kind: kind, o: opt };
+    function size() {
+      var r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1); a.W = r.width; a.H = r.height;
+      cv.width = Math.max(1, r.width * d); cv.height = Math.max(1, r.height * d); ctx.setTransform(d, 0, 0, d, 0, 0);
+      if (reduce || !a.vis) a.draw(2);
+    }
+    a.draw = function (t) { if (!a.W) return; if (kind === 'silk') silkDraw(ctx, a.W, a.H, t, opt); else burstDraw(ctx, a.W, a.H, t, opt, cv); };
+    if (window.ResizeObserver) new ResizeObserver(size).observe(cv); else window.addEventListener('resize', size);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { a.vis = en[0].isIntersecting; }, { rootMargin: '80px' }).observe(cv); else a.vis = true;
+    anims.push(a); size(); return a;
+  }
+  reg($('#silk-hero'), 'silk', { n: 90, lw: 1.1, a: .5, x0: 1.08, y0: -.05, x1: -.1, y1: 1.05, wid: .55, amp: 1, pointer: true });
+  reg($('#silk-faq'), 'silk', { n: 60, lw: 1, a: .55, x0: -.1, y0: .9, x1: 1.1, y1: .15, wid: .6, amp: 1.2 });
+  reg($('#burst'), 'burst', {});
+  var t0 = performance.now();
+  (function frame(now) {
+    if (!reduce && !document.hidden) { var t = (now - t0) / 1000; for (var i = 0; i < anims.length; i++) if (anims[i].vis) anims[i].draw(t); }
+    requestAnimationFrame(frame);
+  })(t0);
+
+  /* ---------- sticky scroll story ---------- */
+  var how = $('#how'), cam = $('#cam'), layA = $('#layA'), layB = $('#layB'), layC = $('#layC');
+  var aw = $('#aw'), stk = $('#stk'), bv = $('#bv'), gate = $('#gate'), gl = $$('#gl li'), rej = $('#rej'), scoreEl = $('#score');
+  var rec = $('#rec'), tc = $('#tc'), rb = $('#rb'), cc = $('#cc'), css = $$('.cs', cc), lib = $$('.lc', $('#lib')), qEl = $('#q2'), cnt = $('#cnt');
+  var steps = $$('.hs', how), rails = $$('.how-rail i b', how), countEl = $('#how-count');
+  var QUERY = 'hero sections', camW = 0, camH = 0, range = 0, narrow = false, lastIdx = -1;
+  function measure() {
+    camW = cam.clientWidth; camH = cam.clientHeight; narrow = camW < 600;
+    var wa = Math.max(240, Math.min(camW - 48, 760, (camH - 120) / .625));
+    cam.style.setProperty('--wa', wa + 'px');
+    var short = camH < 560, nseg = short ? 3 : 5, ratio = short ? 1.117 : 1.445;
+    css.forEach(function (c) { if (c.classList.contains('opt')) c.style.display = short ? 'none' : ''; });
+    var wb = Math.max(150, Math.min(camW - 110, 440, (camH - 80 - nseg * 22) / ratio));
+    cam.style.setProperty('--wb', wb + 'px');
+    var cols = narrow ? 2 : 3, rows = narrow ? 3 : 3, cardH = (camH - 130 - (rows - 1) * 10) / rows;
+    var wl = Math.max(220, Math.min(camW - 40, 720, cardH * 1.6 * cols + (cols - 1) * 12));
+    cam.style.setProperty('--wl', wl + 'px');
+    range = Math.max(0, stk.offsetHeight - bv.clientHeight);
+  }
+  function setLayer(el, o, s, tx) { el.style.opacity = o; el.style.visibility = o < .01 ? 'hidden' : 'visible'; el.style.transform = 'translate3d(' + (tx || 0) + 'px,0,0) scale(' + s + ')'; }
+  function update(p) {
+    var idx = p < .25 ? 0 : p < .5 ? 1 : p < .75 ? 2 : 3;
+    if (idx !== lastIdx) { steps.forEach(function (s, k) { s.classList.toggle('on', k === idx); }); countEl.textContent = '0' + (idx + 1) + ' / 04'; lastIdx = idx; }
+    rails.forEach(function (b, k) { b.style.transform = 'scaleX(' + w(p, k * .25, (k + 1) * .25).toFixed(3) + ')'; });
+    /* A: capture (scroll recording) then check */
+    var cap = ease(w(p, .01, .21)), back = ease(w(p, .23, .29));
+    stk.style.transform = 'translate3d(0,' + (-range * (cap - back)).toFixed(1) + 'px,0)';
+    var sec = Math.round(12 * cap); tc.textContent = '00:' + (sec < 10 ? '0' : '') + sec;
+    var done = p > .215; rec.classList.toggle('done', done); rec.childNodes[1].nodeValue = done ? 'SAVED ' : 'REC ';
+    rb.style.transform = 'scaleX(' + cap.toFixed(3) + ')';
+    var g = ease(w(p, .27, .33)), sw = parseFloat(getComputedStyle(cam).getPropertyValue('--wa')) || 720;
+    var aScale = 1 - .12 * g, tx = 0;
+    if (!narrow) { var shown = sw * aScale; tx = -Math.max(0, (camW - shown) / 2 - 20) * g; aw.style.opacity = 1; } else { aw.style.opacity = 1 - .7 * g; }
+    var aExit = ease(w(p, .47, .53));
+    aw.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,0,0) scale(' + aScale.toFixed(3) + ')';
+    gate.style.opacity = g; gate.style.transform = narrow ? 'translate3d(0,' + (-50 + (1 - g) * 6).toFixed(1) + '%,0)' : 'translate3d(0,' + (-50 + (1 - g) * 6).toFixed(1) + '%,0)';
+    if (narrow) { gate.style.right = 'auto'; gate.style.left = '50%'; gate.style.marginLeft = '-' + Math.min(150, (camW - 28) / 2) + 'px'; } else { gate.style.right = ''; gate.style.left = ''; gate.style.marginLeft = ''; }
+    gl.forEach(function (li, k) { li.classList.toggle('ok', p > .31 + k * .025); });
+    scoreEl.textContent = Math.round(94 * ease(w(p, .31, .46)));
+    rej.classList.toggle('show', p > .43);
+    setLayer(layA, 1 - aExit, 1 - .16 * aExit, 0); gate.style.pointerEvents = 'none';
+    /* B: cut */
+    var bIn = ease(w(p, .47, .55)), bOut = ease(w(p, .72, .78));
+    setLayer(layB, ease(w(p, .47, .53)) * (1 - bOut), (1.22 - .22 * bIn) * (1 - .3 * bOut), 0);
+    var gap = 3 + 19 * ease(w(p, .53, .63)); cc.style.setProperty('--gap', gap.toFixed(1) + 'px');
+    var vis = css.filter(function (c) { return c.style.display !== 'none'; });
+    vis.forEach(function (c, k) { c.style.setProperty('--cl', ease(w(p, .55 + k * .018, .61 + k * .018)).toFixed(3)); c.style.setProperty('--tgo', ease(w(p, .64 + k * .01, .70 + k * .01)).toFixed(3)); });
+    /* C: search */
+    setLayer(layC, ease(w(p, .72, .78)), 1, 0);
+    var f = ease(w(p, .9, .96));
+    lib.forEach(function (c, k) {
+      var t = ease(w(p, .74 + k * .008, .83 + k * .008)), hit = c.getAttribute('data-hit') === '1';
+      c.style.opacity = (t * (hit ? 1 : lerp(1, .14, f))).toFixed(3);
+      c.style.transform = 'translate3d(0,' + ((1 - t) * 28).toFixed(1) + 'px,0) scale(' + (lerp(.96, 1, t) * (hit ? 1 + .025 * f : 1)).toFixed(3) + ')';
+      c.style.setProperty('--hit', hit ? f.toFixed(3) : 0);
+    });
+    qEl.textContent = QUERY.slice(0, Math.round(QUERY.length * w(p, .82, .9)));
+    cnt.textContent = f > .5 ? (narrow ? '3 of 9' : '3 of 9 sections · 3 sites') : (narrow ? '9' : '9 sections');
+  }
+  var pend = false, lastP = -1;
+  function prog() {
+    var r = how.getBoundingClientRect(), hh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh')) || 72;
+    var inner = how.firstElementChild.offsetHeight, total = how.offsetHeight - inner;
+    return clamp((hh - r.top) / Math.max(1, total), 0, 1);
+  }
+  function tick() { pend = false; var p = prog(); if (Math.abs(p - lastP) > .0002) { lastP = p; update(p); } }
+  function req() { if (!pend) { pend = true; requestAnimationFrame(tick); } }
+  if (reduce) {
+    how.classList.add('static'); measure(); update(1); steps.forEach(function (s) { s.classList.add('on'); });
+    window.addEventListener('resize', function () { measure(); update(1); });
+  } else {
+    measure(); update(0); lastP = 0; req();
+    window.addEventListener('scroll', req, { passive: true });
+    window.addEventListener('resize', function () { measure(); lastP = -1; req(); });
+    if (window.ResizeObserver) new ResizeObserver(function () { measure(); lastP = -1; req(); }).observe(cam);
+    $$('img', stk).forEach(function (im) { im.addEventListener('load', function () { measure(); lastP = -1; req(); }); });
+  }
+
+  /* ---------- footer wordmark: fit to container width ---------- */
+  var wm = $('#wm'), wms = $('span', wm);
+  function fitWm() { wm.style.fontSize = '100px'; var cw = wm.clientWidth, tw = wms.getBoundingClientRect().width; if (tw > 0) wm.style.fontSize = Math.floor(100 * cw / tw * .985) + 'px'; }
+  fitWm(); window.addEventListener('resize', fitWm); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitWm);
+
+  /* ---------- header menu and forms ---------- */
+  var mb = $('#menu-btn'), mm = $('#mobile-menu');
+  function setMenu(o) { mm.hidden = !o; mb.setAttribute('aria-expanded', String(o)); mb.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); }
+  mb.addEventListener('click', function () { setMenu(mm.hidden); });
+  mm.addEventListener('click', function (e) { if (e.target.tagName === 'A') setMenu(false); });
+
+  // Prototype: the waitlist forms do not send or store anything yet.
+  // TODO(Part 8.1): POST the address to the waitlist endpoint and handle duplicate/error responses.
+  $$('form.wl').forEach(function (form) {
+    var input = $('input[type="email"]', form), msg = $('.wl-msg', form);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); msg.hidden = false; msg.className = 'wl-msg';
+      if (!input.value.trim() || !input.checkValidity()) { msg.classList.add('err'); msg.textContent = 'Enter a valid email address, like name@company.com.'; input.focus(); return; }
+      msg.classList.add('ok'); msg.textContent = 'You are on the list. We will email you when early access opens.'; input.value = '';
+    });
+  });
+
+  /* ---------- ask box (scripted: answers only from our FAQ; no AI call) ---------- */
+  // TODO: a live assistant needs a backend with rate limits, a cost cap and answers restricted to our own docs.
+  var KB = [
+    [['cost','price','pricing','pay','free','plan','subscription'], 'Pricing is not decided yet. Waitlist members will hear first and can tell us what feels fair.'],
+    [['when','access','invite','launch','date','soon','batch','get in'], 'Early access opens in small batches. Join the waitlist and we will email you when it is your turn.'],
+    [['mobile','phone','responsive','desktop','tablet','breakpoint'], 'Each page is captured at a desktop and a phone size, so you can compare how the layout adapts. Tablet sizes come next.'],
+    [['app','ios','android','flow','checkout','signup'], 'Public marketing websites come first, starting with software and developer products. Apps and flows are on the roadmap.'],
+    [['site','which','cover','website','brand','company','companies'], 'Public marketing websites first, starting with software and developer products.'],
+    [['screenshot','capture','scrape','robots','legal','copyright','permission','allowed','source','attribution'], 'We capture pages ourselves with automated browsers, follow robots.txt, limit our request rate and link each capture to its source. If a site says no, we leave it out.'],
+    [['remove','takedown','report','dmca'], 'Every capture links to its source. A report and removal process is planned before the library opens.'],
+    [['api','mcp','figma','export','integrat'], 'Not yet. Integrations such as an API or Figma come after the core library.'],
+    [['section','search','find','how','work','what is'], 'Each page is cut into sections such as hero, features and stats. You search for the section you need and get that section, not the whole site.']
+  ];
+  var FALLBACK = 'I do not have a good answer to that yet. Join the waitlist and tell us what you need; early members help decide what we build.';
+  var log = $('#log'), sug = $('#sug');
+  function bubble(cls, text, label) {
+    var d = document.createElement('div'); d.className = 'msg ' + cls;
+    if (label) { var l = document.createElement('span'); l.className = 'mono'; l.textContent = label; d.appendChild(l); }
+    d.appendChild(document.createTextNode(text)); log.appendChild(d); return d;
+  }
+  function answerFor(q) {
+    var s = q.toLowerCase();
+    for (var i = 0; i < KB.length; i++) { for (var k = 0; k < KB[i][0].length; k++) { if (s.indexOf(KB[i][0][k]) !== -1) return KB[i][1]; } }
+    return FALLBACK;
+  }
+  function send(q) {
+    q = q.trim(); if (!q) return;
+    bubble('u', q);
+    var a = bubble('a', reduce ? answerFor(q) : '…', 'DesignMaxxing');
+    if (!reduce) setTimeout(function () { a.lastChild.nodeValue = answerFor(q); }, 520);
+  }
+  ['When can I get in?', 'Which sites come first?', 'How do you get the screenshots?', 'What will it cost?'].forEach(function (q) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = q; b.addEventListener('click', function () { send(q); }); sug.appendChild(b);
+  });
+  $('#ask').addEventListener('submit', function (e) { e.preventDefault(); var i = $('#ask-in'); var v = i.value; i.value = ''; send(v); });
+})();
+</script>
