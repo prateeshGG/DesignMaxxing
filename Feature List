@@ -1,50 +1,50 @@
-# Product feature list (deduplicated)
+# Proper Feature List for OUR Product — Deduplicated
 
 ## A. Website library
 
-- Website profiles
-- Domain
-- Category
-- Industry
-- Website type
-- Page library
-- Site map
-- Website versions
-- Historical captures
-- Capture timestamp
-- Technology stack
-- CMS
-- Framework
-- Libraries
-- Hosting/CDN detection
-- Fonts
-- Analytics technology
-- Payment technology
+- Website profiles — Identify and organize each website as a research entity.
+- Domain — Store the website domain.
+- Category — Classify the website by category.
+- Industry — Classify the website by industry.
+- Website type — Classify the website by type.
+- Page library — Maintain the pages belonging to each website.
+- Site map — Show the website's page/URL structure.
+- Website versions — Store multiple captured versions of a website.
+- Historical captures — Preserve past website captures for comparison.
+- Capture timestamp — Record when each capture was taken.
+- Technology stack — Record detected technologies used by the site.
+- CMS — Detect and record the content-management system.
+- Framework — Detect and record the application framework.
+- Libraries — Detect and record notable libraries.
+- Hosting/CDN detection — Detect hosting and CDN infrastructure.
+- Fonts — Detect fonts used by the website.
+- Analytics technology — Detect analytics technologies.
+- Payment technology — Detect payment technologies.
 
 ## B. Page library
 
-- Page screenshots
-- Full-page screenshots
-- Above-the-fold screenshot
-- Section screenshots
-- Desktop versions
-- Tablet versions
-- Mobile versions
-- Page metadata
-- URL
-- Title
-- Description
-- H1/H2 structure
-- SEO metadata
-- OpenGraph metadata
+- Page screenshots — Capture individual page screenshots.
+- Full-page screenshots — Capture the complete page from top to bottom.
+- Above-the-fold screenshot — Capture the initial viewport area.
+- Section screenshots — Capture individual page sections for focused research.
+- Desktop versions — Store desktop page variants.
+- Tablet versions — Store tablet page variants.
+- Mobile versions — Store mobile page variants.
+- Page metadata — Store structured metadata for each page.
+- URL — Store the page URL.
+- Title — Store the page title.
+- Description — Store the page description.
+- H1/H2 structure — Extract heading hierarchy.
+- SEO metadata — Extract search-engine metadata.
+- OpenGraph metadata — Extract OpenGraph sharing metadata.
 
 ## C. Section intelligence
 
-Automatically identify:
+Automatically identify page sections such as:
 
 - Hero
-- Announcement bar
 - Navigation
+- Announcement bar
 - Logo cloud
 - Features
 - Benefits
@@ -64,13 +64,15 @@ Automatically identify:
 - Timeline
 - Team
 - Contact
+- Forms
 - Gallery
 - Video sections
-- Custom / unknown categories
+
+- Custom/unknown categories — Allow sections that do not fit predefined categories to be classified separately rather than discarded.
 
 ## D. Component intelligence
 
-Detect:
+Detect reusable interface components:
 
 - Buttons
 - Links
@@ -86,13 +88,14 @@ Detect:
 - Tooltips
 - Modals
 - Drawers
+- Navigation components
 - Breadcrumbs
 - Pagination
 - Carousels
 - Tables
 - Pricing cards
-- Forms
-- Search
+- Form components
+- Search components
 - Filters
 - Date pickers
 - Toasts
@@ -103,39 +106,30 @@ Detect:
 
 ## E. Responsive intelligence
 
-- Desktop
-- Laptop
-- Tablet
-- Mobile
-- Breakpoint detection
-- Layout changes
-- Navigation changes
-- Typography changes
-- Component changes
-- Content changes
-- Hidden/shown elements
-- Responsive comparison
-- Responsive timeline
+- Desktop — Capture and classify desktop layouts.
+- Laptop — Capture and classify laptop layouts.
+- Tablet — Capture and classify tablet layouts.
+- Mobile — Capture and classify mobile layouts.
+- Breakpoint detection — Detect responsive breakpoints.
+- Layout changes — Identify layout changes across viewport sizes.
+- Navigation changes — Identify how navigation changes responsively.
+- Typography changes — Identify responsive typography changes.
+- Component changes — Identify component-level responsive changes.
+- Content changes — Identify content changes across breakpoints.
+- Hidden/shown elements — Identify elements that appear or disappear at different sizes.
+- Responsive comparison — Compare versions side by side or by attribute.
+- Responsive timeline — Show how responsive behavior changes across viewport widths.
 
 Example:
 
-```text
-1440px
-3 columns
-
-1024px
-2 columns
-
-768px
-2 columns
-
-390px
-1 column
-```
+1440px — 3 columns
+1024px — 2 columns
+768px — 2 columns
+390px — 1 column
 
 ## F. Interaction intelligence
 
-Automatically capture:
+Automatically capture and classify interaction states/behaviors:
 
 - Hover
 - Click
@@ -156,7 +150,7 @@ Automatically capture:
 
 ## G. Motion intelligence
 
-Detect:
+Detect motion and animation behavior:
 
 - CSS animation
 - CSS transition
@@ -170,8 +164,6 @@ Detect:
 - Lottie
 - Canvas
 - WebGL
-- GSAP
-- Framer Motion
 - Scroll animation
 - Parallax
 - Page transition
@@ -189,7 +181,7 @@ Detect:
 
 ## H. Media intelligence
 
-Automatically collect:
+Automatically collect media assets:
 
 - PNG
 - JPG/JPEG
@@ -208,21 +200,19 @@ Automatically collect:
 - Sprites
 - Image sequences
 
-Metadata:
+And metadata:
 
-- Dimensions
-- Filesize
-- Format
-- Aspect ratio
-- Animation duration
-- Frame count
-- Transparency
-- Compression
-- Source URL
+- Dimensions — Record asset dimensions.
+- Filesize — Record file size.
+- Format — Record file format.
+- Aspect ratio — Calculate asset aspect ratio.
+- Animation duration — Record animation length where applicable.
+- Frame count — Record the number of frames where applicable.
+- Transparency — Detect transparency.
+- Compression — Record/estimate compression characteristics.
+- Source URL — Preserve the original asset source.
 
 ## I. Design-system intelligence
-
-Extract:
 
 ### Typography
 
@@ -262,11 +252,11 @@ Extract:
 - Blur
 - Opacity
 
-Then generate an inferred design system for each website.
+- Inferred Design System — Generate a summarized design system for each website from the extracted typography, color, layout, and styling information.
 
 ## J. Content intelligence
 
-Extract:
+Extract and make searchable:
 
 - Navigation copy
 - Hero copy
@@ -282,11 +272,13 @@ Extract:
 - Empty states
 - Loading messages
 
-Make the text searchable.
-
 ## K. Flow intelligence
 
-Automatically construct:
+Automatically construct user journeys as:
+
+screen → interaction → screen
+
+Flow types:
 
 - Navigation flows
 - Signup flows
@@ -300,17 +292,13 @@ Automatically construct:
 - Modal flows
 - Multi-step flows
 
-With:
-
-```text
-screen → interaction → screen
-```
-
-relationships.
+- Flow relationships — Connect screens through the interactions that lead from one state to another.
 
 ## L. Technology intelligence
 
-Detect where possible:
+Detect where possible, with confidence/evidence:
+
+### Frameworks / platforms
 
 - React
 - Next.js
@@ -325,18 +313,140 @@ Detect where possible:
 - Webflow
 - Shopify
 - Wix
+- Squarespace
+- Framer
 
-## M. Deduplicated summary
+### UI / styling libraries
 
-The final product should cover:
+- Tailwind
+- Bootstrap
+- Material UI
+- Chakra
+- Radix
+- shadcn-related patterns
 
-- Website and page discovery
-- Section and component detection
-- Responsive and interaction analysis
-- Motion and media extraction
-- Design-system inference
-- Content indexing and searchable text
-- Flow reconstruction
-- Technology detection
+### Motion / graphics libraries
 
-This version removes overlapping items while keeping each capability in the category where it belongs most naturally.
+- GSAP
+- Framer Motion
+- Motion
+- Three.js
+- Lottie
+- Anime.js
+- Lenis
+
+### Infrastructure / services
+
+- Stripe
+- Sanity
+- Contentful
+- Supabase
+- Firebase
+- Cloudflare
+- Vercel
+- Netlify
+
+## M. Accessibility intelligence
+
+- Semantic HTML — Inspect semantic structure.
+- ARIA — Detect ARIA usage.
+- Labels — Detect accessible labels.
+- Alt text — Detect image alternative text.
+- Heading hierarchy — Analyze heading structure.
+- Keyboard navigation — Check keyboard accessibility.
+- Focus states — Detect focus-state support.
+- Contrast — Check color contrast.
+- Form accessibility — Check form accessibility characteristics.
+- Landmark structure — Analyze accessibility landmarks.
+- Accessibility warnings — Surface detected accessibility issues.
+
+## N. Performance intelligence
+
+- LCP — Measure Largest Contentful Paint.
+- CLS — Measure Cumulative Layout Shift.
+- INP — Measure Interaction to Next Paint.
+- TTFB — Measure Time to First Byte.
+- Page weight — Measure total page/resource weight.
+- JS weight — Measure JavaScript weight.
+- CSS weight — Measure CSS weight.
+- Image weight — Measure image payload weight.
+- Number of requests — Count network requests.
+- Font loading — Analyze font loading behavior.
+- Lazy loading — Detect lazy-loading behavior.
+- Resource timing — Capture resource timing data.
+
+## O. Search
+
+Three search modes working together:
+
+### Text
+
+- Keyword search — Search exact textual content such as "pricing".
+
+### Semantic
+
+- Semantic search — Understand meaning and intent, such as "modern SaaS pricing".
+
+### Visual
+
+- Screenshot search — Upload a screenshot to find visually similar sections.
+
+- Combined filters — Combine text, semantic, and visual search with filters.
+
+## P. Research features
+
+- Similar websites — Find websites with similar design characteristics.
+- Similar pages — Find visually or structurally similar pages.
+- Similar sections — Find comparable sections.
+- Similar components — Find comparable UI components.
+- Compare websites — Compare multiple websites.
+- Compare responsive behavior — Compare behavior across viewport sizes.
+- Compare design systems — Compare extracted design-system characteristics.
+- Compare flows — Compare user journeys.
+- Version comparison — Compare different captures/versions of a website.
+- Design trends — Surface recurring design trends.
+- Industry trends — Surface patterns by industry.
+- Technology trends — Surface patterns in technology usage.
+- Pattern frequency — Measure how frequently patterns occur.
+
+## Q. AI
+
+- Ask about a website — Query extracted information about a website.
+- Ask about a section — Query extracted information about a section.
+- Explain design decisions — Generate explanations based on observed design evidence.
+- Find references for a problem — Retrieve relevant design references for a UX/design problem.
+- Generate research reports — Turn findings into structured research reports.
+- Compare competitors — Compare competitor websites or experiences.
+- Summarize patterns — Summarize recurring patterns across references.
+- Find similar designs — Use the similarity/search system to retrieve related references.
+- Identify UX patterns — Identify UX patterns from captured experiences.
+- Extract design system — Turn captured design evidence into a design-system summary.
+- MCP — Expose research/search capabilities to AI agents.
+- API — Provide programmatic access for AI and application integrations.
+
+## R. Collaboration
+
+- Collections — Save and group research references.
+- Folders — Organize collections and references hierarchically.
+- Tags — Apply custom labels for organization and retrieval.
+- Notes — Attach research notes to saved references.
+- Comments — Discuss references collaboratively.
+- Team workspaces — Collaborate within shared workspaces.
+- Sharing — Share research with other users.
+- Public collections — Publish collections for broader discovery.
+- Permissions — Control access to shared research.
+- Export — Export research/reference data for use elsewhere.
+- Figma integration — Move selected research references into Figma.
+
+## S. Future features
+
+- Browser extension — Capture/research websites directly from the browser.
+- Code generation — Generate implementation code from captured design evidence.
+- Design-system generation — Generate an implementation-ready design system from references.
+- Recreate this — Reconstruct a captured design.
+- Screenshot → HTML — Convert a screenshot into HTML.
+- Screenshot → React — Convert a screenshot into React.
+- Screenshot → Figma — Convert a screenshot into a Figma representation.
+- Website change monitoring — Detect changes to tracked websites over time.
+- Competitive monitoring — Track changes across competitor websites.
+- Automated trend reports — Produce recurring reports on detected design, industry, and technology trends.
