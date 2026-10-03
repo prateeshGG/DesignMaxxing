@@ -1,7 +1,21 @@
 # Sound
 
-1. **Cues file** (`landing/films/audio/<film>.cues.json`): `duration`, `pad` level, `events` (`kind`, `t` or a list of times, `gain`, `pan`), and `vo` lines (`t`, `text`). Times come straight from the film's timeline: pops on landings, ticks per typed character, a whoosh on the whip, a click on the cursor press, a thump on a cut, pen scribbles while callout lines draw.
-2. **Sound design:** `node audio/sfx.mjs <film>` synthesises everything in code (no samples) and limits the peaks.
-3. **Voiceover:** `FISH_API_KEY=... node audio/vo.mjs <film> [voiceId] [model]` calls Fish Audio TTS per line (`POST https://api.fish.audio/v1/tts`, header `model: s1`, body `{text, reference_id, format: "wav"}`), places each clip at its cue and warns when a line runs into the next one. Voices are found with `GET https://api.fish.audio/model?title=narrator&language=en`. The API needs **API credit**, which is separate from Fish Audio platform credit (a 402 means no API credit). The Fish Audio **MCP server** (`https://api.fish.audio/mcp`, OAuth sign-in) draws from the plan's package credits instead, like the web app, so it works on a free plan with no API credit. Add it as a custom connector in claude.ai (Settings → Connectors). Then call its `text_to_speech` tool once per VO line (free plan: 500 bytes per call, about 1 credit per byte; the 6-line pilot cost 238 credits). Download each `audio_url` to `out/<film>-vo/line-<i>.mp3` and run `node audio/vo.mjs <film> --clips`. The script trims edge silence, applies an optional per-line `tempo` (1.05 keeps a long line in its slot without sounding rushed), prints each line's start and end against the next cue, and mixes everything. Fit lines to beats by moving the cue times in the cues file, not by cutting words. Keep the key in the environment only.
-4. **Mix:** `node audio/mux.mjs <film>` writes `<film>-sound.mp4/.webm` (the voice ducks the sound design). Ship that file as the film itself: it still autoplays when muted, and one button unmutes it.
-5. Keep sound subtle: mean level around −28 dB for the sound design, peaks under −3 dB.
+The founder rejected code-synthesized sound effects ("fush fush") and a roomy, flat voice. The bar is a real product-film mix: **an energetic, dry voice over licensed music**, nothing else.
+
+1. **Cues file** (`landing/films/audio/<film>.cues.json`): `duration`, `vo` lines (`t`, `text`), `voice` (provider, id, delivery tags), `music` (`file`, `offset`, `gain_db`, `fade_in`, `fade_out`, `credit`). No synthesized events.
+2. **Voice.** Use the Fish Audio **MCP connector** (`https://api.fish.audio/mcp`, OAuth; draws package credits, so it works on a free plan; the raw API needs separate API credit and returns 402 without it).
+   - Pick an energetic, dry ad voice with a high task count. Never pick a voice that imitates a real person or a real channel's announcer. Current choice: "Upbeat Woman" `e107ce68d2a64e928c3a674781ce9d56`.
+   - Add a delivery tag per line: `[excited]`, `[confident]`, `[upbeat]`. Tags cost bytes but are not spoken.
+   - Check dryness by measuring how fast each clip decays after its last word: the chosen voice decays to −40 dB in 40–70 ms, the rejected one took 90–220 ms.
+   - Download each `audio_url` to `out/<film>-vo/line-<i>.mp3`, then run `node audio/vo.mjs <film> --clips`. It trims edge silence, applies an optional per-line `tempo`, prints each line's span against the next cue, and mixes `out/<film>-vo.wav`.
+3. **Music.** Use a licensed human-made track that permits commercial use, and credit it where the film is shown.
+   - Current track: "Werq", Kevin MacLeod (incompetech.com), CC BY 4.0; credits in `audio/music/CREDITS.md`.
+   - Sites behind bot checks (Mixkit, Pixabay, Uppbeat) are not scraped. ccMixter's API (`lic=by`) and incompetech allow direct downloads.
+   - Choose by measurement, since nobody can listen here: tempo 115–128 BPM, bright spectrum, steady loudness over the needed window.
+   - Set `offset` so a downbeat lands on the film's main cut (Werq: 125 BPM, 1.92 s bars, offset 0.89 s puts a downbeat on the 12.55 s cut).
+4. **Mix:** `node audio/mux.mjs <film>`.
+   - Voice: high-pass 90 Hz, 3:1 compression, +2.5 dB at 3.5 kHz, de-ess, no reverb.
+   - Music: −7 dB, a −3 dB dip at 3 kHz, sidechain-ducked under the voice.
+   - Master: loudness-normalised to −16 LUFS, true peak −1.5 dB.
+   - Target the voice about 10 dB above the music while speaking, and check it by measuring the stems.
+5. **Ship** the mixed file as the film: it autoplays muted, and a visible button unmutes it.

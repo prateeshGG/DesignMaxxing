@@ -66,7 +66,9 @@ main { position: relative; }
 .hero .tag { margin-bottom: 26px; }
 .hero h1 { font-size: clamp(2.6rem, 5.8vw + .4rem, 5.4rem); line-height: .98; max-width: 13em; margin-inline: auto; letter-spacing: -.045em; }
 .hero .lead { margin: 26px auto 0; max-width: 40em; font-size: clamp(1.02rem, .5vw + .9rem, 1.2rem); color: var(--ink-2); }
-.wl { margin: 34px auto 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; max-width: 540px; text-align: left; border-radius: var(--r); box-shadow: var(--soft-shadow); }
+.wl { position: relative; margin: 34px auto 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; max-width: 540px; text-align: left; }
+/* the soft shadow sits under the field and button only, not around the note below them */
+.wl::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 52px; border-radius: var(--r); box-shadow: var(--soft-shadow); pointer-events: none; }
 .wl input { min-width: 0; height: 52px; padding: 0 18px; border: 1px solid var(--soft-border); border-right: 0; border-radius: var(--r) 0 0 var(--r); background: #fff; color: var(--ink); font: 400 16px/1 var(--font-body); }
 .wl input::placeholder { color: var(--ink-3); }
 .wl .btn { height: 52px; border-radius: 0 var(--r) var(--r) 0; }
@@ -194,7 +196,8 @@ main { position: relative; }
 .vid { position: relative; min-width: 0; display: grid; align-content: start; gap: 12px; }
 .vframe { border-radius: 18px; overflow: hidden; background: #000; aspect-ratio: 16 / 10; box-shadow: 0 24px 60px rgba(10,11,13,.16); }
 .vframe video { width: 100%; height: 100%; object-fit: cover; }
-.vframe.shots { position: relative; display: grid; place-items: center; padding: 22px; background: linear-gradient(160deg, #f3f5fb, #e9edf7); }
+/* still previews float on the page: no panel, no frame shadow; each screenshot keeps its own soft shadow */
+.vframe.shots { position: relative; display: grid; place-items: center; padding: 0; background: none; box-shadow: none; border-radius: 0; overflow: visible; }
 .vframe.shots img { display: block; border-radius: 10px; box-shadow: 0 1px 2px rgba(10,11,13,.06), 0 12px 30px rgba(30,40,90,.16); }
 .vframe.shots.one img { width: 100%; height: auto; }
 /* three heroes fanned like cards on a desk: the front one is whole, the others show their top half */
@@ -318,7 +321,8 @@ main { position: relative; }
   .brand { font-size: 16px; gap: 8px; }
   .brand svg { width: 22px; height: 22px; }
   .tag { font-size: 10.5px; letter-spacing: .06em; text-align: center; line-height: 1.45; border-radius: 16px; }
-  .wl { grid-template-columns: 1fr; box-shadow: none; }
+  .wl { grid-template-columns: 1fr; }
+  .wl::before { display: none; }
   .wl input { border-right: 1px solid var(--soft-border); border-bottom: 0; border-radius: var(--r) var(--r) 0 0; }
   .wl .btn { border-radius: 0 0 var(--r) var(--r); width: 100%; }
   .tiles { gap: 8px; }
@@ -469,7 +473,7 @@ main { position: relative; }
       <video id="film" muted loop playsinline preload="metadata" data-src="video/how-it-works" aria-label="Film: a real page is split into tagged parts, one is found by search and opened with notes on what makes it work"></video>
       <button class="snd" id="snd" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w" d="M16.5 8.5a5 5 0 0 1 0 7"/></svg><span>Sound on</span></button>
     </div>
-    <p class="film-cap mono">Sections shown are from stripe.com, linear.app and studiomaydit.com</p>
+    <p class="film-cap mono">Sections shown are from stripe.com, linear.app and studiomaydit.com · Music: “Werq” Kevin MacLeod (incompetech.com), <a href="http://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a> · Voice: Fish Audio</p>
     <h3 class="tiles-h">What you can search</h3>
     <div class="tiles">
       <div class="tile"><div class="th"><img src="img/stripe-hero.webp" alt="Hero section example" width="1280" height="541"></div><h3>Hero</h3><p>Headlines, art and first impressions.</p><span class="mono src">stripe.com</span></div>
