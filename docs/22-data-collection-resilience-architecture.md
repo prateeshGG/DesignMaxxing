@@ -55,6 +55,11 @@ The architecture treats these as separate problems with separate mechanisms: **b
 | **DC-11** | **Self-heal first, escalate last:** sweepers, breakers, reapers, and the strategy ladder fix common failures automatically; humans see only a small, categorized Quarantine inbox (§10). |
 | **DC-12** | **Prove it before scaling it:** a failure-injection "torture suite" and a golden-set canary must pass before any change to the capture runtime ships (§13). |
 | **DC-13** | **Site job deadline raised to 30 minutes** (was 20 in F-32): 25 pages × 2 viewports = 50 units at ~40 s average and 2 concurrent per domain ≈ 17 min, which leaves no headroom under 20 min [Estimate]. All other F-32 values stand. |
+| **DC-14** | **Postgres is the single source of truth for unit state; Redis/BullMQ is a rebuildable queue.** A reconciler (startup + every 5 min) re-enqueues `PENDING` units and units whose lease expired, and drops queue entries for already-terminal units. Losing Redis loses no work. *(Added in [23](23-scrapling-evaluation-and-collection-gap-analysis.md).)* |
+| **DC-15** | **Change-detection normalization:** strip scripts/styles, timestamps/relative dates, nonces, tracking params and ad/iframe nodes before hashing; perceptual tolerance for visuals; target false-"changed" rate ≤ 10% on a golden-set re-crawl [Estimate]. |
+| **DC-16** | **Capture hazards are first-class requirements of Part 2.3, each with a torture fixture:** sticky/fixed elements, scroll-reveal content, `100vh` sections, pinned/horizontal-scroll sections, carousels, autoplay video. Unfixable cases are flagged `needs_review`, never auto-published. |
+| **DC-17** | **Founder-minutes per accepted site ≤ 2 on average** and inbox ≤ 5% of units are E2 gates [Estimate]; failures are fixed in the capture runtime, not by more founder time. |
+| **DC-18** | **Block rate is a measured launch input** (`BLOCKED %` per seed category); seeds are founder-curated; sites that block us stay blocked — dataset size is set by what we can legitimately collect.
 
 ## 4. Work model
 
@@ -99,6 +104,7 @@ BullMQ queue (Redis) ──► Scheduler (per-domain fair) ──► Supervisor 
 - **Recycling:** new browser process every **50 units or 30 minutes**, whichever first; new context per unit; downloaded files and temp dirs deleted on unit end.
 - **Reaper:** every minute, any Chromium process not tied to a live lease and older than 5 minutes is killed; any temp dir older than 1 hour is deleted.
 - **Spooling:** if object-storage upload fails, evidence is spooled to local disk with retry; intake pauses at 80% disk, hard-stops at 90% (§9).
+- **Queue state is rebuildable (DC-14):** unit state lives in Postgres; the reconciler re-enqueues lost work if Redis is wiped or restarted.
 - **Idempotent writes:** upload by content hash; database commits are conditional on the unit's current `lease_id`, so a zombie worker that lost its lease cannot overwrite newer results.
 
 ## 6. Scheduling — fairness, backpressure, no head-of-line blocking
@@ -221,7 +227,11 @@ Any change to these assumptions is measured in the spike, not guessed.
 | 7 | Handling of sites that legitimately require JS-heavy interactions before content appears (e.g. age gates, region selectors) | **Not decided** → site recipes |
 | 8 | Exact `CaptureUnit`/lease/attempt schema and indexes | For the Part-Spec ([21](21-parts-hierarchy.md) parts 1.4, 2.5) |
 
-## 16. Impact on other docs (to apply when the Parts Hierarchy is updated)
+## 16. Review addendum (v1.1)
+
+A review of this design — including an evaluation of the Scrapling library — is in [23](23-scrapling-evaluation-and-collection-gap-analysis.md). Conclusions: the design covers *stalls* and *unusable data* but is **not proof that collection is solved**; gaps and their status are listed there, and `DC-14`…`DC-18` above close the ones that were fixable by design. Scrapling is **not** adopted as the core (SC-01).
+
+## 17. Impact on other docs (to apply when the Parts Hierarchy is updated)
 
 The founder asked to update the Parts Hierarchy later; recorded here so nothing is lost.
 
@@ -235,5 +245,6 @@ The founder asked to update the Parts Hierarchy later; recorded here so nothing 
 | **New Part (proposed)** | **Capture Validation & Publishability Gate** (if 4.4 is split) |
 | **New Part (proposed)** | **Supervisor, Watchdogs & Circuit Breakers** (if 2.2/2.5 are split) |
 | **New Part (proposed)** | **Collection Test Harness** — torture suite, golden-set canary, chaos drills |
+| 1.4 (reconciler), 2.3 (hazards, DC-16), 3.4 (normalization, DC-15) | Additional changes from [23](23-scrapling-evaluation-and-collection-gap-analysis.md) |
 
 Also: [20](20-founder-decisions-and-plan-validation.md) F-32 (site deadline 20 → **30 min**, DC-13) and the hosted-browser fallback wording (reliability only; never to evade blocks) are corrected there.
