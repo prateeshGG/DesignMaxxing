@@ -119,6 +119,20 @@ White page `#ffffff`; logo tiles `#fafafa`; cream media backdrop `#faf7f2`; deep
 - **No motion at all**, while both reference sites are driven by it.
 - It had **no idea specific to DesignMaxxing**: nothing on the page could only belong to a design-reference library.
 
+## Batch 5 (seen in chat; image files not saved to the repo — please re-send if you want them kept)
+
+- **Services scenes:** the navy | blue split repeated per service, each with its own motion video on the right.
+- **Testimonial carousel:** large quote cards over **pixel-dithered landscape bands**, with prev/next arrows.
+- **FAQ:** two columns (title left, accordion right), and under the list an **"Ask anything else:" input row** with a send button — an AI chat entry point below the FAQ.
+- **Closing section:** a booking calendar embedded in the final CTA.
+
+## Prototype v1 decisions
+
+- Concept: show the product's own idea in motion — a page is cut into sections, the sections fly into a library, a search filters them.
+- Examples are **original fictional sites** (three skins of one generated component set: Halden, Vantor, Pomelo), never real sites.
+- Borrowed *patterns* only: sharp-cornered buttons, mono-caps eyebrows, navy | blue split, dither/noise art, accordion FAQ with an ask row, closing CTA.
+- The ask-box is **scripted** (keyword match over the page's FAQ). A real assistant needs a backend, rate limits, a cost cap and answers restricted to published docs.
+
 ## Waiting for
 
 More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.
