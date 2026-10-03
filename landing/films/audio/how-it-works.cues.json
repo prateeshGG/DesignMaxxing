@@ -2,31 +2,198 @@
   "duration": 19.5,
   "pad": 1.0,
   "events": [
-    { "kind": "whooshShort", "t": 0.15, "gain": 0.25 },
-    { "kind": "whoosh", "t": 1.75, "gain": 0.35 },
-    { "kind": "shimmer", "t": 2.6, "gain": 0.6 },
-    { "kind": "popHi", "t": [4.0, 4.26, 4.52, 4.78, 5.04], "gain": 0.32, "pan": -0.35 },
-    { "kind": "whooshShort", "t": [5.9, 6.12, 6.34, 6.56, 6.78], "gain": 0.12, "pan": 0.2 },
-    { "kind": "pop", "t": [6.62, 6.84, 7.06, 7.28, 7.5], "gain": 0.3, "pan": 0.35 },
-    { "kind": "tick", "t": [7.3, 7.42, 7.54, 7.66, 7.78], "gain": 0.3, "pan": 0.35 },
-    { "kind": "whoosh", "t": 8.15, "gain": 0.6 },
-    { "kind": "tick", "t": [9.0, 9.05, 9.1, 9.15, 9.2, 9.25, 9.3, 9.35, 9.4, 9.45, 9.5, 9.55, 9.6, 9.65, 9.7, 9.75, 9.8, 9.85, 9.9, 9.95, 10.0, 10.05, 10.1, 10.15, 10.2, 10.25], "gain": 0.22 },
-    { "kind": "popLo", "t": [10.55, 10.69, 10.83], "gain": 0.32 },
-    { "kind": "click", "t": 11.85, "gain": 0.6 },
-    { "kind": "whooshShort", "t": 12.15, "gain": 0.35 },
-    { "kind": "thump", "t": 12.55, "gain": 0.45 },
-    { "kind": "popHi", "t": [13.55, 15.15, 16.4], "gain": 0.28 },
-    { "kind": "whooshShort", "t": [13.8, 15.4, 16.65], "gain": 0.18 },
-    { "kind": "scribble", "t": [14.15, 17.0], "gain": 0.32 },
-    { "kind": "popLo", "t": 17.9, "gain": 0.3 },
-    { "kind": "shimmer", "t": 18.1, "gain": 0.5 }
+    {
+      "kind": "whooshShort",
+      "t": 0.15,
+      "gain": 0.25
+    },
+    {
+      "kind": "whoosh",
+      "t": 1.75,
+      "gain": 0.35
+    },
+    {
+      "kind": "shimmer",
+      "t": 2.6,
+      "gain": 0.6
+    },
+    {
+      "kind": "popHi",
+      "t": [
+        4.0,
+        4.26,
+        4.52,
+        4.78,
+        5.04
+      ],
+      "gain": 0.32,
+      "pan": -0.35
+    },
+    {
+      "kind": "whooshShort",
+      "t": [
+        5.9,
+        6.12,
+        6.34,
+        6.56,
+        6.78
+      ],
+      "gain": 0.12,
+      "pan": 0.2
+    },
+    {
+      "kind": "pop",
+      "t": [
+        6.62,
+        6.84,
+        7.06,
+        7.28,
+        7.5
+      ],
+      "gain": 0.3,
+      "pan": 0.35
+    },
+    {
+      "kind": "tick",
+      "t": [
+        7.3,
+        7.42,
+        7.54,
+        7.66,
+        7.78
+      ],
+      "gain": 0.3,
+      "pan": 0.35
+    },
+    {
+      "kind": "whoosh",
+      "t": 8.15,
+      "gain": 0.6
+    },
+    {
+      "kind": "tick",
+      "t": [
+        9.0,
+        9.05,
+        9.1,
+        9.15,
+        9.2,
+        9.25,
+        9.3,
+        9.35,
+        9.4,
+        9.45,
+        9.5,
+        9.55,
+        9.6,
+        9.65,
+        9.7,
+        9.75,
+        9.8,
+        9.85,
+        9.9,
+        9.95,
+        10.0,
+        10.05,
+        10.1,
+        10.15,
+        10.2,
+        10.25
+      ],
+      "gain": 0.22
+    },
+    {
+      "kind": "popLo",
+      "t": [
+        10.55,
+        10.69,
+        10.83
+      ],
+      "gain": 0.32
+    },
+    {
+      "kind": "click",
+      "t": 11.85,
+      "gain": 0.6
+    },
+    {
+      "kind": "whooshShort",
+      "t": 12.15,
+      "gain": 0.35
+    },
+    {
+      "kind": "thump",
+      "t": 12.55,
+      "gain": 0.45
+    },
+    {
+      "kind": "popHi",
+      "t": [
+        13.55,
+        15.15,
+        16.4
+      ],
+      "gain": 0.28
+    },
+    {
+      "kind": "whooshShort",
+      "t": [
+        13.8,
+        15.4,
+        16.65
+      ],
+      "gain": 0.18
+    },
+    {
+      "kind": "scribble",
+      "t": [
+        14.15,
+        17.0
+      ],
+      "gain": 0.32
+    },
+    {
+      "kind": "popLo",
+      "t": 17.9,
+      "gain": 0.3
+    },
+    {
+      "kind": "shimmer",
+      "t": 18.1,
+      "gain": 0.5
+    }
   ],
   "vo": [
-    { "t": 0.35, "text": "Search real websites, section by section." },
-    { "t": 4.0, "text": "The hero. The features. The stats. Each one on its own." },
-    { "t": 8.95, "text": "Describe what you're looking for," },
-    { "t": 10.7, "text": "and get the exact section, from real sites." },
-    { "t": 13.4, "text": "Open it up. See what makes it work." },
-    { "t": 17.3, "text": "Then go straight to the source." }
-  ]
+    {
+      "t": 0.3,
+      "text": "Search real websites, section by section."
+    },
+    {
+      "t": 3.6,
+      "text": "The hero. The features. The stats. Each one on its own.",
+      "tempo": 1.05
+    },
+    {
+      "t": 8.7,
+      "text": "Describe what you're looking for,"
+    },
+    {
+      "t": 10.8,
+      "text": "and get the exact section, from real sites.",
+      "tempo": 1.05
+    },
+    {
+      "t": 14.3,
+      "text": "Open it up. See what makes it work."
+    },
+    {
+      "t": 17.4,
+      "text": "Then go straight to the source."
+    }
+  ],
+  "voice": {
+    "provider": "Fish Audio (MCP connector)",
+    "voice_id": "839e7bdb6e1c428a8bba1fb784b7b1e2",
+    "title": "Calm Female Voice"
+  }
 }
