@@ -199,3 +199,14 @@ Format: Hypothesis → Experiment → Metric → Threshold → Decision. **Thres
 ## 9. Process: where this fits in the breakdown protocol
 
 Stage 1 output is [21 — Parts Hierarchy](21-parts-hierarchy.md). **Do not start Stage 2** (Part-Spec Prompt Template + per-Part specs) until the founder has reviewed the hierarchy. The frozen inputs the template will embed are: docs 01–19 (conversation-derived), this document's `F-xx` decisions, and the hierarchy in doc 21.
+
+## 10. Founder ideas under consideration (October 2026)
+
+Raised by the founder; **not decisions yet**. Each needs a yes/no before it changes a Part-Spec.
+
+| # | Idea | Recommendation | Affects |
+|---|---|---|---|
+| I-1 | Store images in **Google Drive** first; move to S3 or similar once the waitlist proves demand | Before launch, keep captures on the founder's computer (F-45) and back them up with the Drive desktop sync folder: no code, no cost. When the library goes online, use object storage built for serving images. Cloudflare R2 is the cheapest of the easy options: no download fees and a free tier. Drive's API is rate-limited and not meant for serving images to a website. The storage layer (1.3) is an interface, so switching later needs no other changes | 1.3, 6.1 |
+| I-2 | **Mobbin-style free tier:** visitors and free users see blurred or limited previews (for example 5 items per feature); flows and advanced features are paid | Good fit, and it also lowers legal exposure because full images are shown only to signed-in users (F-18, F-42). Decide the exact limits with the pricing experiment (E4) | 6.1, 6.2, 6.3, 8.3 |
+| I-3 | **Owner submissions:** let companies submit their own site or app to the library in return for a discount or similar reward | Good fit for V1, with conditions: the owner proves the domain is theirs (DNS or meta tag); we still capture it ourselves for consistent quality; the founder still approves it (F-46). 1.5 already has `authorization_status = owner_permitted`. Apps come with the mobile phase (V2). Users still never crawl and never upload into the public library | 1.5, 6.5, 8.3 |
+

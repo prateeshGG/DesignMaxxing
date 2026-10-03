@@ -4,6 +4,8 @@ Part of the [engineering docs](README.md). Follows [the protocol](process/projec
 
 **Inputs (frozen):** conversation-derived docs [01–19](README.md), the founder decisions `F-xx` in [20](20-founder-decisions-and-plan-validation.md), and the collection decisions `DC-xx`/`SC-xx` in [22](22-data-collection-resilience-architecture.md) and [23](23-scrapling-evaluation-and-collection-gap-analysis.md).
 
+**Version 1.2 (October 2026):** a coverage check against the `Feature List` added Group 9 (eight later Parts that had no home) and small wording additions to 2.7, 2.8 and 6.3; see the coverage table in [parts/feature-coverage.md](parts/feature-coverage.md).
+
 **Version 1.1 (October 2026):** applies the pending changes recorded in [22 §17](22-data-collection-resilience-architecture.md) and [23 §6](23-scrapling-evaluation-and-collection-gap-analysis.md): descriptions of 1.4, 1.8, 2.1, 2.2, 2.3, 2.5, 3.4 and 4.4 updated, and three Parts added (2.9, 2.10, 2.11). **Part IDs are stable:** new Parts take the next free number in their Group and are listed in dependency position, so 2.9 sits before 2.3 and 2.10–2.11 sit after 2.5.
 
 **Ordering rule:** dependency order, both across Groups and within each Group. Execution timing is governed by the stage gates in [20 §6](20-founder-decisions-and-plan-validation.md); where a Part can be done any time, its description says so. Phase tags `[pre-V0] [V0] [V1] [V2] [V3]` come from [18](18-mvp-v1-v2-v3-roadmap.md) as amended by [20 §3](20-founder-decisions-and-plan-validation.md).
@@ -34,8 +36,8 @@ Part of the [engineering docs](README.md). Follows [the protocol](process/projec
 2.10 **Capture Validation & Publishability Gate** — the automated checks that turn a capture into `quality_score`, `capture_status` and `publish_status` (accepted / needs review / rejected), including the bad-page fingerprint library; captured never means publishable. `[V0]`
 2.11 **Collection Test Harness** — the torture suite of failure fixtures, the golden-set canary, and chaos drills that every capture-runtime change must pass. `[V0]`
 2.6 **Dangerous-Action Policy** — keyword/role deny-list, form-submission blocking, and per-site allowlists that gate every automated interaction. `[V1]`
-2.7 **Interaction Exploration (Fixed Set)** — deterministic detection and capture of nav menus, tabs, accordions, and pricing toggles, with state hashing and limits. `[V1]`
-2.8 **Responsive Extensions** — conditional tablet capture, layout-signature comparison across viewports, and capture-context metadata (DPR, orientation, theme). `[V1]`
+2.7 **Interaction Exploration (Fixed Set)** — deterministic detection and capture of nav menus, tabs, accordions, and pricing toggles, with state hashing and limits; the wider state list in Feature List F (focus, disabled, loading, error, success, drag/drop, swipe, keyboard) is a later extension. `[V1; wider states later]`
+2.8 **Responsive Extensions** — conditional tablet and laptop capture, breakpoint detection, layout-signature comparison across viewports, and capture-context metadata (DPR, orientation, theme). `[V1]`
 
 ## Group 3 — Normalization & Design Graph
 
@@ -68,7 +70,7 @@ Part of the [engineering docs](README.md). Follows [the protocol](process/projec
 
 6.1 **Public App Shell, Auth & Delivery** — Next.js shell, managed authentication, CDN image delivery, and the report/remove-content flow. `[V0]`
 6.2 **Explore & Search UI** — browse, keyword/semantic search, filters, and result presentation. `[V0]`
-6.3 **Site, Page & Section Views** — object pages with metadata, similar sections, and source attribution. `[V0]`
+6.3 **Site, Page & Section Views** — object pages with metadata (title, description, heading structure, SEO/OpenGraph), the site map of captured pages, similar sections, and source attribution. `[V0]`
 6.4 **Admin Console** — sources, crawl jobs, failures, review queue, overrides, costs, source health, and takedown tools inside `/admin`. `[V0]`
 6.5 **Collections & Uploads** — saved references, folders/tags/notes, and private user uploads. `[V1]`
 6.6 **Animation, Responsive & Version Viewers** — playback of animations, side-by-side responsive comparison, and version history views. `[V1]`
@@ -96,9 +98,24 @@ Part of the [engineering docs](README.md). Follows [the protocol](process/projec
 
 ---
 
+## Group 9 — Later Features from the Feature List (coverage, unphased)
+
+Added in v1.2 after a line-by-line check of the `Feature List` against this hierarchy found items with no Part. Phases are **not decided** (doc 18 lists several as "appear only in earlier lists" or "not phased"); each needs a founder decision before it is specified. Listed so nothing is silently dropped.
+
+9.1 **Accessibility Analysis** — semantic HTML, ARIA, labels, alt text, heading and landmark structure, focus states, contrast and form checks, surfaced as warnings (Feature List M; the raw accessibility tree is already captured by 2.3). `[unphased]`
+9.2 **Performance Analysis** — LCP, CLS, INP, TTFB, page/JS/CSS/image weight, request counts, font and lazy loading, resource timing (Feature List N; raw timings captured by 2.3). `[unphased]`
+9.3 **Trends & Pattern Frequency** — design, industry and technology trends and how often patterns occur across the library (Feature List P). `[unphased]`
+9.4 **Team Collaboration & Sharing** — comments, team workspaces, sharing, public collections, permissions and export (Feature List R; personal collections, folders, tags and notes are already in 6.5). `[unphased]`
+9.5 **Figma Integration** — moving selected references into Figma (Feature List R). `[unphased]`
+9.6 **Generation Tools** — code generation, design-system generation, "recreate this", screenshot → HTML / React / Figma (Feature List S; doc 18 marks code generation "do not build initially"). `[future]`
+9.7 **Monitoring & Automated Reports** — website change monitoring, competitive monitoring and recurring trend reports for users (Feature List S; builds on 3.4 and 6.8). `[future]`
+9.8 **Browser Extension** — research websites from the browser (Feature List S). **Needs a founder decision:** a capture-from-browser extension conflicts with the governing decision that end users never crawl; a view-only research extension would not. `[future, scope to decide]`
+
+---
+
 ## Right-sizing check (for founder review)
 
-Counts: 8 Groups, 58 Parts (55 in v1.0 plus 2.9, 2.10, 2.11). Candidates I considered merging or splitting; decide before Stage 2:
+Counts: 9 Groups, 66 Parts (55 in v1.0, plus 2.9, 2.10, 2.11 in v1.1, plus Group 9's eight coverage Parts in v1.2). Candidates I considered merging or splitting; decide before Stage 2:
 
 - **Merge candidates:** 1.8 into 1.7 (both small); 4.7 + 4.8 (both detection-from-evidence); 7.7 into 7.6 (both mobile exploration).
 - **Split candidates:** 2.3 (capture vs. section segmentation) if section segmentation proves to sprawl; 4.3 (taxonomy vs. classifiers).
