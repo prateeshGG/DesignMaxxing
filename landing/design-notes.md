@@ -44,6 +44,38 @@ Observations from the screenshots. **Measured** = sampled from pixels (approxima
 
 Waitlist signup, a short demo of real search over real captured sections (≤ 8 sites, attributed, with a "not affiliated" note — F-44), a price-intent question ($9 / $19 test points — F-06), and the product name **DesignMaxxing**. Brand voice, tagline, and exact sections: **Not decided** — after all reference batches are received.
 
+# Batch 2 (5 more screenshots: 4 desktop 1920×1080 + 1 mobile full-page)
+
+| File | Content |
+|---|---|
+| `linear-06-ai-automations.png` | Same section-header grid (heading left, light paragraph + "Learn more →" right). Below: four side-by-side "agent chat" panels (Cursor, Linear, ChatPRD…) in a horizontal strip; the outer panels are cropped and faded at the edges, the center ones fully visible. A "Features" label with "+" expandable items sits under the visual |
+| `linear-07-build-review-ship.png` | Same header grid. Visual: a task list (grouped In Review / In Progress / Todo) partially covered by a code-diff panel with line numbers, syntax colors, red and green changed-line highlights and a monospace file path; the right half of the diff fades out; the list fades at the bottom. "Features" list below |
+| `linear-08-changelog-testimonials.png` | "Changelog": a horizontal timeline (thin line with four dots, first dot red = latest, the rest grey) over four entries — title, two-line grey excerpt, monospace date ("SEP 24, 2026"); "View all →" link. Below, **testimonial cards that break the dark palette**: a pale blue-lavender card and a neon yellow-green card with large dark quote text |
+| `linear-09-final-cta-footer.png` | Centered closing headline ("Built for the future. Available today.") with two pills: filled off-white "Get started" and dark ghost "Contact sales". Hairline rule, then a footer: logo mark + five link columns (Product, Features, Company, Resources, Connect) and a small legal row (Privacy, Terms, DPA, AUP) |
+| `linear-10-mobile-fullpage.webp` | **Mobile full-page capture, only 140×2000 px** (too small to read text; usable for structure only): single column; header with logo, "Log in" and a pill "Sign up"; headline then the product window cropped; logo row truncated; section headers stack heading → paragraph → "Learn more"; visuals shrink and crop; testimonial cards sit side by side and are cut off (horizontal scroll); the closing headline and two pills are centered; footer links become a two-column grid |
+
+## Measured (batch 2, approximate)
+
+- Testimonial card colors: pale blue-lavender about `#e2e4ff`; neon yellow-green about `#e4f222` (the only strongly saturated fills on the page).
+- Closing buttons: filled about `#e5e5e6`; ghost about `#141516` (barely lighter than the page).
+- Footer rule about `#23252a`; timeline dots: latest red about `#eb5757`, others grey about `#62666d`.
+- Diff highlighting: red rows (dark red-brown tint) and green gutter edge on dark surface.
+
+## Observed patterns (batch 2)
+
+10. **Color is rationed for the end.** The page is almost monochrome until the testimonial cards, where two saturated, very different colors create a deliberate "pop" moment before the closing CTA.
+11. **The section-header grid repeats for every feature** (Intake, Planning, AI, Build) — identical structure, different visual, which makes the long page rhythmic.
+12. **Visuals are cropped and faded, not fully shown**, hinting at more content beyond the frame (agent panels strip, diff panel).
+13. **Monospace details signal precision:** dates, file paths, ticket IDs, figure labels.
+14. **Changelog as social proof of momentum:** a timeline of recent releases with dates — shows the product is alive. (For us: a "recently added sections/sites" strip could play this role.)
+15. **Closing CTA is centered** (the only centered block besides the footer) with one filled and one ghost button — a clear primary/secondary hierarchy.
+16. **Footer:** five columns, understated grey links, legal links (including AUP) in a small bottom row — consistent with the legal documents we plan (docs/20 F-43).
+17. **Mobile reflow is simple:** one column, header slimmed to logo + Log in + Sign up, visuals scaled/cropped, horizontal-scroll cards. No hamburger visible in this capture (nav links are absent on mobile; unclear if hidden behind an icon — the image is too small to tell).
+
+## Limits of batch 2
+
+The mobile image is thumbnail-sized. For responsive design decisions please send **real mobile viewport screenshots (about 390×844)** of the hero, a feature section, the testimonial area and the footer, plus any menu-open state.
+
 ## Waiting for
 
-More reference screenshots from the founder (batch 2+). Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.
+More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.

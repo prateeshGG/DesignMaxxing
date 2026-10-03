@@ -2,7 +2,7 @@
 
 **Status: references being collected; no landing page has been built yet** (founder: "not now"). Product name: **DesignMaxxing** (the repo name).
 
-- `references/` — design reference screenshots supplied by the founder (batch 1: five screenshots of Linear's marketing site). More batches will be added.
+- `references/` — design reference screenshots supplied by the founder (batch 1: five desktop screenshots; batch 2: four desktop + one low-resolution mobile full-page capture — all of Linear's marketing site). More batches will be added.
 - `design-notes.md` — measured/observed design properties and the principles we take from the references.
 
 **Rules for references**
