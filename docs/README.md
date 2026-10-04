@@ -34,7 +34,9 @@ Precedence rule used throughout: **founder decisions in [20](20-founder-decision
 
 ## Landing page
 
-Not built yet. Design references and notes are collected in [`../landing/`](../landing/README.md); building starts when the founder has supplied all reference batches (product name: DesignMaxxing).
+Built: the current page is [`../landing/prototype/landing-v4.html`](../landing/prototype/landing-v4.html), deployed on Vercel through the root `vercel.json`; the How it works film is in [`../landing/films/`](../landing/films/). See [HANDOFF.md](HANDOFF.md) §6–§7.
+
+**New session? Read [HANDOFF.md](HANDOFF.md) first.**
 
 ## Process
 
