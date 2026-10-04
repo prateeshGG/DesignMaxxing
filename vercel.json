@@ -6,7 +6,7 @@
   "outputDirectory": "landing/prototype",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/landing-v4" }
+    { "source": "/", "destination": "/landing-v4.html" }
   ],
   "headers": [
     {
