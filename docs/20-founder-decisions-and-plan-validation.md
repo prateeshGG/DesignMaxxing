@@ -101,6 +101,7 @@ All **[Decision]**. "Revisit" = the evidence that would change it.
 | F-62 | (Oct 2026, collection specs) | A site is done when at least 70% of its capturable pages are ACCEPTED; NEEDS_REVIEW does not count yet; pages that cannot or must not be captured (404, non-HTML, off-domain, robots, policy, takedown) leave the denominator; later approvals can only improve the result (OQ-2.5-3, OQ-2.5-4; refines F-32). |
 | F-63 | (Oct 2026, collection specs) | Downloaded third-party originals are kept as raw evidence like other captures; if space runs short, derived previews are deleted first; stricter retention is decided after the spike measures size (OQ-1.3-22, OQ-1.3-23). |
 | F-64 | (Oct 2026, collection specs) | While a blocked site waits for its half-open probe, the crawler stays running so the probe can happen; other sites continue and the founder can stop at any time (OQ-2.5-5, OQ-2.5-11). |
+| F-65 | (Oct 2026) | **The crawler machine is the founder's Windows PC** (x86-64). Capture runs in Linux containers through Docker Desktop with the WSL2 backend; the branded Google Chrome channel (F-61) is available for linux/amd64, so the capture child keeps its container sandbox and plays H.264 video. Files the crawler writes live inside the WSL2 filesystem (not a mounted Windows folder) for speed; the Drive backup folder (F-51) is synced from there. If the PC is ever ARM-based, revisit: Linux Chrome has no arm64 build. |
 
 ### Data and events
 

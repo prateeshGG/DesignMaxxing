@@ -40,9 +40,9 @@ M2 deliberately comes before most of M3: one sharp screenshot from the real brow
 | The lease limit must also stop `leaseNextUnit` from re-leasing a unit at its limit | Covered in 1.4-T42 |
 | A soft 404 rejected with `retryable: false` ends `QUARANTINED`, which counts as a miss in the 70% rule | Left as OQ-1.4-30 for the spike to measure |
 
-## Founder input still needed before M2
+## Crawler machine (decided)
 
-**Which computer runs the crawler?** Google Chrome's Linux build does not exist for Apple M-series chips. On an M-series Mac the capture child either runs Chrome natively (videos play, weaker isolation than the container in 1.7) or keeps the container with bundled Chromium (some hero videos show a poster). On Windows, Linux or an Intel Mac the plan works as written. This changes 1.1 G4, 2.2 G3 and 2.9-T08.
+**F-65:** the founder's Windows PC (x86-64) with Docker Desktop and WSL2. Google Chrome's linux/amd64 build runs inside the capture container, so 1.1 G4, 2.2 G3 and 2.9-T08 work as written; keep crawler data inside the WSL2 filesystem.
 
 ## Specs still needed
 
