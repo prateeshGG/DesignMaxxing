@@ -1,12 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "",
-  "buildCommand": "",
-  "outputDirectory": "landing/prototype",
+  "framework": "vite",
+  "rootDirectory": "landing/motion",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/landing-v4.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
