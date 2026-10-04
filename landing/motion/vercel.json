@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": null,
+  "buildCommand": "rm -rf dist && mkdir -p dist && cp -R ../prototype/. dist/",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/landing-v4.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(img|video)/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+    }
+  ]
+}
