@@ -2,12 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": null,
-  "buildCommand": null,
+  "buildCommand": "cp landing/prototype/landing-v4.html landing/prototype/index.html",
   "outputDirectory": "landing/prototype",
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/landing-v4.html" }
-  ],
   "headers": [
     {
       "source": "/(img|video)/(.*)",
