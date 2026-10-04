@@ -8,19 +8,21 @@ Part of the [engineering docs](../README.md). Each file here is one Part from th
 
 | Wave | Part | Spec | Status | Task list |
 |---|---|---|---|---|
-| 1 | 1.1 Repository, Environments & Delivery | [1.1](1.1-repository-environments-delivery.md) | draft | — |
-| 1 | 1.2 Core Data Platform | [1.2](1.2-core-data-platform.md) | draft | — |
-| 1 | 1.3 Object Storage & Artifact Registry | [1.3](1.3-object-storage-artifact-registry.md) | draft | — |
-| 1 | 1.4 Job Queue, Events & Reliability | [1.4](1.4-job-queue-events-reliability.md) | draft | — |
-| 1 | 1.5 Source & Policy Registry | [1.5](1.5-source-policy-registry.md) | draft | — |
-| 2 | 2.1 URL Discovery & Prioritization | [2.1](2.1-url-discovery-prioritization.md) | draft | — |
-| 2 | 2.2 Browser Capture Runtime | [2.2](2.2-browser-capture-runtime.md) | draft | — |
-| 2 | 2.9 Supervisor, Watchdogs & Circuit Breakers | [2.9](2.9-supervisor-watchdogs-circuit-breakers.md) | draft | — |
-| 3 | 2.3 Page & Section Capture | [2.3](2.3-page-section-capture.md) | draft | — |
-| 3 | 2.4 Media Extraction & Animation Capture | [2.4](2.4-media-extraction-animation-capture.md) | draft | — |
-| 3 | 2.5 Crawl Orchestration & Lifecycle | [2.5](2.5-crawl-orchestration-lifecycle.md) | draft | — |
-| 3 | 2.10 Capture Validation & Publishability Gate | [2.10](2.10-capture-validation-publishability-gate.md) | draft | — |
-| 4 | 2.11 Collection Test Harness | [2.11](2.11-collection-test-harness.md) | draft | — |
+| 1 | 1.1 Repository, Environments & Delivery | [1.1](1.1-repository-environments-delivery.md) | tasks | [1.1 tasks](tasks/1.1-tasks.md) |
+| 1 | 1.2 Core Data Platform | [1.2](1.2-core-data-platform.md) | tasks | [1.2 tasks](tasks/1.2-tasks.md) |
+| 1 | 1.3 Object Storage & Artifact Registry | [1.3](1.3-object-storage-artifact-registry.md) | tasks | [1.3 tasks](tasks/1.3-tasks.md) |
+| 1 | 1.4 Job Queue, Events & Reliability | [1.4](1.4-job-queue-events-reliability.md) | tasks | [1.4 tasks](tasks/1.4-tasks.md) |
+| 1 | 1.5 Source & Policy Registry | [1.5](1.5-source-policy-registry.md) | tasks | [1.5 tasks](tasks/1.5-tasks.md) |
+| 2 | 2.1 URL Discovery & Prioritization | [2.1](2.1-url-discovery-prioritization.md) | tasks | [2.1 tasks](tasks/2.1-tasks.md) |
+| 2 | 2.2 Browser Capture Runtime | [2.2](2.2-browser-capture-runtime.md) | tasks | [2.2 tasks](tasks/2.2-tasks.md) |
+| 2 | 2.9 Supervisor, Watchdogs & Circuit Breakers | [2.9](2.9-supervisor-watchdogs-circuit-breakers.md) | tasks | [2.9 tasks](tasks/2.9-tasks.md) |
+| 3 | 2.3 Page & Section Capture | [2.3](2.3-page-section-capture.md) | tasks | [2.3 tasks](tasks/2.3-tasks.md) |
+| 3 | 2.4 Media Extraction & Animation Capture | [2.4](2.4-media-extraction-animation-capture.md) | tasks | [2.4 tasks](tasks/2.4-tasks.md) |
+| 3 | 2.5 Crawl Orchestration & Lifecycle | [2.5](2.5-crawl-orchestration-lifecycle.md) | tasks | [2.5 tasks](tasks/2.5-tasks.md) |
+| 3 | 2.10 Capture Validation & Publishability Gate | [2.10](2.10-capture-validation-publishability-gate.md) | tasks | [2.10 tasks](tasks/2.10-tasks.md) |
+| 4 | 2.11 Collection Test Harness | [2.11](2.11-collection-test-harness.md) | tasks | [2.11 tasks](tasks/2.11-tasks.md) |
+
+**Build order:** [tasks/README.md](tasks/README.md): 896 tasks in eight milestones, from the workspace on the founder's computer to the 20-site spike.
 
 **Wave 1 review:** [review-wave-1.md](review-wave-1.md) (fixes made, names later waves must use, top founder decisions).
 

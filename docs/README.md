@@ -38,7 +38,7 @@ Not built yet. Design references and notes are collected in [`../landing/`](../l
 
 ## Process
 
-Specification work follows [`process/project-breakdown-protocol.md`](process/project-breakdown-protocol.md) (Stage 1 Parts Hierarchy → Stage 2 Part-Spec per Part → Stage 3 task lists). Current position: **Stage 1 complete** and updated to v1.1 ([21](21-parts-hierarchy.md), applying [22 §17](22-data-collection-resilience-architecture.md) and [23 §6](23-scrapling-evaluation-and-collection-gap-analysis.md)); **Part-Spec Prompt Template built** ([process/part-spec-prompt-template.md](process/part-spec-prompt-template.md)); **Stage 2 started on the collection path** — Part-Specs and their status are listed in [parts/](parts/README.md). No task lists yet.
+Specification work follows [`process/project-breakdown-protocol.md`](process/project-breakdown-protocol.md) (Stage 1 Parts Hierarchy → Stage 2 Part-Spec per Part → Stage 3 task lists). Current position: **Stage 1 complete** and updated to v1.1 ([21](21-parts-hierarchy.md), applying [22 §17](22-data-collection-resilience-architecture.md) and [23 §6](23-scrapling-evaluation-and-collection-gap-analysis.md)); **Part-Spec Prompt Template built** ([process/part-spec-prompt-template.md](process/part-spec-prompt-template.md)); **Stage 2 and Stage 3 done for the collection path**: 13 Part-Specs and 13 task lists (896 tasks) with a milestone build order in [parts/tasks/](parts/tasks/README.md).
 
 ## How to read these docs
 
