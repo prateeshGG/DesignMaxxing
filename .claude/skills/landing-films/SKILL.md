@@ -9,6 +9,11 @@ A film here is a **deterministic web page**: `window.seek(t)` places every eleme
 
 **The quality bar is `landing/films/how-it-works.html`** (19.5 s, 1920×1200, voice and music). The founder approved it. Start from it, not from scratch. The four older films (`compare`, `devices`, `motion`, `closing`) are first drafts below the bar and need the same treatment before use.
 
+## Where the engine lives
+
+- **In the DesignMaxxing repo:** `landing/films/` (the paths in the table below).
+- **In any other project:** copy `assets/starter/` from this skill into the project (for example as `films/`), run `npm install`, and follow `assets/starter/README.md`. It has the same engine, styles, local fonts, render and audio scripts, the self-contained hero loop and the reference film.
+
 ## Files
 
 | Path | What it is |

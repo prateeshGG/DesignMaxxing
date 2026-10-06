@@ -144,6 +144,11 @@
   4. `node audio/mux.mjs how-it-works`
   5. Copy `out/how-it-works-sound.*` to `landing/prototype/video/how-it-works.*`
 - **Skill:** `.claude/skills/landing-films/` captures everything learned: capture, motion, callouts, audio, and the QA checklist.
+- **Using the skill elsewhere:**
+  - **In this repo:** it loads automatically in every Claude Code session, local or cloud.
+  - **In every project on your PC:** copy the folder `.claude/skills/landing-films` to `%USERPROFILE%\.claude\skills\landing-films` (or `~/.claude/skills/landing-films` inside WSL).
+  - **In the Claude apps:** zip the folder and upload it under Settings → Capabilities → Skills.
+  - **Starter kit:** the skill now carries a portable copy of the film engine in `assets/starter/`, so it works in projects without `landing/films`.
 
 ## 8. Data collection plan
 

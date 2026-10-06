@@ -1,0 +1,175 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Film: how it works</title>
+<link rel="stylesheet" href="film.css">
+<style>
+  #world { left: 0; top: 0; width: 4320px; height: 900px; transform-origin: 0 0; }
+  .room { top: 0; width: 1440px; height: 900px; overflow: hidden; }
+  .title { left: 0; width: 1440px; text-align: center; font: 400 132px/1.06 "Instrument Serif", serif; letter-spacing: -.02em; color: var(--ink); }
+  .title em { color: var(--blue); }
+  .page { border-radius: 14px; }
+  .page img { position: absolute; left: 0; width: 100%; height: auto; object-fit: initial; }
+  .scan { left: 0; width: 100%; background: linear-gradient(90deg, rgba(47,85,255,0), rgba(47,85,255,.22), rgba(47,85,255,0)); background-size: 50% 100%; background-repeat: no-repeat; }
+  .slot { border: 2px dashed rgba(47,85,255,.38); border-radius: 6px; background: rgba(230,235,255,.6); }
+  .br { border: 3px solid var(--blue); border-right: 0; border-radius: 12px 0 0 12px; width: 14px; transform-origin: 50% 50%; }
+  .sec { border-radius: 12px; }
+  .tags { display: flex; gap: 6px; transform-origin: 100% 0; }
+  .tags .pill { font-size: 12px; padding: 6px 10px; }
+  .bar-in { left: 28px; top: 0; height: 100%; display: flex; align-items: center; gap: 16px; font: 400 27px/1 "Geist", sans-serif; color: var(--ink); white-space: nowrap; }
+  .caret { display: inline-block; width: 2px; height: 30px; background: var(--blue); margin-left: 2px; vertical-align: -6px; }
+  .res-cap { left: 0; right: 0; bottom: 0; height: 46px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; background: #fff; border-top: 1px solid rgba(10,11,13,.06); }
+  .meta { display: flex; gap: 10px; }
+  .open { background: var(--blue); color: #fff; }
+  .num { font-variant-numeric: tabular-nums; }
+</style>
+<div id="stage">
+  <div id="world"></div>
+</div>
+<script src="engine.js"></script>
+<script>
+(function () {
+  var S = document.getElementById('stage'), W = document.getElementById('world'), e = F.e, sp = F.sp, seg = F.seg, lerp = F.lerp;
+  var blur = F.motionBlurFilter();
+  var IMG = 'src/';
+
+  /* ---------- three rooms side by side: cream (isolate), lime (search), peach (study) ---------- */
+  var ROOMS = [['#faf8f3', '#2f55ff', null], ['#eef5cf', '#6f8a14', 'dots'], ['#ffeadb', '#d06a2c', 'diamonds']], rooms = [];
+  ROOMS.forEach(function (r, i) {
+    var el = F.el(W, 'div', 'room', 'left:' + (i * 1440) + 'px;background:' + r[0]);
+    var a = F.canvas(el), p = F.canvas(el);
+    rooms.push({ el: el, art: a, pat: p, ink: r[1], kind: r[2], x: i * 1440 });
+  });
+  var R1 = rooms[0].el, R2 = rooms[1].el, R3 = rooms[2].el;
+
+  /* room 1: title, then a page whose sections are found, bracketed and lifted out */
+  var t1 = F.maskLine(R1, 'Search real websites,', 'title', 'top:250px'), t2 = F.maskLine(R1, '<em>section by section.</em>', 'title', 'top:390px');
+  var SEGS = [['s-hero-top', 1376 / 2880, 'Hero', ['hero', 'light', 'desktop']], ['s-logos', 146 / 2880, 'Logo row', null], ['s-bento1', 1918 / 2880, 'Feature grid', ['feature grid', 'gradient']], ['s-banner', 1120 / 2880, 'Video banner', ['banner', 'dark']], ['s-stats', 916 / 2880, 'Stats', ['stats', 'light']]];
+  var PW = 400, ph = SEGS.map(function (s) { return Math.round(s[1] * PW); }), PH = ph.reduce(function (a, b) { return a + b; }, 0);
+  var PX0 = 510, PX1 = 200, PY = Math.round((900 - PH) / 2);
+  var page = F.el(R1, 'div', 'card page', 'z-index:5'); F.box(page, PX0, PY, PW, PH);
+  var tops = [], acc = 0, scans = [], slots = [], brs = [], lbs = [], secs = [], tagEls = [], sheens = [];
+  SEGS.forEach(function (s, i) {
+    tops.push(acc);
+    F.img(page, IMG + s[0] + '.webp', '', 'top:' + acc + 'px;height:' + ph[i] + 'px');
+    scans.push(F.el(page, 'div', 'scan', 'top:' + acc + 'px;height:' + ph[i] + 'px;opacity:0'));
+    slots.push(F.el(page, 'div', 'slot', 'left:4px;width:' + (PW - 8) + 'px;top:' + (acc + 3) + 'px;height:' + Math.max(8, ph[i] - 6) + 'px;opacity:0'));
+    brs.push(F.el(R1, 'div', 'br', 'z-index:6'));
+    var lb = F.maskLine(R1, s[2], 'pill blue', 'z-index:7;font-size:12px;padding:7px 12px'); lbs.push(lb);
+    var c = F.el(R1, 'div', 'card sec', 'z-index:8'); F.img(c, IMG + s[0] + '.webp'); secs.push(c); sheens.push(F.sheen(c));
+    var tg = F.el(R1, 'div', 'tags flow', 'z-index:9'); if (s[3]) s[3].forEach(function (x) { var p = document.createElement('span'); p.className = 'pill'; p.textContent = x; tg.appendChild(p); }); tagEls.push(tg);
+    acc += ph[i];
+  });
+  var pageSheen = F.sheen(page);
+  var CW = 380, CX = 860, GAP = 16, ch = SEGS.map(function (s) { return Math.round(s[1] * CW); });
+  var CH = ch.reduce(function (a, b) { return a + b; }, 0) + GAP * (SEGS.length - 1), CY = Math.round((900 - CH) / 2) + 22;
+  var counter = F.el(R1, 'div', 'pill lime flow', 'z-index:9'); counter.innerHTML = "<span class='num' id='cn'>0</span> sections · tagged"; var cn = counter.querySelector('#cn');
+
+  /* room 2: a soft search bar and three results */
+  var BW = 820, BX = 310, BY = 200;
+  var bar = F.el(R2, 'div', 'soft-bar', 'z-index:20;width:' + BW + 'px;height:82px;left:' + BX + 'px;top:' + BY + 'px');
+  var barIn = F.el(bar, 'div', 'bar-in flow');
+  barIn.innerHTML = "<svg viewBox='0 0 24 24' width='28' height='28' fill='none' stroke='#2f55ff' stroke-width='2'><circle cx='11' cy='11' r='6.5'/><path d='M16 16l4.5 4.5'/></svg><span id='q'></span><span class='caret' id='caret'></span>";
+  var qEl = bar.querySelector('#q'), caret = bar.querySelector('#caret');
+  var cnt = F.el(bar, 'div', 'pill flow', 'right:18px;top:22px;font-size:12px;padding:9px 13px;box-shadow:none;background:var(--blue-soft);color:var(--blue)'); cnt.innerHTML = "<span class='num' id='rc'>all</span>";
+  var rc = cnt.querySelector('#rc');
+  var RES = [['s-hero-top', 'Hero', 'stripe.com'], ['l-hero', 'Hero', 'linear.app'], ['m-hero', 'Hero', 'studiomaydit.com']];
+  var RW = 390, RH = 244, RX0 = (1440 - (RW * 3 + 30 * 2)) / 2, RY = 340, res = [], resSheen = [];
+  RES.forEach(function (r, i) {
+    var c = F.el(R2, 'div', 'card', 'z-index:12');
+    F.img(c, IMG + r[0] + '.webp', '', 'height:' + RH + 'px');
+    var cap = F.el(c, 'div', 'res-cap flow'); cap.innerHTML = "<span class='label' style='color:#0a0b0d'>" + r[1] + "</span><span class='label'>" + r[2] + '</span>';
+    res.push(c); resSheen.push(F.sheen(c));
+  });
+  var cur = F.cursor(R2);
+
+  /* room 3: the section opened up, toured by the camera */
+  var DW = 1040, DH = Math.round(DW * 1376 / 2880), DX = 200, DY = 130;
+  var det = F.el(R3, 'div', 'card', 'z-index:10;border-radius:20px'); F.box(det, DX, DY, DW, DH); F.img(det, IMG + 's-hero-top.webp'); var detSheen = F.sheen(det);
+  /* callouts: each label sits in empty space (the peach margin or below the card); a straight arrow points from it to the target */
+  function R(x0, y0, x1, y1) { return { x: DX + x0 * DW, y: DY + y0 * DH, w: (x1 - x0) * DW, h: (y1 - y0) * DH }; }
+  var CALL = [
+    F.callout(R3, { seed: 11, text: 'Headline', shape: 'underline', target: R(.1444, .387, .781, .454), label: { x: 100, y: DY + .42 * DH }, from: { x: 166, y: DY + .42 * DH }, to: { x: DX + .1444 * DW - 16, y: DY + .42 * DH } }),
+    F.callout(R3, { seed: 23, text: 'Gradient art', shape: 'arrow', target: R(.80, .18, .97, .62), label: { x: 1318, y: DY + .2 * DH }, from: { x: 1240, y: DY + .2 * DH }, to: { x: DX + .845 * DW, y: DY + .2 * DH } }),
+    F.callout(R3, { seed: 37, text: 'One call to action', target: R(.1444, .7544, .2424, .8241), label: { x: DX + .193 * DW, y: DY + DH + 66 }, from: { x: DX + .193 * DW, y: DY + DH + 44 }, pad: 12 })
+  ];
+  var meta = F.el(R3, 'div', 'meta flow', 'z-index:30');
+  meta.innerHTML = "<span class='pill'>Hero</span><span class='pill'>Light</span><span class='pill'>Desktop</span><span class='pill lime'>Source · stripe.com</span><span class='pill open'>Open live site ↗</span>";
+
+  F.grain(S, 0.035);
+  var QUERY = 'hero with a big, bold headline';
+  var CAM = [
+    [0, [720, 450, 1]], [2.0, [720, 450, 1.04], 'linear'],
+    [2.9, [720, 230, 1.8], 'inOut'], [3.3, [720, 240, 1.82], 'linear'], [4.0, [720, 450, 1], 'outExpo'],
+    [5.4, [720, 450, 1], 'linear'], [6.2, [700, 450, 1.02], 'inOut'], [8.2, [740, 450, 1.03], 'linear'],
+    [8.9, [2160, 241, 1.45], 'inOut'],
+    [10.3, [2160, 246, 1.47], 'linear'], [11.0, [2160, 450, 1], 'outExpo'], [11.9, [2150, 452, 1.01], 'linear'],
+    [12.55, [RX0 + 1440 + RW / 2, RY + RH / 2, 3.1], 'inOut'],
+    [12.551, [2880 + DX + DW * .5, DY + DH * .45, 1.55], 'linear'], [13.0, [2880 + DX + DW * .5, DY + DH * .47, 1.3], 'outExpo'],
+    [13.7, [2880 + 525, DY + DH * .41, 1.32], 'inOut'], [14.65, [2880 + 535, DY + DH * .41, 1.33], 'linear'],
+    [15.3, [2880 + 960, DY + DH * .3, 1.45], 'inOut'], [15.85, [2880 + 955, DY + DH * .3, 1.46], 'linear'],
+    [16.5, [2880 + DX + .193 * DW, DY + DH * .8 + 70, 1.9], 'inOut'], [17.45, [2880 + DX + .193 * DW, DY + DH * .8 + 66, 1.92], 'linear'],
+    [18.1, [2880 + 720, 450, 1], 'outExpo'], [19.5, [2880 + 720, 455, 1.02], 'linear']
+  ];
+  function render(t) {
+    var cam = F.track(t, CAM), pc = F.track(Math.max(0, t - 1 / 30), CAM);
+    if (t > 12.55 && t - 1 / 30 <= 12.551) pc = cam;   // a cut, not a move: no blur
+    F.camera(W, cam, blur, pc);
+
+    /* art: only draw rooms that are on screen */
+    rooms.forEach(function (r) {
+      if (Math.abs(cam[0] - (r.x + 720)) > 720 / cam[2] + 720) return;
+      F.engrave(r.art, t, { color: r.ink, alpha: .5, spacing: 7, amp: 30, lw: 1.15, mask: { x: 1440, y: 900, r: 800 } });
+      if (r.kind) F.pattern(r.pat, t, { kind: r.kind, color: r.ink, alpha: .3, gap: r.kind === 'dots' ? 36 : 44, vx: r.kind === 'dots' ? 10 : -8, r: r.kind === 'dots' ? 2.2 : 2.6, stagger: r.kind === 'diamonds' });
+    });
+
+    /* room 1 */
+    F.reveal(t1, seg(t, .2, 1.0), seg(t, 1.9, 2.4)); F.reveal(t2, seg(t, .45, 1.25), seg(t, 2.0, 2.5));
+    var rise = e(t, 1.9, 2.7, 'outExpo'), glide = e(t, 5.0, 5.9);
+    var px = lerp(PX0, PX1, glide);
+    F.box(page, px, lerp(940, PY, rise)); F.show(page, rise > 0 ? 1 : 0);
+    F.sweep(pageSheen, seg(t, 2.6, 3.6));
+    SEGS.forEach(function (s, i) {
+      var top = PY + tops[i], h = ph[i], tb = 4.0 + i * .26;
+      var sc = seg(t, tb - .1, tb + .35); scans[i].style.opacity = Math.sin(Math.PI * sc); scans[i].style.backgroundPosition = (sc * 200 - 50) + '% 0';
+      var b = sp(t, tb, tb + .6, .45), out = e(t, 7.2, 7.6);
+      F.box(brs[i], px - 24, top + 3, undefined, Math.max(12, h - 6)); F.show(brs[i], F.clamp(b * 2) * (1 - out), 'scaleY(' + b + ')');
+      F.box(lbs[i].w, px - 36, top + h / 2); lbs[i].w.style.transform = 'translate(-100%,-50%)'; F.show(lbs[i].w, seg(t, tb, tb + .1) * (1 - out)); F.reveal(lbs[i], seg(t, tb + .05, tb + .5));
+      /* lift: the section leaves its slot and lands in the column with a spring */
+      var la = 5.9 + i * .22, lt = sp(t, la, la + 1.0, .5), arc = Math.sin(Math.PI * F.clamp(seg(t, la, la + .7)));
+      var cy = CY; for (var k = 0; k < i; k++) cy += ch[k] + GAP;
+      var bob = Math.sin(t * 1.6 + i) * 3 * F.clamp(seg(t, la + .8, la + 1.2));
+      var x = lerp(px, CX, lt), y = lerp(top, cy, lt) - arc * 40 + bob, w = lerp(PW, CW, lt), hh = lerp(h, ch[i], lt);
+      F.box(secs[i], x, y, w, hh); F.show(secs[i], seg(t, la, la + .01), 'scale(' + (1 + arc * .06) + ') rotate(' + (arc * (i % 2 ? 1.5 : -1.5)) + 'deg)');
+      secs[i].style.boxShadow = '0 1px 2px rgba(10,11,13,.06), 0 ' + (10 + arc * 30) + 'px ' + (24 + arc * 50) + 'px rgba(30,40,90,' + (.1 + arc * .1) + ')';
+      F.sweep(sheens[i], seg(t, la + .7, la + 1.4));
+      F.show(slots[i], F.clamp(seg(t, la, la + .4)));
+      var tg = sp(t, 7.3 + i * .12, 7.8 + i * .12, .4);
+      F.box(tagEls[i], CX + CW - 12, cy + 10); F.show(tagEls[i], F.clamp(tg * 1.5), 'translateX(-100%) scale(' + lerp(.6, 1, tg) + ')');
+    });
+    var co = sp(t, 7.0, 7.6, .4); F.box(counter, CX, CY - 52); F.show(counter, F.clamp(co * 1.5), 'scale(' + lerp(.6, 1, co) + ')'); counter.style.transformOrigin = '0 50%';
+    cn.textContent = Math.round(5 * e(t, 7.0, 7.9, 'out'));
+
+    /* room 2 */
+    qEl.textContent = F.type(QUERY, t, 9.0, 10.3);
+    caret.style.opacity = (t > 9 && t < 10.3) || Math.floor(t * 2.4) % 2 === 0 ? 1 : 0;
+    rc.textContent = t < 10.5 ? 'all sections' : Math.round(3 * e(t, 10.5, 11.1, 'out')) + ' results';
+    res.forEach(function (c, i) {
+      var r = sp(t, 10.5 + i * .14, 11.3 + i * .14, .45), o = F.clamp(seg(t, 10.5 + i * .14, 10.8 + i * .14));
+      F.box(c, RX0 + i * (RW + 30), RY + (1 - r) * 70, RW, RH + 46); F.show(c, o, 'scale(' + lerp(.9, 1, r) + ')');
+      F.sweep(resSheen[i], seg(t, 11.0 + i * .14, 11.7 + i * .14));
+    });
+    var cin = seg(t, 11.05, 11.3), mv = e(t, 11.1, 11.75);
+    F.click(cur, lerp(1250, RX0 + RW * .5, mv), lerp(820, RY + RH * .55, mv), t, 11.85); cur.el.style.opacity = cin;
+
+    /* room 3 */
+    F.sweep(detSheen, seg(t, 12.7, 13.6));
+    CALL.forEach(function (c, i) {
+      var ta = [13.55, 15.15, 16.4][i];
+      c.update(seg(t, ta + .6, ta + 1.0), seg(t, ta + .25, ta + .65), seg(t, ta, ta + .4));
+    });
+    var mo = sp(t, 17.9, 18.6, .45);
+    F.box(meta, DX + DW / 2, DY + DH + 140 + (1 - mo) * 24); meta.style.transform = 'translateX(-50%)'; F.show(meta, F.clamp(mo * 1.6), 'translateX(-50%)');
+  }
+  F.boot(19.5, render);
+})();
+</script>

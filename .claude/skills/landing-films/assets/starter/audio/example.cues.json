@@ -1,0 +1,45 @@
+{
+  "duration": 19.5,
+  "vo": [
+    {
+      "t": 0.3,
+      "text": "Search real websites, section by section."
+    },
+    {
+      "t": 3.8,
+      "text": "The hero. The features. The stats. Each one on its own."
+    },
+    {
+      "t": 8.9,
+      "text": "Describe what you're looking for,"
+    },
+    {
+      "t": 10.7,
+      "text": "and get the exact section, from real sites."
+    },
+    {
+      "t": 13.8,
+      "text": "Open it up. See what makes it work."
+    },
+    {
+      "t": 17.5,
+      "text": "Then go straight to the source."
+    }
+  ],
+  "voice": {
+    "provider": "Fish Audio (MCP connector)",
+    "voice_id": "e107ce68d2a64e928c3a674781ce9d56",
+    "title": "Upbeat Woman",
+    "tags": "[excited]/[confident]/[upbeat] per line"
+  },
+  "music": {
+    "file": "music/your-licensed-track.mp3",
+    "offset": 0.89,
+    "note": "125 BPM; offset puts a downbeat on the 12.55 s cut",
+    "gain_db": -7,
+    "fade_in": 0.2,
+    "fade_out": 1.8,
+    "credit": "<required credit for your track>"
+  },
+  "note": "Example from the DesignMaxxing How it works film. Replace lines, timings, voice and music."
+}
