@@ -22,7 +22,7 @@
 | Parts Hierarchy | v1.2: 9 groups, 66 Parts ([doc 21](21-parts-hierarchy.md)); Feature List coverage checked ([parts/feature-coverage.md](parts/feature-coverage.md)) |
 | Collection-path specs (Stage 2) | 13 written and reviewed in three consistency passes ([parts/](parts/README.md)) |
 | Collection-path task lists (Stage 3) | 13 lists, 896 tasks, milestone build order M0–M7 ([parts/tasks/README.md](parts/tasks/README.md)) |
-| Remaining V0 specs + task lists | Written at the end of this session (see §8) |
+| Remaining V0 specs + task lists | **Not written yet.** 11 sub-agents were started for the 23 remaining V0 Parts but all stopped on the account's weekly usage limit before writing anything. Rerun them with [process/spec-and-tasks-brief.md](process/spec-and-tasks-brief.md) (see §8) |
 | Landing page | v4 is current: [landing/prototype/landing-v4.html](../landing/prototype/landing-v4.html); deployed on Vercel via the root `vercel.json` |
 | How it works film | Done, with voice and music: [landing/films/how-it-works.html](../landing/films/how-it-works.html) |
 | Application code | **None yet.** Building starts in the next (local) session at milestone M0 |
@@ -90,6 +90,7 @@
 | **Landing page:** copying Linear's look (v1), describing how we browse, capture or screenshot sites, copied nav with square markers, solid black search or ask bars, the same video everywhere, the Flute videos and wall reel, boxes/panels around previews, the outer box around the waitlist form, a hard black border on the Index button, a sound button that showed the action instead of the state | v2–v4 fixes; rules recorded in the landing-films skill |
 | **Film:** low-quality first films, curvy annotation connectors, a big circle around the gradient art, labels over content, "hero with a product visual" as the search query, "Every page, broken into parts" as the intro | Straight arrows to targets, labels in empty space, query "hero with a big, bold headline", intro "Search real websites, section by section." |
 | **Film sound:** code-synthesised sound effects and pad ("fush fush"), the "Calm Female Voice" (roomy, flat) | Energetic dry voice "Upbeat Woman" over licensed music |
+| Flute (scene videos and the studio tool) | Rejected; folder deleted. Motion is made only with the code film engine (`landing/films`, landing-films skill) |
 | Fish Audio API route | Needs separate API credit (402); use the Fish **connector** (package credits) |
 | Mixkit / Pixabay / Uppbeat music | Bot-check pages; not scraped |
 | Bensound free tier, MusicGen | Licence unclear / non-commercial weights |
@@ -107,7 +108,7 @@
 - **Images:** every image on the page was regenerated from the sharp 2× captures in `landing/films/src/`.
 - **Deployment:**
   - The root `vercel.json` serves `landing/prototype` as static files and maps `/` to `landing-v4`.
-  - The first Vercel deploy showed "DesignMaxxing motion scenes. Open with the Flute studio." because Vercel auto-detected the old Vite/Flute studio in `landing/motion`.
+  - The first Vercel deploy showed "DesignMaxxing motion scenes. Open with the Flute studio." because Vercel auto-detected the old Vite/Flute studio in `landing/motion`. That folder has since been deleted (Flute is rejected), so the repo has no other build to detect.
   - **In Vercel → Project Settings → Build & Deployment:** set Root Directory to the repo root (empty) and Framework Preset to "Other". Then redeploy.
 - **Waitlist forms are front-end only** (no backend yet); the price-intent question is still missing (see 8.1).
 - **Copy:**
@@ -166,17 +167,23 @@
   | M6 | Resilience and operations |
   | M7 | The 20-site spike (E2 scorecard) |
 
-- **Remaining V0 Parts:** specified with task lists at the end of this session. See the status table in [parts/README.md](parts/README.md):
+- **Remaining V0 Parts: not written yet.** The 23 Parts below were assigned to 11 Sonnet sub-agents, which all stopped on the weekly usage limit before writing a file. To redo them, give each sub-agent [process/spec-and-tasks-brief.md](process/spec-and-tasks-brief.md) plus its assignment. Run them in two waves: wave A first, wave B after it. Wave B Parts may refer to wave-A Parts by role. Finish with one consistency review like the earlier ones.
 
-  | Group | Parts |
-  |---|---|
-  | Foundations | 1.6 cost ledger, 1.7 security baseline, 1.8 observability |
-  | Graph | 3.1 dedupe, 3.2 graph normalization, 3.3 text screening, 3.4 versioning |
-  | Intelligence | 4.1 AI gateway, 4.2 OCR, 4.3 taxonomy, 4.4 review inbox, 4.5 embeddings, 4.6 benchmark |
-  | Search | 5.1 search index, 5.2 ranking |
-  | Client | 6.1 app shell, 6.2 explore UI, 6.3 object views, 6.4 admin |
-  | Business | 8.1 waitlist, 8.2 legal, 8.3 pricing experiments, 8.4 runbooks |
+  | Wave | Agent | Parts |
+  |---|---|---|
+  | A | 1 | 1.7 security baseline |
+  | A | 2 | 1.6 cost ledger, 1.8 observability |
+  | A | 3 | 3.2 graph normalization |
+  | A | 4 | 3.1 dedupe, 3.4 versioning |
+  | A | 5 | 3.3 text screening, 4.1 AI gateway |
+  | B | 6 | 4.2 OCR, 4.3 taxonomy |
+  | B | 7 | 4.4 review inbox, 6.4 admin |
+  | B | 8 | 4.5 embeddings, 4.6 benchmark |
+  | B | 9 | 5.1 search, 5.2 ranking |
+  | B | 10 | 6.1 app shell, 6.2 explore UI, 6.3 object views |
+  | B | 11 | 8.1 waitlist, 8.2 legal, 8.3 pricing experiments, 8.4 runbooks |
 
+  Each agent's prompt should also list what existing specs already expect from its Part. Search `docs/parts` and `docs/parts/tasks` for the Part id; the "Specs still needed" table in parts/tasks/README.md says why each is needed.
 - **Not yet specified (V1+ or gated):** 2.6–2.8, 4.7–4.9, 5.3–5.5, 6.5–6.8, all of Group 7 (authenticated and mobile), Group 9 (later features from the Feature List: accessibility, performance, trends, team collaboration, Figma, generation tools, monitoring, browser extension). Specify them when their gate passes.
 - **Seeds:** `seeds/candidates-v0.csv` is the drafted candidate list. The founder approves sites from a contact sheet (F-46, DC-19).
 
@@ -211,8 +218,9 @@
 | Where did the sharp images come from? | Re-captured live at device scale 2 (2880 px wide) and 3 for phones, never upscaled; animations frozen; section bounds from the page's DOM. |
 | Why were some images blank? | Scroll-reveal sections were photographed before they faded in. Fixed by re-capturing after scrolling and waiting; the skill now requires a blank-crop check. |
 | Is every Feature List item in the plan? | Yes, after the coverage check: items with no Part became Group 9 (unphased). See parts/feature-coverage.md. |
-| Did we create all Part-Specs and task docs? | Collection path: yes (13 + 13). Remaining V0 Parts: written at the end of this session. V1+ Parts: later. |
-| Why was the Vercel site a placeholder? | Vercel deployed the old Flute studio in landing/motion. The root vercel.json now serves the static landing page; set Root Directory to the repo root. |
+| Did we create all Part-Specs and task docs? | Collection path: yes (13 + 13). Remaining 23 V0 Parts: not yet; the agents hit the weekly limit, and the brief to rerun them is in docs/process/spec-and-tasks-brief.md. V1+ Parts: later. |
+| Why was the Vercel site a placeholder? | Vercel deployed the old Flute studio in landing/motion (now deleted). The root vercel.json serves the static landing page; set Root Directory to the repo root. |
+| Do we use Flute? | No. Flute is rejected; its studio folder was deleted. All motion is made with our own code film engine (landing/films, landing-films skill). |
 | Why couldn't voiceover use the API key? | The API needs separate API credit; the connector uses the free package credits and worked. |
 | Should we show blurred previews like Mobbin? | Good fit (I-2); decide limits with the pricing experiment (E4). |
 | What computer runs the crawler? | The founder's Windows PC with Docker Desktop + WSL2 (F-65). |

@@ -38,6 +38,7 @@ Films are deterministic web pages: `window.seek(t)` places every element for sec
 8. **Ship.** Put the MP4 and WebM (with audio) in the page with `muted autoplay loop playsinline`, play only while visible, and add a clearly visible "Play with sound" / "Sound on" button that sets `muted = false` and restarts from 0. Browsers block autoplay with sound, so a film with only the native player controls looks silent to the founder. Verify in a headless browser that after the click `muted` is false and `webkitAudioDecodedByteCount` grows. Commit the film sources, not the `out/` renders.
 
 ## Hard rules
+- Make motion only with this repo's film engine (`landing/films/`). Never use third-party scene or template tools: the founder rejected Flute and its videos, and the Flute studio was deleted.
 - Never describe on a public page how the library is collected (no capture, crawler or quality-gate talk).
 - No solid black buttons or bars; soft surfaces with soft shadows.
 - Credit sources (site names) on screen or in the caption; no third-party logos presented as customers.
