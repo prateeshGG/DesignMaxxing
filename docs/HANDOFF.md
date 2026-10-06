@@ -90,7 +90,7 @@
 | **Landing page:** copying Linear's look (v1), describing how we browse, capture or screenshot sites, copied nav with square markers, solid black search or ask bars, the same video everywhere, the Flute videos and wall reel, boxes/panels around previews, the outer box around the waitlist form, a hard black border on the Index button, a sound button that showed the action instead of the state | v2–v4 fixes; rules recorded in the landing-films skill |
 | **Film:** low-quality first films, curvy annotation connectors, a big circle around the gradient art, labels over content, "hero with a product visual" as the search query, "Every page, broken into parts" as the intro | Straight arrows to targets, labels in empty space, query "hero with a big, bold headline", intro "Search real websites, section by section." |
 | **Film sound:** code-synthesised sound effects and pad ("fush fush"), the "Calm Female Voice" (roomy, flat) | Energetic dry voice "Upbeat Woman" over licensed music |
-| Flute (scene videos and the studio tool) | Rejected; folder deleted. Motion is made only with the code film engine (`landing/films`, landing-films skill) |
+| Flute (scene videos and the studio tool) | Rejected and removed from the repo; `landing/motion` now only holds the Vercel deploy shim. Motion is made only with the code film engine (`landing/films`, landing-films skill) |
 | Fish Audio API route | Needs separate API credit (402); use the Fish **connector** (package credits) |
 | Mixkit / Pixabay / Uppbeat music | Bot-check pages; not scraped |
 | Bensound free tier, MusicGen | Licence unclear / non-commercial weights |
@@ -106,10 +106,10 @@
   - example rows: heroes that swap places on hover, the Stripe banner, Linear phone screens;
   - credit band, roadmap, FAQ with an automated answer box, closing waitlist, footer with the attribution and non-affiliation line.
 - **Images:** every image on the page was regenerated from the sharp 2× captures in `landing/films/src/`.
-- **Deployment:**
-  - The root `vercel.json` serves `landing/prototype` as static files and maps `/` to `landing-v4`.
-  - The first Vercel deploy showed "DesignMaxxing motion scenes. Open with the Flute studio." because Vercel auto-detected the old Vite/Flute studio in `landing/motion`. That folder has since been deleted (Flute is rejected), so the repo has no other build to detect.
-  - **In Vercel → Project Settings → Build & Deployment:** set Root Directory to the repo root (empty) and Framework Preset to "Other". Then redeploy.
+- **Deployment (working, set up by the founder on 4 October):**
+  - The Vercel project's **Root Directory is `landing/motion`**. That folder is now only a deploy shim: its `vercel.json` copies `landing/prototype/` into `dist/` and serves `landing-v4.html` as `index.html`.
+  - The root `vercel.json` does the same job, in case the Root Directory is ever set back to the repo root. If that happens, the shim folder can be deleted.
+  - The very first deploy showed "Open with the Flute studio" because Vercel auto-detected the old Flute/Vite app that used to live in `landing/motion`. Flute has since been removed from the repo.
 - **Waitlist forms are front-end only** (no backend yet); the price-intent question is still missing (see 8.1).
 - **Copy:**
   - Hero: "Find the exact section, not the whole website."
@@ -202,7 +202,7 @@
 ## 10. What the next session should do first
 
 1. Read this file, then [doc 20](20-founder-decisions-and-plan-validation.md) and [parts/tasks/README.md](parts/tasks/README.md).
-2. Fix the Vercel project settings if the deployment still shows the Flute placeholder (§6).
+2. The Vercel deployment works (§6). Do not delete `landing/motion/vercel.json` unless Vercel's Root Directory is moved to the repo root first.
 3. **Do not start coding until the founder says so.** When they do, begin with M0 (1.1 G1–G5, 1.2 G1, 2.11 G1–G2), then M2 (`capture try <url>` with Chrome) before most of M3.
 4. Keep the founder's preferences: plain words, short questions with suggested answers, Sonnet 5.5 sub-agents, push to `main`.
 5. Optional landing work: the "Everything in one library" section, the price-intent question on the waitlist, a real waitlist backend (8.1).
@@ -219,8 +219,8 @@
 | Why were some images blank? | Scroll-reveal sections were photographed before they faded in. Fixed by re-capturing after scrolling and waiting; the skill now requires a blank-crop check. |
 | Is every Feature List item in the plan? | Yes, after the coverage check: items with no Part became Group 9 (unphased). See parts/feature-coverage.md. |
 | Did we create all Part-Specs and task docs? | Collection path: yes (13 + 13). Remaining 23 V0 Parts: not yet; the agents hit the weekly limit, and the brief to rerun them is in docs/process/spec-and-tasks-brief.md. V1+ Parts: later. |
-| Why was the Vercel site a placeholder? | Vercel deployed the old Flute studio in landing/motion (now deleted). The root vercel.json serves the static landing page; set Root Directory to the repo root. |
-| Do we use Flute? | No. Flute is rejected; its studio folder was deleted. All motion is made with our own code film engine (landing/films, landing-films skill). |
+| Why was the Vercel site a placeholder? | Vercel auto-detected the old Flute studio in landing/motion. The founder fixed it with landing/motion/vercel.json, which copies the static landing page; Flute itself is now removed and the folder holds only that shim. |
+| Do we use Flute? | No. Flute is rejected and removed. All motion is made with our own code film engine (landing/films, landing-films skill). |
 | Why couldn't voiceover use the API key? | The API needs separate API credit; the connector uses the free package credits and worked. |
 | Should we show blurred previews like Mobbin? | Good fit (I-2); decide limits with the pricing experiment (E4). |
 | What computer runs the crawler? | The founder's Windows PC with Docker Desktop + WSL2 (F-65). |

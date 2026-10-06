@@ -174,4 +174,4 @@ v3 decisions:
 
 More reference screenshots from the founder (batch 3+), ideally including real mobile viewport shots. Please also say what you like or dislike about these (e.g., "love the hero window, dislike the logo row"), and whether you want dark only or light/dark.
 
-**Later (October 2026):** the founder rejected the Flute scene videos and Flute itself. All motion is now made with the code film engine in `films/` (see `.claude/skills/landing-films/`); the Flute studio folder was deleted.
+**Later (October 2026):** the founder rejected the Flute scene videos and Flute itself. All motion is now made with the code film engine in `films/` (see `.claude/skills/landing-films/`); the Flute studio was removed (the `motion/` folder now only holds the Vercel deploy shim).
